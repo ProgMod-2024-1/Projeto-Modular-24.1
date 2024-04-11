@@ -1,4 +1,4 @@
-from project.project.blueprints.principal.principal import principal
+from project.blueprints.principal.principal import principal
 from flask import Flask
 
 app = Flask(__name__)
