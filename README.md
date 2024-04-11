@@ -1,4 +1,3 @@
-
 # Projeto em Flask
 Este é um projeto em Flask para sei la alguem altera essa parte aqui
 
@@ -184,3 +183,22 @@ git branch -d feature/nova-funcionalidade  # local
 git push origin --delete feature/nova-funcionalidade  # remota
 ```
 Esse processo garante que as alterações sejam revisadas e integradas de forma controlada, mantendo a qualidade e a estabilidade do código. Tambem e possivel fazer a delecao pela plataforma do github entrando no seu PR e scrollando para baixo
+
+Arquitetura do Projeto
+A arquitetura do seu projeto segue um padrão comum em aplicações web Flask, onde cada módulo é um Blueprint acoplado ao Blueprint principal, que por sua vez é acoplado ao programa principal. Vamos explicar cada componente dessa arquitetura:
+
+Blueprints: Os Blueprints são uma forma de organizar rotas, modelos e outros elementos de uma aplicação Flask de forma modular. Cada módulo da sua aplicação, como cursos, por exemplo, teria seu próprio Blueprint. Isso facilita a organização do código e permite que diferentes partes da aplicação sejam desenvolvidas separadamente.
+
+Arquivo Principal de Rotas: Cada módulo tem um arquivo principal (por exemplo, curso.py) que contém as rotas e lógicas simples relacionadas a esse módulo. Isso ajuda a manter o blueprint organizado e separado por rotas e funcionalidade.
+
+Arquivo de Serviço (Service): O arquivo de serviço (por exemplo, cursoService.py) abriga toda a lógica de negócios relacionada ao módulo de cursos. Ele contém funções e classes que lidam com a lógica de negócios da aplicação, por exemplo, no arquivo alunoService.py, uma função pode verificar se um aluno já completou uma certificação. No professoreService.py, outra função pode verificar se um professor tem horários livres para ministrar aulas.
+
+Arquivo de Repositório (Repository): O arquivo de repositório (por exemplo, cursoRepo.py) contém toda a lógica relacionada ao banco de dados. Ele contém funções e classes para interagir com o banco de dados, como buscar cursos do banco de dados, inserir um novo curso, etc.
+
+Arquivos Template e Static: Os arquivos template (HTML) e static (CSS, JS) são armazenados em diretórios separados (templates e static, respectivamente). Eles são usados para renderizar as páginas da web e estilizar a aplicação.
+
+Essa arquitetura foi escolhida por ser uma forma organizada e modular de desenvolver aplicações web Flask. Ela facilita a manutenção do código, permite o desenvolvimento paralelo de diferentes partes da aplicação e torna a aplicação mais fácil de entender e modificar no futuro. Além disso, separar a lógica de negócios do banco de dados e a apresentação da aplicação ajuda a manter um código limpo e fácil de dar manutenção.
+
+## Comunicacao com os bancos
+
+Todos os modulos devem utilizar as funcoes db/database.py para se comunicar com seu json(banco) elas devem ser usadas dentro do repo de cada modulo para criar as funcoes de acesso a banco. Elas sao: read_db , write_db, delete_db e update_db. O codigo e autoexplicativo, mas qualquer duvida fico a disposicao.
