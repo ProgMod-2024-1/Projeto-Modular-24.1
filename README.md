@@ -184,7 +184,7 @@ git push origin --delete feature/nova-funcionalidade  # remota
 ```
 Esse processo garante que as alterações sejam revisadas e integradas de forma controlada, mantendo a qualidade e a estabilidade do código. Tambem e possivel fazer a delecao pela plataforma do github entrando no seu PR e scrollando para baixo
 
-## Arquitetura do Projeto
+Arquitetura do Projeto
 A arquitetura do seu projeto segue um padrão comum em aplicações web Flask, onde cada módulo é um Blueprint acoplado ao Blueprint principal, que por sua vez é acoplado ao programa principal. Vamos explicar cada componente dessa arquitetura:
 
 Blueprints: Os Blueprints são uma forma de organizar rotas, modelos e outros elementos de uma aplicação Flask de forma modular. Cada módulo da sua aplicação, como cursos, por exemplo, teria seu próprio Blueprint. Isso facilita a organização do código e permite que diferentes partes da aplicação sejam desenvolvidas separadamente.
