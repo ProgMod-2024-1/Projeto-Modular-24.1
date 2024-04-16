@@ -1,4 +1,4 @@
-# This config was automatically generated from your source code
+# This config was utomatically generated from your source code
 # Stacks detected: deps:python:.,package_manager:poetry:.
 version: 2.1
 orbs:
