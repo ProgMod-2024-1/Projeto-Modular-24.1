@@ -5,9 +5,11 @@ name: Projeto Modular
 
 on:
   push:
-    branches: [ "development" ]
+    branches:
+      - '**'
   pull_request:
-    branches: [ "development" ]
+    branches:
+      - '**'
 
 permissions:
   contents: read
