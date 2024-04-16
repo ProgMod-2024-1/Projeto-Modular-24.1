@@ -8,5 +8,4 @@ def get_all_users()-> List[object]:
     return read_db(USERS_DB_URI)
 
 def add_user(username: str, password: str, permission:int)->int:
-    print(USERS_DB_URI)
-    return write_db({"username": username, "password": password, "permission":permission},"username", USERS_DB_URI)
+    return write_db([{"username": username, "password": password, "permission":permission}],"username", USERS_DB_URI)

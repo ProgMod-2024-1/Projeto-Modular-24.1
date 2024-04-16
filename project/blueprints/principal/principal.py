@@ -12,8 +12,10 @@ def register():
 
     if request.method =='POST':
         result = register_user(username=request.form["username"], password=request.form["password"], permission=request.form["permission"])
-
+        print(request.form["username"], request.form["password"], request.form["permission"])
+        print(result)
         if(result["success"] == 1):
+
             pass
 
         else:
