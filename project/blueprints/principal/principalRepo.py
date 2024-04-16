@@ -1,7 +1,7 @@
 import os
 from typing import List
 from project.db.database import read_db, write_db
-
+#coment
 USERS_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)),"database","users.json")
 
 def get_all_users()-> List[object]:
