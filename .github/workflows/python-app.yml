@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-
+    name: Run Tests
     runs-on: ubuntu-latest
     environment: Deploy
     steps:
