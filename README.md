@@ -86,12 +86,13 @@ Essa abordagem foi adotada para evitar conflitos e problemas comuns durante a me
 - Quando voce finalizar uma funcionalidade ou bug de um pull na branch de development e depois um push para colocar suas alteracoes mais recentes na sua branch depois de resolver qualquer conflito. Em seguida, para mesclar seu codigo a branch de desenvolvimento va no projeto do github e abra um pull request. Esse pull request tera que ser aprovado por pelo menos 3 membros dentre os administradores para seu codigo seja mesclado ao da branch de desenvolvimento.
 - Para manter a organização e facilitar o entendimento do propósito de cada branch, adotamos a seguinte convenção para os prefixos de nomeação de branches:
 
-    feature: Para novas funcionalidades. (feature/nome-da-feature)
-    hotfix: Para correções rápidas de bugs em produção.(hotfix/nome-do-hotfix)
-    refactor: Para refatorações de código. (refactor/nome-do-hotfix)
-    bugfix: Para correções de bugs. (bugfix/nome-do-bugfix)
-    release: Para preparação de novos releases. (release/nome-do-release)
-    Esses prefixos devem ser seguidos por uma barra e o nome descritivo da branch. Por exemplo, feature/nova-funcionalidade ou hotfix/bug-na-prod.
+    *feature: Para novas funcionalidades. (feature/nome-da-feature)
+    *hotfix: Para correções rápidas de bugs em produção.(hotfix/nome-do-hotfix)
+    *refactor: Para refatorações de código. (refactor/nome-do-hotfix)
+    *bugfix: Para correções de bugs. (bugfix/nome-do-bugfix)
+    *release: Para preparação de novos releases. (release/nome-do-release)
+    *test: Para implementacao de testes. (test/nome-dos-testes)
+    *chore: Para adição de mudanças que não alteram a logica do codigo ou alterem arquivos nao diretamente relacionados ao programa (chore/nome-da-chore)
 
 Implementei uma regra no projeto para garantir que os nomes das branches sigam essa convenção. Caso o nome não esteja de acordo, a criação da branch será impedida. Isso ajuda a manter a consistência e facilita a identificação do tipo de alteração que está sendo feita em cada branch.
 

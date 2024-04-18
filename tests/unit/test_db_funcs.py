@@ -2,6 +2,7 @@ from project.db.database import write_db, delete_db, update_db, read_db
 import json,os
 
 TEST_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","test_db.json")
+TEST_URI_INEXITENTE = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","falso.json")
 
 def test_db_read():
     test_data = {"data":[
@@ -55,6 +56,7 @@ def test_db_write():
     assert(write_db([{"id": 2, "nome": "Joao"}],"id",TEST_DB_URI) == -1)
     assert(write_db([{"id": 4, "nome": "Joao", "telefone":234343343}],"id", TEST_DB_URI) == -3)
     assert(write_db([{"id": 3, "nome": "Maria"}], "id", TEST_DB_URI) == 1)
+    assert(write_db([{"id": 3, "nome": "Maria"}], "id", TEST_URI_INEXITENTE) == -4)
     
     with open(TEST_DB_URI, mode="r") as jsonFile:
         data_from_db = json.load(jsonFile)
@@ -102,7 +104,7 @@ def test_db_update():
 
     assert(update_db({"id": 5, "nome": "Joao", "telefone":11},"id",TEST_DB_URI) == -1)
     assert(update_db({"id": 5, "nome": "Joao", "telefone":11, "endereco": "Gavea"},"id",TEST_DB_URI) == -3)
-    
+    assert(update_db([{"id": 3, "nome": "Maria"}], "id", TEST_URI_INEXITENTE) == -4)
     assert(update_db({"id": 1, "nome": "Joao", "telefone":11},"id",TEST_DB_URI) == 1)
     
     with open(TEST_DB_URI, mode="r") as jsonFile:
