@@ -1,5 +1,4 @@
 # Projeto em Flask
-Este é um projeto em Flask para sei la alguem altera essa parte aqui
 
 ## Configuração do Ambiente
 Clone o repositório e abra a pasta do projeto na sua IDE.
