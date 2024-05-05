@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect, request, flash, url_for, jsonify
-from project.blueprints.filial.filialService import get_filiais_ativas,update_filias, add_filiais, delete_filiais, update_filias
+from project.blueprints.filial.filialService import get_filiais,update_filias, add_filiais, delete_filiais, update_filias
 from flask_login import current_user, login_required
 from utils import adm_required
 
@@ -11,7 +11,7 @@ filial = Blueprint("filial",__name__,url_prefix= '/filial')
 
 @adm_required
 def pagina_filiais_route():
-    filiais = get_filiais_ativas()
+    filiais = get_filiais()
     return render_template("filial/filial.html", current_user=current_user, filiais = filiais)
 
 @adm_required

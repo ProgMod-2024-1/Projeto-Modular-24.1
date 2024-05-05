@@ -1,7 +1,7 @@
 from project.blueprints.filial.filialRepo import add_filial, delete_filial, update_filial, get_all_filiais, update_filial
 
 
-def get_filiais_ativas():
+def get_filiais():
     return get_all_filiais()
 
 def add_filiais(nome,endereco,cep,nAlunos):
