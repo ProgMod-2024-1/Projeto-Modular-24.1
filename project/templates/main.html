@@ -42,14 +42,14 @@
                   Dropdown
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Lista de Espera</a></li>
                   <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="{{ url_for('lista_espera.pagina_lista') }}" tabindex="-1" aria-disabled="false">Lista de Espera</a>
               </li>
             </ul>
             <form class="d-flex">
@@ -74,7 +74,6 @@
 <footer class="footer">
     <div class="container">
         <p>&copy; 2024 EduPlatform. All rights reserved.</p>
-          <a href="{{ url_for('lista_espera.pagina_lista') }}">CLICA AQUI PRA TESTAR A LISTA</a>
 
     </div>
 </footer>
