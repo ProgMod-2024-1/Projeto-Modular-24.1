@@ -1,31 +1,36 @@
-from .listaDeEsperaRepo import ListaEsperaRepo
+from .listaDeEsperaRepo import (
+    lista_espera_existe as lista_espera_existe_repo ,
+    cria_lista_espera as cria_lista_espera_repo,
+    consulta_lista_espera as consulta_lista_espera_repo,
+    aluno_existe as aluno_existe_repo,
+    add_aluno_lista_espera as add_aluno_lista_espera_repo,
+    remove_aluno_lista_espera as remove_aluno_lista_espera_repo,
+    exclui_lista_espera as exclui_lista_espera_repo
+)
 
-class ListaEsperaService:
     
-    @staticmethod
-    def cria_lista_espera(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
-        if not ListaEsperaRepo.lista_espera_existe(codLE):
-            return ListaEsperaRepo.cria_lista_espera(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
-        return 1  # Lista já existe
+def cria_lista_espera(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
+    if not lista_espera_existe_repo(codLE):
+        return cria_lista_espera_repo(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
+    return 1  # Lista de espera ja existe
 
-    @staticmethod
-    def consulta_lista_espera(codLE):
-        return ListaEsperaRepo.consulta_lista_espera(codLE)
+def consulta_lista_espera(codLE):
+    return consulta_lista_espera_repo(codLE)
 
-    @staticmethod
-    def add_aluno_lista_espera(matrAluno, codLE):
-        if ListaEsperaRepo.aluno_existe(matrAluno) and ListaEsperaRepo.lista_espera_existe(codLE):
-            return ListaEsperaRepo.add_aluno_lista_espera(matrAluno, codLE)
-        return 70 if not ListaEsperaRepo.aluno_existe(matrAluno) else 71
 
-    @staticmethod
-    def remove_aluno_lista_espera(matrAluno, codLE):
-        if ListaEsperaRepo.aluno_existe(matrAluno) and ListaEsperaRepo.lista_espera_existe(codLE):
-            return ListaEsperaRepo.remove_aluno_lista_espera(matrAluno, codLE)
-        return 100 if not ListaEsperaRepo.aluno_existe(matrAluno) else 101
+def add_aluno_lista_espera(matrAluno, codLE):
+    if aluno_existe_repo(matrAluno) and lista_espera_existe_repo(codLE):
+        return add_aluno_lista_espera_repo(matrAluno, codLE)
+    return 70 if not aluno_existe_repo(matrAluno) else 71
 
-    @staticmethod
-    def exclui_lista_espera(codLE, cria_turma):
-        if ListaEsperaRepo.lista_espera_existe(codLE):
-            return ListaEsperaRepo.exclui_lista_espera(codLE, cria_turma)
-        return 10  # Lista inexistente
+
+def remove_aluno_lista_espera(matrAluno, codLE):
+    if aluno_existe_repo(matrAluno) and lista_espera_existe_repo(codLE):
+        return remove_aluno_lista_espera_repo(matrAluno, codLE)
+    return 100 if not aluno_existe_repo(matrAluno) else 101
+
+
+def exclui_lista_espera(codLE, cria_turma):
+    if lista_espera_existe_repo(codLE):
+        return exclui_lista_espera_repo(codLE, cria_turma)
+    return 10  # Lista inexistente
