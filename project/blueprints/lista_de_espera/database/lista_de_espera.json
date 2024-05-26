@@ -1,4 +1,19 @@
 {
-    "data":[
-    ]
+  "codigoLE": "LE123",
+  "filial": "Filial Central",
+  "curso": "CS101",
+  "horario": "09:00-11:00",
+  "matricula_prof": 98765,
+  "num_minimo": 10,
+  "tempo_desde_ultima_adicao": 5,
+  "alunos": [
+    {
+      "matr_aluno": 12345,
+      "nome_aluno": "João da Silva"
+    },
+    {
+      "matr_aluno": 67890,
+      "nome_aluno": "Maria de Souza"
+    }
+  ]
 }
