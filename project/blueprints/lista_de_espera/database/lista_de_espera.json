@@ -1,1 +1,1 @@
-{"codLE": "LE123", "filial": "Filial Central", "curso": "CS101", "horario": "09:00-11:00", "matrProf": 98765, "num_minimo": 10, "tempo_desde_ultima_adicao": 5, "alunos": [{"matrALuno": 12345, "nome_aluno": "Joao da Silva"}, {"matrALuno": 67890, "nome_aluno": "Maria de Souza"}]}
+{"data": [{"codLE": "LE124", "filial": "FSADF", "curso": "1123", "horario": "1231", "matrProf": "231", "numMinimo": "2312", "tempo_desde_ultima_adicao": "3123", "alunos": []}]}

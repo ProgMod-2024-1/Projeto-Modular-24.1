@@ -11,9 +11,7 @@ lista_espera_bp = Blueprint("lista_espera", __name__, url_prefix= "/lista_espera
 
 @lista_espera_bp.route("/")
 def pagina_lista():
-    print("ENTREI NA FUNCAO")    
     return render_template("lista_espera/lista_espera.html")
-
 
 @lista_espera_bp.route('/cria_lista_espera', methods=['POST'])
 def cria_lista_espera():
@@ -25,10 +23,10 @@ def cria_lista_espera():
     numMinimo = request.form['num_minimo']
     tempo_desde_ultima_adicao = request.form['tempo_desde_ultima_adicao']
     result = repo_cria_lista_espera(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
-    if result == 0:
-        flash('Lista de Espera criada com sucesso!')
-    else:
+    if result == 1:
         flash('Erro: Lista de Espera ja existe.')
+    else:
+        flash('Lista de Espera criada com sucesso!')
     return redirect(url_for('lista_espera.pagina_lista'))
 
 @lista_espera_bp.route('/lista_espera/<codLE>', methods=['GET'])
@@ -46,7 +44,7 @@ def adiciona_aluno_lista_espera():
     elif result == 80:
         flash('Aluno ja esta na lista.')
     elif result == 71:
-        flash('Lista de espera nao encontrado.')
+        flash('Lista de espera nao encontrada.')
     return redirect(url_for('lista_espera.pagina_lista'))
 
 @lista_espera_bp.route('/remove_aluno', methods=['POST'])
