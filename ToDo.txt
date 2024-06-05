@@ -1,0 +1,31 @@
+TODO-LISTA ESPERA
+	-Arrumar mensagens de retorno
+	-Imprimir no json as "subinformações" do aluno 
+	-Adicionar formatacao de data dos horarios dia/hora
+	
+	
+	
+	
+Caminhos mensagens:
+cria_lista_espera>cria_lista_espera_service	>NOT lista_espera_existe_repo > cria_lista_espera_repo>lista_espera_existe_repo>1
+													>write_db
+						>IF lista_espera_existe_repo > 1
+						
+						
+	
+	
+read_db	->return -4 # Nao achou o banco
+	->return [] # Nao achou o banco
+	->database["data"] # Sucesso
+	
+write_db-> return -3  # Objeto a ser inserido tem chaves diferentes dos do banco
+	-> return -1 # Essa chave primaria ja existe
+	-> return 1 # Sucesso
+	-> return -2 # Erro nao mapeado, nao salva nada
+	-> return -4 # Nao achou db
+	
+update_db-> return -3  # Objeto a ser inserido tem chaves diferentes dos do banco
+	 -> return -1 # Nao achou o objeto
+	 ->  return 1 # Sucesso
+	 -> return -2 # Erro nao mapeado
+	 ->
