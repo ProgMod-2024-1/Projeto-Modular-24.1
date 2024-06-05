@@ -1,0 +1,77 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./avaliacao/css/avaliacao.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+{% if avaliacoes|length < 1 %} 
+
+<div>
+<p>Ainda não há nenhuma avaliação registrada!</p>
+<a href="{{ url_for('avaliacao.registra_avaliacoes_route') }}"><button>Registre uma nova avaliação</button></a>
+</div>
+
+{% else %}
+
+<div class="container">
+
+{% for avaliacao in avaliacoes %}
+
+<div class="container my-5">
+    <div class="card" id="card-{{ loop.index }}">
+        <div class="card-header" id="headingOne-{{ loop.index }}">
+
+            <div class="container" id="container-{{ loop.index }}">
+
+                <div class="row gx-3" id="row gx3-{{ loop.index }}">
+                    <div class="col-md-4" id="col-md-4-{{ loop.index }}">
+                        <h1 class="mb-0" id="mb-0-{{ loop.index }}">
+                            Avaliação {{avaliacao.info.curso}}
+                        </h1>
+                    </div>
+                    <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-{{ loop.index }}">
+                        <a class="btn btn-primary" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne-{{ loop.index }}" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            Mostrar mais/menos
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="collapseOne-{{ loop.index }}" class="collapse hide" aria-labelledby="headingOne"
+            data-bs-parent="#accordion">
+            <div class="card-body">
+                <form action="" method="post" class="form"id="editform-{{ loop.index }}"></form>
+                <div class="form-group">
+                    <label for="Turma">Turma</label>
+                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Turma" value={{avaliacao.info.turma}} readonly>
+                </div>
+                <div class="form-group">
+                    <label>Código Avaliação</label>
+                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Código Avaliação" value={{avaliacao.info.codAval}} readonly>
+                </div>
+                <hr>
+                <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Ver Tudo</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+<a href="{{ url_for('avaliacao.registra_avaliacoes_route') }}"><button>Registre uma nova avaliação</button></a>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+{% endblock %}

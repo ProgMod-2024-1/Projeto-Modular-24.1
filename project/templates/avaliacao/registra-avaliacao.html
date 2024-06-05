@@ -1,0 +1,45 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./avaliacao/css/avaliacao.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('avaliacao.registra_avaliacoes_route') }}" method="post" class="form">
+
+        <br>
+        <div class="form-group">
+            <label for="turma">Turma</label>
+            <input type="string" class="form-control" id="turmaAvaliacao" name="turmaAvaliacao"
+                placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="codigo">Codigo da Avaliação</label>
+            <input type="string" class="form-control" id="codigoAvaliacao" name="codigoAvaliacao"
+                placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="curso">Nome do Curso</label>
+            <input type="string" class="form-control" id="nomeCurso" name="nomeCurso"
+                placeholder="">
+        </div>
+        
+        <br><br><br>
+        {% for i in range(num_perguntas) %}
+            <div class="form-group">
+                <label for="question_text_{{ i }}">Questão {{ i + 1 }}</label>
+                <input type="string" class="form-control" id="question_text_{{ i }}" name="question_text_{{ i }}">
+            </div>
+        {% endfor %}
+        <br>
+        <button type="submit" class="btn btn-primary">Criar</button>
+</form>
+<br>
+<a href="{{ url_for('avaliacao.mostra_avaliacoes_route') }}"><button>Cancelar</button></a>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+{% endblock %}

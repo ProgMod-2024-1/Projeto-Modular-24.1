@@ -1,4 +1,1 @@
-{
-    "data":[
-    ]
-}
+{"data": [{"perguntas": ["Q1", "Q2", "Q8", "Q9"], "instancias": [{"nomeAluno": "ALUNO1", "nota": "10", "respostas": ["R1", "R2", "R3", "R4"], "comentario": "AAAA"}, {"nomeAluno": "ALUNO2", "nota": "8", "respostas": ["R1", "R2", "R3", "R4"], "comentario": "bbbbbb"}], "info": {"turma": "3WA", "codAval": "G1", "curso": "CTC4002", "corretor": ""}}, {"perguntas": ["Q1", "Q2", "Q3", "Q4", "Q5", "Q8"], "instancias": [], "info": {"turma": "3WB", "codAval": "G3", "curso": "INF1018", "corretor": ""}}]}

@@ -1,0 +1,60 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./avaliacao/css/avaliacao.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('avaliacao.registra_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}" method="post" class="form">
+
+        <br>
+        <div class="form-group">
+            <label for="turma">Turma</label>
+            <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value={{avaliacao.info.turma}} readonly>
+        </div>
+        <div class="form-group">
+            <label for="codigo">Codigo da Avaliação</label>
+            <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value={{avaliacao.info.codAval}} readonly>
+        </div>
+        <div class="form-group">
+            <label for="curso">Nome do Curso</label>
+            <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value={{avaliacao.info.curso}} readonly>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="nomeAluno">Aluno</label>
+            <input type="string" class="form-control" id="nomeAluno" name="nomeAluno"> 
+        </div>
+        
+        <br><br>
+        {% for i in range(num_perguntas) %}
+            <div class="form-group">
+                <label for="answer_text_{{ i }}">{{avaliacao.perguntas[i]}}</label>
+                <input type="string" class="form-control" id="answer_text_{{ i }}" name="answer_text_{{ i }}">
+            </div>
+        {% endfor %}
+        <br><br>
+
+        <div class="form-group">
+            <label for="notaAvaliacao">Nota</label>
+            <input type="string" class="form-control" id="notaAvaliacao" name="notaAvaliacao">
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="comentarioAvaliacao">Comentários</label>
+            <input type="string" class="form-control" id="comentarioAvaliacao" name="comentarioAvaliacao">
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+<br>
+<a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+{% endblock %}
