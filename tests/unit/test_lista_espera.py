@@ -1,5 +1,5 @@
 import unittest
-from project.blueprints.lista_de_espera.listaDeEsperaService import ListaEsperaService
+from project.blueprints.lista_de_espera.listaDeEsperaService import cria_lista_espera_service, consulta_lista_espera_service, add_aluno_lista_espera_service, remove_aluno_lista_espera_service, exclui_lista_espera_service
 
 class TestListaEsperaService(unittest.TestCase):
 
