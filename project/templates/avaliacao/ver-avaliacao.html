@@ -87,7 +87,7 @@
                 {%for pergunta in avaliacao.perguntas%}
                 <div class="form-group">
                     <label for="Pergunta">Questão {{ loop.index }}</label>
-                    <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly>
+                    <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value="{{pergunta}}" readonly>
                 </div>
                 {%endfor%}
                 <hr>
@@ -108,7 +108,7 @@
                     <label for="Pergunta">Nota: {{ instancia.nota }}</label>
                     <!-- <input form="editform-bb" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly> -->
                 </div>
-                <a href="">
+                <a href="{{ url_for('avaliacao.muda_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
                     <button>Ver Correção</button>
                 </a>
                 <hr>

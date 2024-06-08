@@ -124,4 +124,57 @@ def registra_correcoes_route():
 
         return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
     else:
-        return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval)
+        return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, criando=1)
+    
+
+#Página onde um professor pode mudar uma correção
+@avaliacao.route("/mudar_correcao", methods=['POST', 'GET'])
+def muda_correcoes_route():
+
+    turma = request.args.get('turma')
+    codAval = request.args.get('codAval')
+    curso = request.args.get('curso')
+    nomeAluno = request.args.get('nomeAluno')
+
+    aval = seek_avaliacoes(turma, codAval, curso)
+
+    index_correcao = -1
+    for index, instancia in enumerate(aval["instancias"]):
+        if instancia["nomeAluno"] == nomeAluno:
+            index_correcao = index
+            break
+
+    if request.method == 'POST':
+        data = request.form
+        for key in data.keys():
+            print(key)
+
+        respostas = []
+        for i in range(len(aval["perguntas"])):
+            question_text = request.form.get(f'answer_text_{i}')
+            if question_text:
+                respostas.append(question_text)
+            else:
+                respostas.append("")
+
+        instancia_atualizada = {"nomeAluno":data["nomeAluno"], "nota":data["notaAvaliacao"], "respostas": respostas, "comentario":data["comentarioAvaliacao"]}
+ 
+        aval["instancias"][index_correcao] = instancia_atualizada
+
+        result = muda_avaliacoes(codAval=aval["info"]["codAval"], curso=aval["info"]["curso"], corretor="", turma=aval["info"]["turma"], instancias=aval["instancias"], perguntas=aval["perguntas"])
+
+        if(result["success"] == 1):
+            flash(result["message"], "success")
+        else:
+            flash(result["message"], "danger")
+
+
+        return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
+    else:
+        print(aval["instancias"][index_correcao])
+        print(aval["instancias"][index_correcao])
+        print(aval["instancias"][index_correcao])
+        print(aval["instancias"][index_correcao])
+        print(aval["instancias"][index_correcao])
+        print(aval["instancias"][index_correcao])
+        return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, correcao=aval["instancias"][index_correcao])

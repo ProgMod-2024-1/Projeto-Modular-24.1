@@ -48,11 +48,11 @@
                 <form action="" method="post" class="form"id="editform-{{ loop.index }}"></form>
                 <div class="form-group">
                     <label for="Turma">Turma</label>
-                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Turma" value={{avaliacao.info.turma}} readonly>
+                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Turma" value="{{avaliacao.info.turma}}" readonly>
                 </div>
                 <div class="form-group">
                     <label>Código Avaliação</label>
-                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Código Avaliação" value={{avaliacao.info.codAval}} readonly>
+                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Código Avaliação" value="{{avaliacao.info.codAval}}" readonly>
                 </div>
                 <hr>
                 <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Ver Tudo</button></a>
