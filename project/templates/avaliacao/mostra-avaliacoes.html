@@ -56,6 +56,10 @@
                 </div>
                 <hr>
                 <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Ver Tudo</button></a>
+                <hr>
+                <a href="{{ url_for('avaliacao.deletar_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}">
+                    <button style="color:red">Deletar Avaliação</button>
+                </a>
             </div>
         </div>
     </div>

@@ -29,3 +29,8 @@ def seek_avaliacao(turma: str, codAval: str, curso:str)-> object:
 def muda_avaliacao(turma: str, codAval: str, curso:str, perguntas: object, instancias: object, corretor: str)->int:
 
     return update_db({"perguntas":perguntas, "instancias":instancias, "info": {"turma": turma, "codAval": codAval, "curso": curso, "corretor":corretor}}, "info", AVALIACOES_DB_URI)
+
+
+#Deleta uma avaliação
+def deleta_avaliacao(turma: str, codAval: str, curso:str, perguntas: object)->int:
+    return delete_db({"perguntas":perguntas, "instancias":[], "info": {"turma": turma, "codAval": codAval, "curso": curso, "corretor":""}}, "info", AVALIACOES_DB_URI)

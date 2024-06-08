@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect, request, flash, url_for, jsonify
-from project.blueprints.avaliacao.avaliacaoService import get_avaliacoes, registra_avaliacoes, seek_avaliacoes, muda_avaliacoes
+from project.blueprints.avaliacao.avaliacaoService import get_avaliacoes, registra_avaliacoes, seek_avaliacoes, muda_avaliacoes, deleta_avaliacoes
 from flask_login import current_user
 
 
@@ -171,10 +171,25 @@ def muda_correcoes_route():
 
         return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
     else:
-        print(aval["instancias"][index_correcao])
-        print(aval["instancias"][index_correcao])
-        print(aval["instancias"][index_correcao])
-        print(aval["instancias"][index_correcao])
-        print(aval["instancias"][index_correcao])
-        print(aval["instancias"][index_correcao])
         return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, correcao=aval["instancias"][index_correcao])
+    
+
+#Página onde um professor pode adicionar uma correção
+@avaliacao.route("/deletar_avaliacoes")
+def deletar_avaliacoes_route():
+
+    turma = request.args.get('turma')
+    codAval = request.args.get('codAval')
+    curso = request.args.get('curso')
+
+    aval = seek_avaliacoes(turma, codAval, curso)
+
+    result = deleta_avaliacoes(codAval=aval["info"]["codAval"], curso=aval["info"]["curso"], turma=aval["info"]["turma"], perguntas=aval["perguntas"])
+
+    if(result["success"] == 1):
+        flash(result["message"], "success")
+    else:
+        flash(result["message"], "danger")
+
+
+    return redirect(url_for('.mostra_avaliacoes_route'))

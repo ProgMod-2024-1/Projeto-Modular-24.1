@@ -1,4 +1,4 @@
-from project.blueprints.avaliacao.avaliacaoRepo import get_all_avaliacoes, registra_avaliacao, seek_avaliacao, muda_avaliacao
+from project.blueprints.avaliacao.avaliacaoRepo import get_all_avaliacoes, registra_avaliacao, seek_avaliacao, muda_avaliacao, deleta_avaliacao
 
 #Retorna todas as avalçiações presentes no json
 def get_avaliacoes():
@@ -64,5 +64,21 @@ def muda_avaliacoes(turma,codAval,curso,perguntas, instancias, corretor):
         return {
                 "success": 0,
                 "message": "Nao achou db.",
+                "user":{"curso":curso,"turma":turma}
+                }
+    
+#Deleta uma avaliação
+def deleta_avaliacoes(turma,codAval,curso,perguntas):
+    result = deleta_avaliacao(turma=turma, codAval=codAval,curso=curso, perguntas=perguntas)
+    if result == 1:
+        return {
+                "success": 1,
+                "message": "Avaliação deletada com sucesso",
+                "user":{"curso":curso,"turma":turma}
+                }
+    else:
+        return {
+                "success": 0,
+                "message": "Ocorreu um erro ao deletar a avaliação. Tente novamente mais tarde",
                 "user":{"curso":curso,"turma":turma}
                 }
