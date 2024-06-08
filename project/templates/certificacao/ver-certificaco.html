@@ -1,0 +1,68 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./certificacao/css/certificacao.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+<div class="container my-5">
+    <a href="{{ url_for('certificacao.mostra_certificacoes_route') }}"><button>Voltar Para Todas as certificações</button></a><br>
+    <div class="card">
+        <div class="card-header">
+
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            certificação: {{certificacao.info.id_formacao}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Turma: {{certificacao.info.id_aluno}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Código: {{certificacao.info.codCert}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+              <div class="row gx-3">
+                  <div class="col-md-4">
+                      <h1 class="mb-0">
+                          Código: {{certificacao.data_conclusao}}
+                      </h1>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+{% endblock %}
