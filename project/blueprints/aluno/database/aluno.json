@@ -1,4 +1,1 @@
-{
-    "data":[
-    ]
-}
+{"data": [{"matricula": "123", "nome": "joao", "endereco": "rua", "status": 1, "preferencia_filiais": [], "cursos_e_formacoes_feitas": [], "cursos_avulsos": [], "formacoes_atuais": [], "listas_espera": []}, {"matricula": "456", "nome": "jorge", "endereco": "avenida", "status": 1, "preferencia_filiais": [], "cursos_e_formacoes_feitas": [], "cursos_avulsos": [], "formacoes_atuais": [], "listas_espera": []}]}
