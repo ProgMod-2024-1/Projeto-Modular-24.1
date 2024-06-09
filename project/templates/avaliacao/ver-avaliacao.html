@@ -65,7 +65,7 @@
                 <div class="row gx-3">
                     <div class="col-md-4">
                         <h1 class="mb-0">
-                            Alunos
+                            Correções
                         </h1>
                     </div>
                     <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-bb">
@@ -110,6 +110,9 @@
                 </div>
                 <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
                     <button>Ver Correção</button>
+                </a>
+                <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
+                    <button style="color:red">Deletar Correção</button>
                 </a>
                 <hr>
                 {%endfor%}

@@ -193,3 +193,29 @@ def mudar_correcoes_route():
         return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
     else:
         return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, correcao=aval["instancias"][index_correcao])
+    
+
+#Rota para deletar uma correção
+@avaliacao.route("/deletar_correcao")
+def deletar_correcoes_route():
+
+    turma = request.args.get('turma')
+    codAval = request.args.get('codAval')
+    curso = request.args.get('curso')
+    nomeAluno = request.args.get('nomeAluno')
+
+    aval = seek_avaliacoes(turma, codAval, curso)
+
+    index_correcao = next((i for i, item in enumerate(aval["instancias"]) if item["nomeAluno"] == nomeAluno), None)
+
+    del aval["instancias"][index_correcao]
+
+    result = muda_avaliacoes(aval)
+
+    if(result["success"] == 1):
+        flash(result["message"], "success")
+    else:
+        flash(result["message"], "danger")
+
+
+    return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
