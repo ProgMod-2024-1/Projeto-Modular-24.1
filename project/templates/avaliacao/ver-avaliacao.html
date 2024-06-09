@@ -101,17 +101,17 @@
             data-bs-parent="#accordion">
             <div class="card-body">
                 <form action="" method="post" class="form"id="editform-bb"></form>
-                {%if avaliacao.instancias%}
-                {%for instancia in avaliacao.instancias%}
+                {%if avaliacao.correcoes%}
+                {%for correcao in avaliacao.correcoes%}
                 <div class="form-group">
-                    <h5>{{ instancia.nomeAluno }}</h5>
-                    <label for="Pergunta">Nota: {{ instancia.nota }}</label>
+                    <h5>{{ correcao.nomeAluno }}</h5>
+                    <label for="Pergunta">Nota: {{ correcao.nota }}</label>
                     <!-- <input form="editform-bb" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly> -->
                 </div>
-                <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
+                <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=correcao.nomeAluno) }}">
                     <button>Ver Correção</button>
                 </a>
-                <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
+                <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=correcao.nomeAluno) }}">
                     <button style="color:red">Deletar Correção</button>
                 </a>
                 <hr>

@@ -28,7 +28,7 @@ def registrar_avaliacoes_route():
             if question_text:
                 perguntas.append(question_text)
 
-        novaAval = {"perguntas":perguntas, "instancias":[], "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"], "curso": data["nomeCurso"], "corretor":""}}
+        novaAval = {"perguntas":perguntas, "correcoes":[], "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"], "curso": data["nomeCurso"], "corretor":""}}
 
         result = registra_avaliacoes(novaAval)
 
@@ -136,8 +136,8 @@ def registrar_correcoes_route():
             else:
                 respostas.append("")
 
-        instancia_nova = {"nomeAluno":data["nomeAluno"], "nota":data["notaAvaliacao"], "respostas": respostas, "comentario":data["comentarioAvaliacao"]}
-        aval["instancias"].append(instancia_nova)
+        correcao_nova = {"nomeAluno":data["nomeAluno"], "nota":data["notaAvaliacao"], "respostas": respostas, "comentario":data["comentarioAvaliacao"]}
+        aval["correcoes"].append(correcao_nova)
 
         result = muda_avaliacoes(aval)
 
@@ -163,7 +163,7 @@ def mudar_correcoes_route():
 
     aval = seek_avaliacoes(turma, codAval, curso)
 
-    index_correcao = next((i for i, item in enumerate(aval["instancias"]) if item["nomeAluno"] == nomeAluno), None)
+    index_correcao = next((i for i, item in enumerate(aval["correcoes"]) if item["nomeAluno"] == nomeAluno), None)
 
     if request.method == 'POST':
         data = request.form
@@ -178,9 +178,9 @@ def mudar_correcoes_route():
             else:
                 respostas.append("")
 
-        instancia_atualizada = {"nomeAluno":data["nomeAluno"], "nota":data["notaAvaliacao"], "respostas": respostas, "comentario":data["comentarioAvaliacao"]}
+        correcao_atualizada = {"nomeAluno":data["nomeAluno"], "nota":data["notaAvaliacao"], "respostas": respostas, "comentario":data["comentarioAvaliacao"]}
  
-        aval["instancias"][index_correcao] = instancia_atualizada
+        aval["correcoes"][index_correcao] = correcao_atualizada
 
         result = muda_avaliacoes(aval)
 
@@ -192,7 +192,7 @@ def mudar_correcoes_route():
 
         return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
     else:
-        return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, correcao=aval["instancias"][index_correcao])
+        return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, correcao=aval["correcoes"][index_correcao])
     
 
 #Rota para deletar uma correção
@@ -206,9 +206,9 @@ def deletar_correcoes_route():
 
     aval = seek_avaliacoes(turma, codAval, curso)
 
-    index_correcao = next((i for i, item in enumerate(aval["instancias"]) if item["nomeAluno"] == nomeAluno), None)
+    index_correcao = next((i for i, item in enumerate(aval["correcoes"]) if item["nomeAluno"] == nomeAluno), None)
 
-    del aval["instancias"][index_correcao]
+    del aval["correcoes"][index_correcao]
 
     result = muda_avaliacoes(aval)
 
