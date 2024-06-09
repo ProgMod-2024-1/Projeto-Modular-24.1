@@ -9,7 +9,7 @@
 {% if criando %}
 
 
-<form action="{{ url_for('avaliacao.registra_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}" method="post" class="form">
+<form action="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}" method="post" class="form">
 
         <br>
         <div class="form-group">
@@ -60,7 +60,7 @@
 {% else %}
 
 
-<form action="{{ url_for('avaliacao.muda_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}" method="post" class="form">
+<form action="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval, nomeAluno=correcao.nomeAluno) }}" method="post" class="form">
 
     <br>
     <div class="form-group">

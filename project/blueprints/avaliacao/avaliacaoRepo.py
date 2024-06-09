@@ -11,9 +11,8 @@ def get_all_avaliacoes()-> List[object]:
     return read_db(AVALIACOES_DB_URI)
 
 #Registra uma nova avaliação
-def registra_avaliacao(turma: str, codAval: str, curso:str, perguntas: object)->int:
-
-    return write_db([{"perguntas":perguntas, "instancias":[], "info": {"turma": turma, "codAval": codAval, "curso": curso, "corretor":""}}], "info", AVALIACOES_DB_URI)
+def registra_avaliacao(novaAval: object)->int:
+    return write_db([novaAval], "info", AVALIACOES_DB_URI)
 
 #Retorna uma avaliação específica com os dados fornecidos
 def seek_avaliacao(turma: str, codAval: str, curso:str)-> object:
@@ -26,11 +25,11 @@ def seek_avaliacao(turma: str, codAval: str, curso:str)-> object:
     return None
 
 #Atualiza os dados de uma avaliação existente
-def muda_avaliacao(turma: str, codAval: str, curso:str, perguntas: object, instancias: object, corretor: str)->int:
+def muda_avaliacao(avalAtualizada: object)->int:
 
-    return update_db({"perguntas":perguntas, "instancias":instancias, "info": {"turma": turma, "codAval": codAval, "curso": curso, "corretor":corretor}}, "info", AVALIACOES_DB_URI)
+    return update_db(avalAtualizada, "info", AVALIACOES_DB_URI)
 
 
 #Deleta uma avaliação
-def deleta_avaliacao(turma: str, codAval: str, curso:str, perguntas: object)->int:
-    return delete_db({"perguntas":perguntas, "instancias":[], "info": {"turma": turma, "codAval": codAval, "curso": curso, "corretor":""}}, "info", AVALIACOES_DB_URI)
+def deleta_avaliacao(avaliacao: object)->int:
+    return delete_db(avaliacao, "info", AVALIACOES_DB_URI)

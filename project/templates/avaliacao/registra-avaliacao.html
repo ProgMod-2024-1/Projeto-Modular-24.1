@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form action="{{ url_for('avaliacao.registra_avaliacoes_route') }}" method="post" class="form">
+<form action="{{ url_for('avaliacao.registrar_avaliacoes_route') }}" method="post" class="form">
 
         <br>
         <div class="form-group">
@@ -36,7 +36,7 @@
         <button type="submit" class="btn btn-primary">Criar</button>
 </form>
 <br>
-<a href="{{ url_for('avaliacao.mostra_avaliacoes_route') }}"><button>Cancelar</button></a>
+<a href="{{ url_for('avaliacao.mostrar_avaliacoes_route') }}"><button>Cancelar</button></a>
 
 {% endblock %}
 {% block scripts %}

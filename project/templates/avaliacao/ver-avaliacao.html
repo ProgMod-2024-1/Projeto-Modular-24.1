@@ -10,7 +10,7 @@
 
 
 <div class="container my-5">
-    <a href="{{ url_for('avaliacao.mostra_avaliacoes_route') }}"><button>Voltar Para Todas as Avaliações</button></a><br>
+    <a href="{{ url_for('avaliacao.mostrar_avaliacoes_route') }}"><button>Voltar Para Todas as Avaliações</button></a><br>
     <div class="card">
         <div class="card-header">
 
@@ -108,16 +108,16 @@
                     <label for="Pergunta">Nota: {{ instancia.nota }}</label>
                     <!-- <input form="editform-bb" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly> -->
                 </div>
-                <a href="{{ url_for('avaliacao.muda_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
+                <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=instancia.nomeAluno) }}">
                     <button>Ver Correção</button>
                 </a>
                 <hr>
                 {%endfor%}
-                <a href="{{ url_for('avaliacao.registra_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
                 {%else%}
                 <div>
                 <p>Ainda não há correções registradas!</p>
-                <a href="{{ url_for('avaliacao.registra_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
                 </div>
                 {%endif%}
                 

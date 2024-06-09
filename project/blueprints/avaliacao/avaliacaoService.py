@@ -6,25 +6,25 @@ def get_avaliacoes():
 
 
 #Registra uma nova avaliação
-def registra_avaliacoes(turma,codAval,curso,perguntas):
-    result = registra_avaliacao(turma=turma, codAval=codAval,curso=curso, perguntas=perguntas)
+def registra_avaliacoes(novaAval):
+    result = registra_avaliacao(novaAval)
     if result == 1:
         return {
                 "success": 1,
                 "message": "Avaliação criada com sucesso",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     elif result == -1:
         return {
                 "success": 0,
                 "message": "Esta avaliação ja existe.",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     else:
         return {
                 "success": 0,
                 "message": "Ocorreu um erro ao criar a avaliação. Tente novamente mais tarde",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
 
 
@@ -34,51 +34,51 @@ def seek_avaliacoes(turma, codAval, curso):
 
 
 #Atualiza os dados de uma avaliação existente   
-def muda_avaliacoes(turma,codAval,curso,perguntas, instancias, corretor):
-    result = muda_avaliacao(turma=turma, codAval=codAval,curso=curso, perguntas=perguntas, instancias=instancias, corretor=corretor)
+def muda_avaliacoes(avalAtualizada):
+    result = muda_avaliacao(avalAtualizada)
     if result == 1:
         return {
                 "success": 1,
-                "message": "Questões alteradas com sucesso",
-                "user":{"curso":curso,"turma":turma}
+                "message": "Alterações realizadas com sucesso",
+                "user":{}
                 }
     elif result == -1:
         return {
                 "success": 0,
                 "message": "Nao achou o objeto.",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     elif result == -2:
         return {
                 "success": 0,
                 "message": "Erro nao mapeado.",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     elif result == -3:
         return {
                 "success": 0,
                 "message": "Objeto a ser inserido tem chaves diferentes dos do banco.",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     else:
         return {
                 "success": 0,
                 "message": "Nao achou db.",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     
 #Deleta uma avaliação
-def deleta_avaliacoes(turma,codAval,curso,perguntas):
-    result = deleta_avaliacao(turma=turma, codAval=codAval,curso=curso, perguntas=perguntas)
+def deleta_avaliacoes(avaliacao):
+    result = deleta_avaliacao(avaliacao)
     if result == 1:
         return {
                 "success": 1,
                 "message": "Avaliação deletada com sucesso",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }
     else:
         return {
                 "success": 0,
                 "message": "Ocorreu um erro ao deletar a avaliação. Tente novamente mais tarde",
-                "user":{"curso":curso,"turma":turma}
+                "user":{}
                 }

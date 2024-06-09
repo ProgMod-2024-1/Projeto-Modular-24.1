@@ -8,14 +8,14 @@ avaliacao = Blueprint("avaliacao",__name__,url_prefix= '/avaliacao')
 
 #Página que mostra todas as avaliações do professor
 @avaliacao.route("/")
-def mostra_avaliacoes_route():
+def mostrar_avaliacoes_route():
     avaliacoes = get_avaliacoes()
     return render_template("avaliacao/mostra-avaliacoes.html", current_user=current_user, avaliacoes = avaliacoes)
 
 
 #Página onde um professor pode registrar uma nova avaliação
 @avaliacao.route("/registrar_avaliacoes", methods=['POST', 'GET'])
-def registra_avaliacoes_route():
+def registrar_avaliacoes_route():
 
     if request.method == 'POST':
         data = request.form
@@ -28,7 +28,9 @@ def registra_avaliacoes_route():
             if question_text:
                 perguntas.append(question_text)
 
-        result = registra_avaliacoes(turma=data["turmaAvaliacao"], codAval=data["codigoAvaliacao"], curso=data["nomeCurso"], perguntas=perguntas)
+        novaAval = {"perguntas":perguntas, "instancias":[], "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"], "curso": data["nomeCurso"], "corretor":""}}
+
+        result = registra_avaliacoes(novaAval)
 
         if(result["success"] == 1):
             flash(result["message"], "success")
@@ -36,9 +38,30 @@ def registra_avaliacoes_route():
             flash(result["message"], "danger")
 
 
-        return redirect(url_for('.mostra_avaliacoes_route'))
+        return redirect(url_for('.mostrar_avaliacoes_route'))
     else:
         return render_template("avaliacao/registra-avaliacao.html", current_user=current_user, num_perguntas=10)
+    
+
+#Rota para deletar uma avaliação
+@avaliacao.route("/deletar_avaliacoes")
+def deletar_avaliacoes_route():
+
+    turma = request.args.get('turma')
+    codAval = request.args.get('codAval')
+    curso = request.args.get('curso')
+
+    aval = seek_avaliacoes(turma, codAval, curso)
+
+    result = deleta_avaliacoes(aval)
+
+    if(result["success"] == 1):
+        flash(result["message"], "success")
+    else:
+        flash(result["message"], "danger")
+
+
+    return redirect(url_for('.mostrar_avaliacoes_route'))
 
 
 #Página onde um professor pode ver todas as informações sobre uma avaliação específica
@@ -61,21 +84,23 @@ def mudar_questoes_route():
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
     curso = request.args.get('curso')
-
-    data = seek_avaliacoes(turma, codAval, curso)
+    
+    aval = seek_avaliacoes(turma, codAval, curso)
 
     if request.method == 'POST':
 
         perguntas = []
-        for i in range(len(data["perguntas"])):
+        for i in range(len(aval["perguntas"])):
             question_text = request.form.get(f'question_text_{i}')
             if question_text:
                 perguntas.append(question_text)
             else:
                 flash("Questões não podem estar em branco!", "danger")
                 return redirect(url_for('.mudar_questoes_route', turma=turma, codAval=codAval, curso=curso))
+            
+        aval["perguntas"] = perguntas
 
-        result = muda_avaliacoes(turma=data["info"]["turma"], codAval=data["info"]["codAval"], curso=data["info"]["curso"], perguntas=perguntas, instancias=data["instancias"], corretor="")
+        result = muda_avaliacoes(aval)
 
         if(result["success"] == 1):
             flash(result["message"], "success")
@@ -86,11 +111,11 @@ def mudar_questoes_route():
         
 
     else:
-        return render_template("avaliacao/mudar-questoes.html", avaliacao=data, num_perguntas = len(data["perguntas"]))
+        return render_template("avaliacao/mudar-questoes.html", avaliacao=aval, num_perguntas = len(aval["perguntas"]))
 
 #Página onde um professor pode adicionar uma correção
 @avaliacao.route("/registrar_correcao", methods=['POST', 'GET'])
-def registra_correcoes_route():
+def registrar_correcoes_route():
 
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
@@ -114,7 +139,7 @@ def registra_correcoes_route():
         instancia_nova = {"nomeAluno":data["nomeAluno"], "nota":data["notaAvaliacao"], "respostas": respostas, "comentario":data["comentarioAvaliacao"]}
         aval["instancias"].append(instancia_nova)
 
-        result = muda_avaliacoes(codAval=aval["info"]["codAval"], curso=aval["info"]["curso"], corretor="", turma=aval["info"]["turma"], instancias=aval["instancias"], perguntas=aval["perguntas"])
+        result = muda_avaliacoes(aval)
 
         if(result["success"] == 1):
             flash(result["message"], "success")
@@ -129,7 +154,7 @@ def registra_correcoes_route():
 
 #Página onde um professor pode mudar uma correção
 @avaliacao.route("/mudar_correcao", methods=['POST', 'GET'])
-def muda_correcoes_route():
+def mudar_correcoes_route():
 
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
@@ -138,11 +163,7 @@ def muda_correcoes_route():
 
     aval = seek_avaliacoes(turma, codAval, curso)
 
-    index_correcao = -1
-    for index, instancia in enumerate(aval["instancias"]):
-        if instancia["nomeAluno"] == nomeAluno:
-            index_correcao = index
-            break
+    index_correcao = next((i for i, item in enumerate(aval["instancias"]) if item["nomeAluno"] == nomeAluno), None)
 
     if request.method == 'POST':
         data = request.form
@@ -161,7 +182,7 @@ def muda_correcoes_route():
  
         aval["instancias"][index_correcao] = instancia_atualizada
 
-        result = muda_avaliacoes(codAval=aval["info"]["codAval"], curso=aval["info"]["curso"], corretor="", turma=aval["info"]["turma"], instancias=aval["instancias"], perguntas=aval["perguntas"])
+        result = muda_avaliacoes(aval)
 
         if(result["success"] == 1):
             flash(result["message"], "success")
@@ -172,24 +193,3 @@ def muda_correcoes_route():
         return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
     else:
         return render_template("avaliacao/registra-correcao.html", current_user=current_user, num_perguntas = len(aval["perguntas"]), avaliacao=aval, correcao=aval["instancias"][index_correcao])
-    
-
-#Página onde um professor pode adicionar uma correção
-@avaliacao.route("/deletar_avaliacoes")
-def deletar_avaliacoes_route():
-
-    turma = request.args.get('turma')
-    codAval = request.args.get('codAval')
-    curso = request.args.get('curso')
-
-    aval = seek_avaliacoes(turma, codAval, curso)
-
-    result = deleta_avaliacoes(codAval=aval["info"]["codAval"], curso=aval["info"]["curso"], turma=aval["info"]["turma"], perguntas=aval["perguntas"])
-
-    if(result["success"] == 1):
-        flash(result["message"], "success")
-    else:
-        flash(result["message"], "danger")
-
-
-    return redirect(url_for('.mostra_avaliacoes_route'))
