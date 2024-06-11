@@ -1,4 +1,4 @@
-<!-- templates/base.html -->
+<!-- templates/main.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,14 +42,14 @@
                   Dropdown
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Lista de Espera</a></li>
                   <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="{{ url_for('lista_espera.pagina_lista') }}" tabindex="-1" aria-disabled="false">Lista de Espera</a>
               </li>
             </ul>
             <form class="d-flex">
@@ -60,21 +60,23 @@
         </div>
       </nav>
     </header>
-
+  
     <main>
         {% include '/main/alerts.html' %}
         {% block content %}
         Default content if none provided.
+        
         {% endblock %}
     </main>
 
     
   </body>
-  <footer class="footer">
-      <div class="container">
-          <p>&copy; 2024 EduPlatform. All rights reserved.</p>
-      </div>
-  </footer>
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 EduPlatform. All rights reserved.</p>
+
+    </div>
+</footer>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>    {% block scripts %}{% endblock %}
