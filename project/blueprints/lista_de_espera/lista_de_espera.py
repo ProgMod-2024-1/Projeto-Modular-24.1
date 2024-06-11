@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from .listaDeEsperaService import cria_lista_espera_service, consulta_lista_espera_service, add_aluno_lista_espera_service, remove_aluno_lista_espera_service, exclui_lista_espera_service
+from .listaDeEsperaService import *
 
-lista_espera_bp = Blueprint("lista_espera", __name__, url_prefix= "/lista_espera")
+lista_espera = Blueprint("lista_espera", __name__, url_prefix= "/lista_espera")
 
-@lista_espera_bp.route("/")
+@lista_espera.route("/")
 def pagina_lista():
     return render_template("lista_espera/lista_espera.html")
 
-@lista_espera_bp.route('/cria_lista_espera', methods=['POST'])
+@lista_espera.route('/cria_lista_espera', methods=['POST'])
 def cria_lista_espera():
     codLE = request.form['codLE']
     filial = request.form['filial']
@@ -34,12 +34,12 @@ def cria_lista_espera():
 
     return redirect(url_for('lista_espera.pagina_lista'))
 
-@lista_espera_bp.route('/lista_espera/<codLE>', methods=['GET'])
+@lista_espera.route('/lista_espera/<codLE>', methods=['GET'])
 def consulta_lista_espera(codLE):
     result = consulta_lista_espera_service(codLE)
     return jsonify(result)
 
-@lista_espera_bp.route('/adiciona_aluno', methods=['POST'])
+@lista_espera.route('/adiciona_aluno', methods=['POST'])
 def adiciona_aluno_lista_espera():
     codLE = request.form['codLE_add']
     matrAluno = request.form['matrAluno_add']
@@ -57,7 +57,7 @@ def adiciona_aluno_lista_espera():
 
     return redirect(url_for('lista_espera.pagina_lista'))
 
-@lista_espera_bp.route('/remove_aluno', methods=['POST'])
+@lista_espera.route('/remove_aluno', methods=['POST'])
 def remove_aluno_lista_espera():
     codLE = request.form['codLE_remove_aluno']
     matrAluno = request.form['matrAluno_remove']
@@ -71,7 +71,7 @@ def remove_aluno_lista_espera():
 
     return redirect(url_for('lista_espera.pagina_lista'))
 
-@lista_espera_bp.route('/exclui_lista_espera', methods=['POST'])
+@lista_espera.route('/exclui_lista_espera', methods=['POST'])
 def exclui_lista_espera():
     codLE = request.form['codLE_delete']
     cria_turma = 'cria_turma' in request.form
