@@ -1,25 +1,28 @@
-import json
+import os
+from typing import List
+from project.db.database import read_db, write_db
 
-def load_data(db_path):
-    with open(db_path, 'r') as file:
-        return json.load(file)
+CURSOS_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)), "database", "cursos.json")
 
-def save_data(db_path, data):
-    with open(db_path, 'w') as file:
-        json.dump(data, file, indent=4)
+def get_all_cursos() -> List[object]:
+    return read_db(CURSOS_DB_URI)
 
-def get_curso(db_path, codCurs):
-    data = load_data(db_path)
-    for curso in data['cursos']:
-        if curso['id'] == codCurs:
+def add_curso(curso: dict) -> int:
+    return write_db([curso], "id", CURSOS_DB_URI)
+
+def get_curso(codCurs: str) -> object:
+    data = read_db(CURSOS_DB_URI)
+    for curso in data:
+        if curso["id"] == codCurs:
             return curso
     return None
 
-def update_curso(db_path, curso):
-    data = load_data(db_path)
-    for idx, existing_curso in enumerate(data['cursos']):
-        if existing_curso['id'] == curso['id']:
-            data['cursos'][idx] = curso
-            save_data(db_path, data)
+def update_curso(updated_curso: dict) -> bool:
+    data = read_db(CURSOS_DB_URI)
+    for idx, curso in enumerate(data):
+        if curso["id"] == updated_curso["id"]:
+            data[idx] = updated_curso
+            write_db(data, "id", CURSOS_DB_URI, overwrite=True)
             return True
     return False
+
