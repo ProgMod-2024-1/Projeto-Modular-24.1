@@ -1,87 +1,73 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from .listaDeEsperaService import *
+import os
+import json
+from project.db.database import read_db, write_db, update_db, delete_db
 
-lista_espera = Blueprint("lista_espera", __name__, url_prefix= "/lista_espera")
+USERS_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)), "database", "lista_de_espera.json")
 
-@lista_espera.route("/")
-def pagina_lista():
-    return render_template("lista_espera/lista_espera.html")
+def lista_espera_existe_repo(codLE):
+    listas_espera = read_db(USERS_DB_URI)
+    if isinstance(listas_espera, list):
+        return any(lista_espera["codLE"] == codLE for lista_espera in listas_espera)
+    return False
 
-@lista_espera.route('/cria_lista_espera', methods=['POST'])
-def cria_lista_espera():
-    codLE = request.form['codLE']
-    filial = request.form['filial']
-    curso = request.form['curso']
-    horario = request.form['horario']
-    matrProf = request.form['matrProf']
-    numMinimo = request.form['num_minimo']
-    tempo_desde_ultima_adicao = request.form['tempo_desde_ultima_adicao']
+def cria_lista_espera_repo(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
+    if lista_espera_existe_repo(codLE):
+        return 1  # Lista de espera já existe // database.py >write_db->return == -1
+    lista = {
+        "codLE": codLE,
+        "filial": filial,
+        "curso": curso,
+        "horario": horario,
+        "matrProf": matrProf,
+        "numMinimo": numMinimo,
+        "tempo_desde_ultima_adicao": tempo_desde_ultima_adicao,
+        "alunos": []
+    }
+    return write_db([lista], "codLE", USERS_DB_URI)
 
-    result = cria_lista_espera_service(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
+def consulta_lista_espera_repo(codLE):
+    listas_espera = read_db(USERS_DB_URI)
+    if isinstance(listas_espera, list):
+        for lista_espera in listas_espera:
+            if lista_espera["codLE"] == codLE:
+                return lista_espera
+    return {}
 
-    if result == 1:
-        flash('Lista de Espera criada com sucesso!')
-    elif result == -1:
-        flash('Erro: Chave primaria ja existe.')
-    elif result == -2:
-        flash('Erro nao mapeado, nao foi possivel salvar a lista de espera.')
-    elif result == -3:
-        flash('Erro: Objeto a ser inserido tem chaves diferentes do banco.')
-    elif result == -4:
-        flash('Erro: Nao foi possivel acessar o banco de dados.')
-    else:
-        flash('Erro desconhecido.')
+def aluno_existe_repo(matrAluno):
+    # ver se aluno existe no banco de dados, nn na lista de espera
+    #sucesso -> return True // database.py >read_db->return == 1
+    #falha -> return False // database.py >read_db->return == -1
+    #falha: nao achou banco de dados-> return False // database.py >read_db->return == -4
+    return True
 
-    return redirect(url_for('lista_espera.pagina_lista'))
+def add_aluno_lista_espera_repo(matrAluno, codLE):
+    listas_espera = read_db(USERS_DB_URI)
+    if isinstance(listas_espera, list):
+        for lista_espera in listas_espera:
+            if lista_espera["codLE"] == codLE:
+                if matrAluno not in lista_espera["alunos"]:
+                    lista_espera["alunos"].append(matrAluno)
+                    return update_db(lista_espera, "codLE", USERS_DB_URI)
+                return 80  # Aluno já está na lista // database.py >write_db->return == -1
 
-@lista_espera.route('/lista_espera/<codLE>', methods=['GET'])
-def consulta_lista_espera(codLE):
-    result = consulta_lista_espera_service(codLE)
-    return jsonify(result)
+    return 71  # Lista de espera não encontrada // database.py >update_dp->return == -4
 
-@lista_espera.route('/adiciona_aluno', methods=['POST'])
-def adiciona_aluno_lista_espera():
-    codLE = request.form['codLE_add']
-    matrAluno = request.form['matrAluno_add']
+def remove_aluno_lista_espera_repo(matrAluno, codLE):
+    listas_espera = read_db(USERS_DB_URI)
+    if isinstance(listas_espera, list):
+        for lista_espera in listas_espera:
+            if lista_espera["codLE"] == codLE:
+                if matrAluno in lista_espera["alunos"]:
+                    lista_espera["alunos"].remove(matrAluno)
+                    return update_db(lista_espera, "codLE", USERS_DB_URI) #sucesso // database.py >update->return == 1
+                return 100  # Aluno não está na lista // database.py >update->return == -1
+    return 101  # Lista de espera não encontrada // database.py >update_dp->return == -1
 
-    result = add_aluno_lista_espera_service(matrAluno, codLE)
-
-    if result == 9:
-        flash('Aluno adicionado com sucesso!')
-    elif result == 80:
-        flash('Aluno ja esta na lista.')
-    elif result == 71:
-        flash('Lista de espera nao encontrada.')
-    else:
-        flash('Erro desconhecido ao adicionar aluno.')
-
-    return redirect(url_for('lista_espera.pagina_lista'))
-
-@lista_espera.route('/remove_aluno', methods=['POST'])
-def remove_aluno_lista_espera():
-    codLE = request.form['codLE_remove_aluno']
-    matrAluno = request.form['matrAluno_remove']
-
-    result = remove_aluno_lista_espera_service(matrAluno, codLE)
-
-    if result == 9:
-        flash('Aluno removido com sucesso!')
-    else:
-        flash('Erro ao remover aluno.')
-
-    return redirect(url_for('lista_espera.pagina_lista'))
-
-@lista_espera.route('/exclui_lista_espera', methods=['POST'])
-def exclui_lista_espera():
-    codLE = request.form['codLE_delete']
-    cria_turma = 'cria_turma' in request.form
-
-    result = exclui_lista_espera_service(codLE, cria_turma)
-
-    if result == 9:
-        flash('Lista de Espera excluida com sucesso!')
-    else:
-        flash('Erro ao excluir lista de espera.')
-
-    return redirect(url_for('lista_espera.pagina_lista'))
+def exclui_lista_espera_repo(codLE, cria_turma):
+    listas_espera = read_db(USERS_DB_URI)
+    if isinstance(listas_espera, list):
+        for lista_espera in listas_espera:
+            if lista_espera["codLE"] == codLE:
+                return delete_db(lista_espera, "codLE", USERS_DB_URI) #sucesso // database.py >delete_db->return == 1
+    return 10  # Lista de espera não encontrada // database.py >delete_db->return == -1
     
