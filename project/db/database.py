@@ -95,16 +95,16 @@ def delete_db(object:object, primaryKey:str,  pathToFile: str) -> int:
             if index is not None:
                 del data["data"][index]
             else:
-                return -1
+                return -1 #nao encontrou objeto
             
             with open(pathToFile, mode="w") as jsonFile:
                 json.dump(data, jsonFile)
             
-            return 1
+            return 1 #sucesso
         
         except Exception as ex:
             print(ex)
-            return -2
+            return -2 # Erro nao mapeado
     
     else:
         return -4 # Nao achou db
