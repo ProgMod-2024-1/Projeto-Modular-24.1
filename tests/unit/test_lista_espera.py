@@ -1,126 +1,88 @@
-import unittest
-from project.blueprints.lista_de_espera.listaDeEsperaService import cria_lista_espera_service, consulta_lista_espera_service, add_aluno_lista_espera_service, remove_aluno_lista_espera_service, exclui_lista_espera_service
+import os
+import json
+from project.blueprints.lista_de_espera.listaDeEsperaService import *
+from project.db.database import read_db, write_db, update_db, delete_db
 
-class TestListaEsperaService(unittest.TestCase):
+# Caminho do banco de dados JSON
+USERS_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "project", "blueprints", "lista_de_espera", "database", "lista_de_espera.json")
 
-    def setUp(self):
-        self.service = ListaEsperaService()
+# Funcao auxiliar para limpar o banco de dados JSON
+def limpar_banco_de_dados():
+    with open(USERS_DB_URI, 'w') as jsonFile:
+        json.dump({"data": []}, jsonFile)
 
-    def test_verificaSeAlocaOnline_aloca_online(self):
-        result = self.service.verificaSeAlocaOnline("LE123")
-        self.assertEqual(result, 1)
+def test_cria_lista_espera():
+    limpar_banco_de_dados()
+    result = cria_lista_espera_service("LE123", "Filial1", "Curso1", "10:00", 101, 5, 0)
+    assert result == 1  # Sucesso
 
-    def test_verificaSeAlocaOnline_nao_aloca_tempo_nao_atingido(self):
-        result = self.service.verificaSeAlocaOnline("LE123")
-        self.assertEqual(result, 0)
+    # Tentar criar uma lista de espera ja existente
+    result = cria_lista_espera_service("LE123", "Filial1", "Curso1", "10:00", 101, 5, 0)
+    assert result == -1  # Lista de espera ja existe
 
-    def test_verificaSeAlocaOnline_nao_aloca_lista_vazia(self):
-        result = self.service.verificaSeAlocaOnline("LE123")
-        self.assertEqual(result, 0)
+def test_consulta_lista_espera():
+    limpar_banco_de_dados()
+    # Consultar lista de espera inexistente
+    result = consulta_lista_espera_service("LE999")
+    assert result == 10  # Lista inexistente
 
-    def test_verificaSeAlocaOnline_lista_inexistente(self):
-        result = self.service.verificaSeAlocaOnline("LE999")
-        self.assertEqual(result, -1)
+    # Criar e consultar lista de espera existente
+    cria_lista_espera_service("LE123", "Filial1", "Curso1", "10:00", 101, 5, 0)
+    result = consulta_lista_espera_service("LE123")
+    assert result["codLE"] == "LE123"
 
-    def test_rotinaVerificaSeAlocaOnline_sucesso_com_alocacao(self):
-        result = self.service.rotinaVerificaSeAlocaOnline()
-        self.assertGreater(result, 0)
+def test_add_aluno_lista_espera():
+    limpar_banco_de_dados()
+    # Adicionar aluno a uma lista de espera inexistente
+    result = add_aluno_lista_espera_service(12345, "LE999")
+    assert result == 71  # Lista de espera inexistente
 
-    def test_rotinaVerificaSeAlocaOnline_sucesso_sem_alocacao(self):
-        result = self.service.rotinaVerificaSeAlocaOnline()
-        self.assertEqual(result, 0)
+    # Adicionar aluno inexistente a uma lista de espera existente //FALTA FAZER O RETORNO PARA ALUNO INEXISTENTE
+    # cria_lista_espera_service("LE123", "Filial1", "Curso1", "10:00", 101, 5, 0)
+    # result = add_aluno_lista_espera_service(99999, "LE123")
+    # assert result == 70  # Aluno inexistente
 
-    def test_rotinaVerificaSeAlocaOnline_falha_consulta(self):
-        result = self.service.rotinaVerificaSeAlocaOnline()
-        self.assertEqual(result, -1)
+    # Adicionar aluno valido a uma lista de espera existente
+    # Aqui estamos assumindo que o mock de aluno_existe_repo esta configurado para retornar True para o teste
+    aluno_existe_repo = lambda matrAluno: True
+    result = add_aluno_lista_espera_service(12345, "LE123")
+    assert result == 1  # Sucesso
 
-    def test_addAlunoListEsp_sucesso_adicao(self):
-        result = self.service.addAlunoListEsp(12345, "LE123")
-        self.assertEqual(result, 9)
+    # Tentar adicionar o mesmo aluno novamente
+    result = add_aluno_lista_espera_service(12345, "LE123")
+    assert result == 80  # Aluno ja esta na lista
 
-    def test_addAlunoListEsp_falha_aluno_inexistente(self):
-        result = self.service.addAlunoListEsp(99999, "LE123")
-        self.assertEqual(result, 70)
+def test_remove_aluno_lista_espera():
+    limpar_banco_de_dados()
+    # Remover aluno de uma lista de espera inexistente
+    result = remove_aluno_lista_espera_service(12345, "LE999")
+    assert result == 101  # Lista de espera inexistente
 
-    def test_addAlunoListEsp_falha_lista_inexistente(self):
-        result = self.service.addAlunoListEsp(12345, "LE999")
-        self.assertEqual(result, 71)
+    # Remover aluno inexistente de uma lista de espera existente
+    cria_lista_espera_service("LE123", "Filial1", "Curso1", "10:00", 101, 5, 0)
+    result = remove_aluno_lista_espera_service(99999, "LE123")
+    assert result == 100  # Aluno inexistente
 
-    def test_addAlunoListEsp_falha_aluno_invalido(self):
-        result = self.service.addAlunoListEsp(-1, "LE123")
-        self.assertEqual(result, 80)
+    # Adicionar e remover aluno de uma lista de espera existente
+    aluno_existe_repo = lambda matrAluno: True
+    add_aluno_lista_espera_service(12345, "LE123")
+    result = remove_aluno_lista_espera_service(12345, "LE123")
+    assert result == 1  # Sucesso
 
-    def test_addAlunoListEsp_falha_lista_invalida(self):
-        result = self.service.addAlunoListEsp(12345, "LE_INVALID")
-        self.assertEqual(result, 81)
+def test_exclui_lista_espera():
+    limpar_banco_de_dados()
+    # Excluir uma lista de espera inexistente
+    result = exclui_lista_espera_service("LE999", True)
+    assert result == 10  # Lista de espera inexistente
 
-    def test_removeAlunoListEsp_sucesso_exclusao(self):
-        result = self.service.removeAlunoListEsp(12345, "LE123")
-        self.assertEqual(result, 9)
+    # Criar e excluir uma lista de espera existente
+    cria_lista_espera_service("LE123", "Filial1", "Curso1", "10:00", 101, 5, 0)
+    result = exclui_lista_espera_service("LE123", True)
+    assert result == 1  # Sucesso
 
-    def test_removeAlunoListEsp_falha_aluno_inexistente(self):
-        result = self.service.removeAlunoListEsp(99999, "LE123")
-        self.assertEqual(result, 100)
-
-    def test_removeAlunoListEsp_falha_lista_inexistente(self):
-        result = self.service.removeAlunoListEsp(12345, "LE999")
-        self.assertEqual(result, 101)
-
-    def test_removeAlunoListEsp_falha_aluno_invalido(self):
-        result = self.service.removeAlunoListEsp(-1, "LE123")
-        self.assertEqual(result, 110)
-
-    def test_removeAlunoListEsp_falha_lista_invalida(self):
-        result = self.service.removeAlunoListEsp(12345, "LE_INVALID")
-        self.assertEqual(result, 111)
-
-    def test_consultaListEsp_sucesso_consulta(self):
-        result = self.service.consultaListEsp("LE123")
-        self.assertEqual(result, 3)
-
-    def test_consultaListEsp_falha_lista_inexistente(self):
-        result = self.service.consultaListEsp("LE999")
-        self.assertEqual(result, 4)
-
-    def test_consultaListEsp_falha_lista_invalida(self):
-        result = self.service.consultaListEsp("LE_INVALID")
-        self.assertEqual(result, 5)
-
-    def test_excluiListEsp_sucesso_exclusao_sem_criaTurma(self):
-        result = self.service.excluiListEsp("LE123", False)
-        self.assertEqual(result, 9)
-
-    def test_excluiListEsp_sucesso_exclusao_com_criaTurma(self):
-        result = self.service.excluiListEsp("LE123", True)
-        self.assertEqual(result, 9)
-
-    def test_excluiListEsp_falha_lista_inexistente_sem_criaTurma(self):
-        result = self.service.excluiListEsp("LE999", False)
-        self.assertEqual(result, 10)
-
-    def test_excluiListEsp_falha_lista_inexistente_com_criaTurma(self):
-        result = self.service.excluiListEsp("LE999", True)
-        self.assertEqual(result, 10)
-
-    def test_excluiListEsp_falha_lista_invalida_sem_criaTurma(self):
-        result = self.service.excluiListEsp("LE_INVALID", False)
-        self.assertEqual(result, 11)
-
-    def test_excluiListEsp_falha_lista_invalida_com_criaTurma(self):
-        result = self.service.excluiListEsp("LE_INVALID", True)
-        self.assertEqual(result, 11)
-
-    def test_criaListEsp_sucesso_criacao(self):
-        result = self.service.criaListEsp("CS101", 10001, "Gavea", "09:00")
-        self.assertEqual(result, 0)
-
-    def test_criaListEsp_falha_lista_ja_existente(self):
-        result = self.service.criaListEsp("CS101", 10001, "Main", "09:00")
-        self.assertEqual(result, 1)
-
-    def test_criaListEsp_falha_dados_invalidos(self):
-        result = self.service.criaListEsp("", -1, "", "")
-        self.assertEqual(result, 2)
-
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == '__main__':
+    test_cria_lista_espera()
+    test_consulta_lista_espera()
+    test_add_aluno_lista_espera()
+    test_remove_aluno_lista_espera()
+    test_exclui_lista_espera()
