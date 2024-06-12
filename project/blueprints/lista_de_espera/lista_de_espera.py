@@ -64,24 +64,24 @@ def remove_aluno_lista_espera():
 
     result = remove_aluno_lista_espera_service(matrAluno, codLE)
 
-    if result == 1:
-        flash('Lista de Espera criada com sucesso!')
+    if result == 9:
+        flash('Aluno removido com sucesso!')
+    elif result == 100:
+        flash('Aluno inexistente.')
+    elif result == 101:
+        flash('Lista de espera inexistente.')
+    elif result == 71:
+        flash('Lista de espera nao encontrada.')
+    elif result == 80:
+        flash('Aluno nao encontrado na lista.')
     elif result == -1:
-        flash('Erro: Lista de Espera ja existe.')
-    elif result == 102:
-        flash('Erro: Filial invalida.')
-    elif result == 103:
-        flash('Erro: Curso invalido.')
-    elif result == 104:
-        flash('Erro: Matricula do professor invalida.')
+        flash('Erro ao remover aluno: Objeto nao encontrado.')
     elif result == -2:
-        flash('Erro nao mapeado, nao foi possível salvar a lista de espera.')
-    elif result == -3:
-        flash('Erro: Objeto a ser inserido tem chaves diferentes do banco.')
+        flash('Erro ao remover aluno: Erro nao mapeado.')
     elif result == -4:
-        flash('Erro: Nao foi possível acessar o banco de dados.')
+        flash('Erro ao remover aluno: Banco de dados nao encontrado.')
     else:
-        flash('Erro desconhecido.')
+        flash('Erro desconhecido ao remover aluno.')
 
     return redirect(url_for('lista_espera.pagina_lista'))
 

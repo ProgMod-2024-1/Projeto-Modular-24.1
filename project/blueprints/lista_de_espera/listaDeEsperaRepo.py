@@ -12,7 +12,7 @@ def lista_espera_existe_repo(codLE):
 
 def cria_lista_espera_repo(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
     if lista_espera_existe_repo(codLE):
-        return 1  # Lista de espera jÃ¡ existe // database.py >write_db->return == -1
+        return 1  # Lista de espera já existe // database.py >write_db->return == -1
     lista = {
         "codLE": codLE,
         "filial": filial,

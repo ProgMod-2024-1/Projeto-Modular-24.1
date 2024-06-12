@@ -50,4 +50,3 @@ def exclui_lista_espera_service(codLE, cria_turma):
         return 9  # Sucesso
     else:
         return result  # Retorna o código de erro diretamente
-
