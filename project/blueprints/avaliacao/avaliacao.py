@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect, request, flash, url_for, jsonify
-from project.blueprints.avaliacao.avaliacaoService import get_avaliacoes, registra_avaliacoes, seek_avaliacoes, muda_avaliacoes, deleta_avaliacoes
+from project.blueprints.avaliacao.avaliacaoService import get_avaliacoes, registra_avaliacoes, seek_avaliacoes, muda_avaliacoes, deleta_avaliacoes, lanca_avaliacoes
 from flask_login import current_user
 
 
@@ -219,3 +219,23 @@ def deletar_correcoes_route():
 
 
     return redirect(url_for('.ver_info_avaliacoes_route', turma=turma, codAval=codAval, curso=curso))
+
+
+
+#Rota para lançar uma correção
+@avaliacao.route("/lancar_avaliacao")
+def lancar_avaliacoes_route():
+
+    turma = request.args.get('turma')
+    codAval = request.args.get('codAval')
+    curso = request.args.get('curso')
+
+    result = lanca_avaliacoes(turma, codAval, curso)
+
+    if(result["success"] == 1):
+        flash(result["message"], "success")
+    else:
+        flash(result["message"], "danger")
+
+
+    return redirect(url_for('.mostrar_avaliacoes_route'))

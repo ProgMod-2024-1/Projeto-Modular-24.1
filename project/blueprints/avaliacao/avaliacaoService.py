@@ -82,3 +82,28 @@ def deleta_avaliacoes(avaliacao):
                 "message": "Ocorreu um erro ao deletar a avaliação. Tente novamente mais tarde",
                 "user":{}
                 }
+    
+
+#Lança uma avaliação
+def lanca_avaliacoes(turma, codAval, curso):
+
+    aval = seek_avaliacao(turma, codAval, curso)
+
+    for correcao in aval["correcoes"]:
+        #!chamada da função addAvalAluno
+        pass
+
+    result = 1
+
+    if result == 1:
+        return {
+                "success": 1,
+                "message": "Avaliação lançada com sucesso",
+                "user":{}
+                }
+    else:
+        return {
+                "success": 0,
+                "message": "Ocorreu um erro ao lançar a avaliação. Tente novamente mais tarde",
+                "user":{}
+                }
