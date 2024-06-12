@@ -1,10 +1,10 @@
 [
     {
-        "nome": "Mat",
-        "descricao": "mateaa",
-        "codigo": "inf4856",
-        "pre_requisitos": "viver",
-        "creditos": "80",
-        "criterios_aprovacao": "sei la mano"
+        "nome": "Programação Modular",
+        "descricao": "Flavio",
+        "codigo": "inf1040",
+        "pre_requisitos": "existir",
+        "creditos": "4",
+        "criterios_aprovacao": "Levar nove 4+ seguidos no uno"
     }
 ]
