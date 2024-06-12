@@ -1,9 +1,9 @@
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
-from blueprints.lista_de_espera.lista_de_espera import lista_espera
-from blueprints.principal.principal import principal
-from blueprints.principal.principalRepo import get_user
-from blueprints.principal.principalService import User
+from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
+from project.blueprints.principal.principal import principal
+from project.blueprints.principal.principalRepo import get_user
+from project.blueprints.principal.principalService import User
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.register_blueprint(principal, url_prefix='/principal')
