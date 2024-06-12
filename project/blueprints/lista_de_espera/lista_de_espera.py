@@ -22,7 +22,7 @@ def cria_lista_espera():
     if result == 1:
         flash('Lista de Espera criada com sucesso!')
     elif result == -1:
-        flash('Erro: Chave primaria ja existe.')
+        flash('Erro: Lista de Espera ja existe.')
     elif result == -2:
         flash('Erro nao mapeado, nao foi possivel salvar a lista de espera.')
     elif result == -3:
@@ -66,8 +66,22 @@ def remove_aluno_lista_espera():
 
     if result == 9:
         flash('Aluno removido com sucesso!')
+    elif result == 100:
+        flash('Aluno inexistente.')
+    elif result == 101:
+        flash('Lista de espera inexistente.')
+    elif result == 71:
+        flash('Lista de espera nao encontrada.')
+    elif result == 80:
+        flash('Aluno nao encontrado na lista.')
+    elif result == -1:
+        flash('Erro ao remover aluno: Objeto nao encontrado.')
+    elif result == -2:
+        flash('Erro ao remover aluno: Erro nao mapeado.')
+    elif result == -4:
+        flash('Erro ao remover aluno: Banco de dados nao encontrado.')
     else:
-        flash('Erro ao remover aluno.')
+        flash('Erro desconhecido ao remover aluno.')
 
     return redirect(url_for('lista_espera.pagina_lista'))
 
@@ -80,8 +94,14 @@ def exclui_lista_espera():
 
     if result == 9:
         flash('Lista de Espera excluida com sucesso!')
+    elif result == 101:
+        flash('Lista de espera nao encontrada.')
+    elif result == -1:
+        flash('Erro ao excluir lista de espera: Lista nao encontrada.')
+    elif result == -4:
+        flash('Erro ao excluir lista de espera: Banco de dados nao encontrado.')
     else:
-        flash('Erro ao excluir lista de espera.')
+        flash('Erro desconhecido ao excluir lista de espera.')
 
     return redirect(url_for('lista_espera.pagina_lista'))
     
