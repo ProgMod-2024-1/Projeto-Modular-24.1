@@ -1,4 +1,10 @@
-{
-    "data":[
-    ]
-}
+[
+    {
+        "nome": "Mat",
+        "descricao": "mateaa",
+        "codigo": "inf4856",
+        "pre_requisitos": "viver",
+        "creditos": "80",
+        "criterios_aprovacao": "sei la mano"
+    }
+]

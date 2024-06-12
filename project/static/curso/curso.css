@@ -1,0 +1,34 @@
+/* Estilo para a lista de cursos */
+.curso-lista {
+    list-style-type: none;
+    padding: 0;
+}
+
+.curso-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.curso-item h2 {
+    margin-top: 0;
+}
+
+.curso-item p {
+    margin-bottom: 0;
+}
+
+.btn-criar-curso {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-criar-curso:hover {
+    background-color: #0056b3;
+}
