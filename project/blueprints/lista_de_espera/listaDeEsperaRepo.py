@@ -12,7 +12,7 @@ def lista_espera_existe_repo(codLE):
 
 def cria_lista_espera_repo(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
     if lista_espera_existe_repo(codLE):
-        return 1  # Lista de espera já existe // database.py >write_db->return == -1
+        return 1  # Lista de espera jÃ¡ existe // database.py >write_db->return == -1
     lista = {
         "codLE": codLE,
         "filial": filial,
@@ -48,9 +48,9 @@ def add_aluno_lista_espera_repo(matrAluno, codLE):
                 if matrAluno not in lista_espera["alunos"]:
                     lista_espera["alunos"].append(matrAluno)
                     return update_db(lista_espera, "codLE", USERS_DB_URI)
-                return 80  # Aluno já está na lista // database.py >write_db->return == -1
+                return 80  # Aluno ja esta na lista // database.py >write_db->return == -1
 
-    return 71  # Lista de espera não encontrada // database.py >update_dp->return == -4
+    return 71  # Lista de espera nao encontrada // database.py >update_dp->return == -4
 
 def remove_aluno_lista_espera_repo(matrAluno, codLE):
     listas_espera = read_db(USERS_DB_URI)
@@ -59,15 +59,22 @@ def remove_aluno_lista_espera_repo(matrAluno, codLE):
             if lista_espera["codLE"] == codLE:
                 if matrAluno in lista_espera["alunos"]:
                     lista_espera["alunos"].remove(matrAluno)
-                    return update_db(lista_espera, "codLE", USERS_DB_URI) #sucesso // database.py >update->return == 1
-                return 100  # Aluno não está na lista // database.py >update->return == -1
-    return 101  # Lista de espera não encontrada // database.py >update_dp->return == -1
+                    return update_db(lista_espera, "codLE", USERS_DB_URI)
+                return 80  # Aluno nao encontrado na lista
+    return 71  # Lista de espera nao encontrada
 
-def exclui_lista_espera_repo(codLE, cria_turma):
+def exclui_lista_espera_repo(codLE):
     listas_espera = read_db(USERS_DB_URI)
     if isinstance(listas_espera, list):
-        for lista_espera in listas_espera:
-            if lista_espera["codLE"] == codLE:
-                return delete_db(lista_espera, "codLE", USERS_DB_URI) #sucesso // database.py >delete_db->return == 1
-    return 10  # Lista de espera não encontrada // database.py >delete_db->return == -1
+        index = next((i for i, lista_espera in enumerate(listas_espera) if lista_espera["codLE"] == codLE), None)
+        
+        if index is not None:
+            del listas_espera[index]
+            
+            with open(USERS_DB_URI, mode="w") as jsonFile:
+                json.dump({"data": listas_espera}, jsonFile)
+            
+            return 1  # Sucesso
+        return -1  # Lista de espera nao encontrada
+    return -4  # Erro ao acessar o banco de dados
     
