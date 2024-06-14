@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .top-left-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+       form {
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: 48%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <a href="http://127.0.0.1:5000/turma/consulta" class="top-left-button">Voltar para página da Turma</a>
+
+
+    <h2>Aluno</h2>
+    <form method="POST">
+        <input type="text" name="turma" placeholder="Codigo da Turma">
+        <input type="text" name="matricula" placeholder="Codigo do Aluno">
+        <button type="submit" name="atualizar">Adicionar</button>
+        <button type="submit" name="apagar">Apagar</button>
+    </form>
+</body>
+</html>

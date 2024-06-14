@@ -1,4 +1,18 @@
 {
-    "data":[
+    "data": [
+        {
+            "cod_turma": "1",
+            "cod_curso": "23",
+            "professor": "flavinho do pneu",
+            "horario": "07:00",
+            "online": "off",
+            "filial": "1",
+            "alunos": [
+                {
+                    "matricula": "1",
+                    "nome": "Joao"
+                }
+            ]
+        }
     ]
 }

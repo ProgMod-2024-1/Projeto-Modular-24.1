@@ -1,4 +1,6 @@
+from project.blueprints.principal import principalRepo
 from project.blueprints.principal.principal import principal
+from project.blueprints.turma.turma import app_turmas
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from project.blueprints.principal.principalRepo import get_user
@@ -6,6 +8,7 @@ from project.blueprints.principal.principalService import User
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.register_blueprint(principal)
+app.register_blueprint(app_turmas)
 app.secret_key = "senhaSecreta"
 login_manager = LoginManager()
 login_manager.init_app(app)
