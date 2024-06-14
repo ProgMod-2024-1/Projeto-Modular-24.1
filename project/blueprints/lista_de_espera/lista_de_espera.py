@@ -10,14 +10,14 @@ def pagina_lista():
 @lista_espera.route('/cria_lista_espera', methods=['POST'])
 def cria_lista_espera():
     codLE = request.form['codLE']
-    filial = request.form['filial']
-    curso = request.form['curso']
+    nomeFili = request.form['nomeFili']
+    codCurso = request.form['codCurso']
     horario = request.form['horario']
     matrProf = request.form['matrProf']
     numMinimo = request.form['num_minimo']
     tempo_desde_ultima_adicao = request.form['tempo_desde_ultima_adicao']
 
-    result = cria_lista_espera_service(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
+    result = cria_lista_espera_service(codLE, nomeFili, codCurso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
 
     if result == 1:
         flash('Lista de Espera criada com sucesso!')
@@ -104,4 +104,5 @@ def exclui_lista_espera():
         flash('Erro desconhecido ao excluir lista de espera.')
 
     return redirect(url_for('lista_espera.pagina_lista'))
+
     

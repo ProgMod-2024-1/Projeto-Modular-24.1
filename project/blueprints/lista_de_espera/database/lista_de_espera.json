@@ -1,1 +1,1 @@
-{"data": [{"codLE": "LET123", "filial": "BOTAFOGO", "curso": "ENG", "horario": "12:00", "matrProf": "1234", "numMinimo": "5", "tempo_desde_ultima_adicao": "1", "alunos": []}]}
+{"data": [{"codLE": "LET123", "nomeFili": "BOTAFOGO", "codCurso": "ENG", "horario": "12:00", "matrProf": "1234", "numMinimo": "5", "tempo_desde_ultima_adicao": "1", "alunos": [{"matrAluno": "5678"}]}, {"codLE": "222", "nomeFili": "12", "codCurso": "123", "horario": "22:22", "matrProf": "21312", "numMinimo": "3123", "tempo_desde_ultima_adicao": "123", "alunos": [{"matrAluno": "123333"}]}]}

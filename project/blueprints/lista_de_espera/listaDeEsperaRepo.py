@@ -10,13 +10,13 @@ def lista_espera_existe_repo(codLE):
         return any(lista_espera["codLE"] == codLE for lista_espera in listas_espera)
     return False
 
-def cria_lista_espera_repo(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
+def cria_lista_espera_repo(codLE, nomeFili, codCurso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
     if lista_espera_existe_repo(codLE):
         return 1  # Lista de espera já existe // database.py >write_db->return == -1
     lista = {
         "codLE": codLE,
-        "filial": filial,
-        "curso": curso,
+        "nomeFili": nomeFili,
+        "codCurso": codCurso,
         "horario": horario,
         "matrProf": matrProf,
         "numMinimo": numMinimo,
@@ -45,8 +45,8 @@ def add_aluno_lista_espera_repo(matrAluno, codLE):
     if isinstance(listas_espera, list):
         for lista_espera in listas_espera:
             if lista_espera["codLE"] == codLE:
-                if matrAluno not in lista_espera["alunos"]:
-                    lista_espera["alunos"].append(matrAluno)
+                if not any(aluno["matrAluno"] == matrAluno for aluno in lista_espera["alunos"]):
+                    lista_espera["alunos"].append({"matrAluno": matrAluno})
                     return update_db(lista_espera, "codLE", USERS_DB_URI)
                 return 80  # Aluno ja esta na lista // database.py >write_db->return == -1
 
@@ -57,8 +57,8 @@ def remove_aluno_lista_espera_repo(matrAluno, codLE):
     if isinstance(listas_espera, list):
         for lista_espera in listas_espera:
             if lista_espera["codLE"] == codLE:
-                if matrAluno in lista_espera["alunos"]:
-                    lista_espera["alunos"].remove(matrAluno)
+                if any(aluno["matrAluno"] == matrAluno for aluno in lista_espera["alunos"]):
+                    lista_espera["alunos"] = [aluno for aluno in lista_espera["alunos"] if aluno["matrAluno"] != matrAluno]
                     return update_db(lista_espera, "codLE", USERS_DB_URI)
                 return 80  # Aluno nao encontrado na lista
     return 71  # Lista de espera nao encontrada
@@ -77,4 +77,5 @@ def exclui_lista_espera_repo(codLE):
             return 1  # Sucesso
         return -1  # Lista de espera nao encontrada
     return -4  # Erro ao acessar o banco de dados
+
     
