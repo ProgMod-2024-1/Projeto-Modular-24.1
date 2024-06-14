@@ -3,6 +3,7 @@ from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from project.blueprints.principal.principalRepo import get_user
 from project.blueprints.principal.principalService import User
+from project.blueprints.aluno.aluno import aluno
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.register_blueprint(principal)
@@ -14,6 +15,8 @@ login_manager.login_view = 'principal.user_login'
 @app.route("/")
 def access():
     return redirect(url_for('principal.pagina_principal'))
+
+app.register_blueprint(aluno)
 
 @login_manager.user_loader
 def load_user(user_id):

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='aluno/aluno_criar.css') }}">
+
+    <title>Criar Aluno</title>
+</head>
+<body>
+    <h1>Criar Aluno</h1>
+    <form action="{{ url_for('aluno.criar_dados_aluno') }}" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+
+        
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required><br>
+
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" required><br>
+
+        <label for="preferencias_filiais">Preferências de Filiais:</label>
+        <input type="text" id="preferencias_filiais" name="preferencias_filiais" required><br>
+
+        <label for="cursos_e_formacoes_feitas">Cursos e Formações Feitas:</label>
+        <input type="text" id="cursos_e_formacoes_feitas" name="cursos_e_formacoes_feitas" required><br>
+
+        <label for="cursos_avulsos">Cursos Avulsos:</label>
+        <input type="text" id="cursos_avulsos" name="cursos_avulsos" required><br>
+
+        <label for="formacoes_atuais">Formações Atuais:</label>
+        <input type="text" id="formacoes_atuais" name="formacoes_atuais" required><br>
+
+        <label for="lista_espera">Lista de Espera:</label>
+        <input type="text" id="lista_espera" name="lista_espera" required><br>
+
+        <button type="submit">Criar Aluno</button>
+    </form>
+
+    <a href="{{ url_for('aluno.pagina_criar_aluno') }}" class="btn-voltar-aluno">Voltar para a Lista de Alunos</a>
+</body>
+</html>
