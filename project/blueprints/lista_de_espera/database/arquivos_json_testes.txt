@@ -1,0 +1,42 @@
+TESTE CRIA TURMA COM NUM MIN DE ALUNOS ATINGIDO--->TURMA PRESENCIAL:
+{
+    "data": [
+        {
+            "codLE": "LET123",
+            "filial": "BOTAFOGO",
+            "curso": "ENG",
+            "horario": "12:00",
+            "matrProf": "1234",
+            "numMinimo": "5",
+            "tempo_desde_ultima_adicao": "1",
+            "alunos": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+            ]
+        }
+    ]
+}
+TESTE CRIA TURMA COM NUM MIN DE ALUNOS NAO ATINGIDO----> TURMA ONLINE
+{
+    "data": [
+        {
+            "codLE": "LET123",
+            "filial": "BOTAFOGO",
+            "curso": "ENG",
+            "horario": "12:00",
+            "matrProf": "1234",
+            "numMinimo": "5",
+            "tempo_desde_ultima_adicao": "1",
+            "alunos": [
+                "1",
+                "2",
+                "3",
+                "4"
+            ]
+        }
+    ]
+}
