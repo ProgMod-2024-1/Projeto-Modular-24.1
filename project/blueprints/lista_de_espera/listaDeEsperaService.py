@@ -14,11 +14,11 @@ def cria_lista_espera_service(codLE, nomeFili, codCurso, horario, matrProf, numM
         #     return 104  # Professor inexistente
         return cria_lista_espera_repo(codLE, nomeFili, codCurso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)  # sucesso
     return -1  # Lista de espera já existe
-    
+
+
 def consulta_lista_espera_service(codLE):
-    if not lista_espera_existe_repo(codLE):
-        return 10  # Lista inexistente // database.py >read_db->return == -1
-    return consulta_lista_espera_repo(codLE) # sucesso // database.py >read_db->return == 1
+    lista_espera = consulta_lista_espera_repo(codLE)
+    return lista_espera
 
 def add_aluno_lista_espera_service(matrAluno, codLE): 
     result = add_aluno_lista_espera_repo(matrAluno, codLE)

@@ -21,16 +21,16 @@
               <div  id="create-lista-espera-form-container" data-parent="#accordion">
                 <form action="{{ url_for('lista_espera.cria_lista_espera') }}" method="POST">
                   <div class="form-group">
-                    <label for="codLE">Codigo</label>
+                    <label for="codLE">Codigo Lista de Espera</label>
                     <input type="text" class="form-control" id="codLE" name="codLE" placeholder="codLE" required>
                   </div>
                   <div class="form-group">
-                    <label for="filial">Filial</label>
-                    <input type="text" class="form-control" id="filial" name="filial" placeholder="Filial" required>
+                    <label for="nomeFili">Filial</label>
+                    <input type="text" class="form-control" id="nomeFili" name="nomeFili" placeholder="Filial" required>
                   </div>
                   <div class="form-group">
-                    <label for="curso">Curso</label>
-                    <input type="text" class="form-control" id="curso" name="curso" placeholder="Curso" required>
+                    <label for="codCurso">Codigo do Curso</label>
+                    <input type="text" class="form-control" id="codCurso" name="codCurso" placeholder="Curso" required>
                   </div>
                   <div class="form-group">
                     <label for="horario">Horario</label>
@@ -105,6 +105,16 @@
                   <button type="submit" class="btn btn-primary mt-3">Excluir Lista de Espera</button>
                 </form>
               </div>
+            </section>
+            <section class="mt-5">
+              <h2>Consultar Lista de Espera</h2>
+              <form action="{{ url_for('lista_espera.consulta_lista_espera') }}" method="GET">
+                <div class="form-group">
+                  <label for="codLE_consulta">Codigo da Lista de Espera</label>
+                  <input type="text" class="form-control" id="codLE_consulta" name="codLE" placeholder="Codigo da Lista de Espera" required>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Consultar Lista de Espera</button>
+              </form>
             </section>
           </div>
         </div>
