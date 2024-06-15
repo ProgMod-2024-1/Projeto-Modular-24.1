@@ -1,4 +1,4 @@
-#!/home/leo/Documentos/PUC-RIO/Projeto-Modular-24.1/.venv./bin/python
+#!/home/leo/Documentos/GitHub/Projeto-Modular-24.1/.venv./bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
