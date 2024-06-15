@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .cursoRepo import salvar_curso, ler_cursos
+from .cursoRepo import salvar_curso, ler_cursos, consultar_curso, excluir_curso, atualizar_curso, validar_codigo
 from .cursoService import register_pre_requisito, register_professor_disponivel
 from flask_login import current_user
+
 
 curso = Blueprint('curso', __name__, url_prefix='/curso')
 
@@ -22,6 +23,7 @@ def criar_curso():
     pre_requisitos = request.form['pre_requisitos']
     creditos = request.form['creditos']
     criterios_aprovacao = request.form['criterios_aprovacao']
+    nota = request.form['nota']
 
     novo_curso = {
         'nome': nome,
@@ -29,7 +31,8 @@ def criar_curso():
         'codigo': codigo,
         'pre_requisitos': pre_requisitos,
         'creditos': creditos,
-        'criterios_aprovacao': criterios_aprovacao
+        'criterios_aprovacao': criterios_aprovacao,
+        'nota': nota
     }
 
     salvar_curso(novo_curso)
@@ -64,3 +67,57 @@ def register_professor_disponivel_route():
             return render_template("curso/register_professor_disponivel.html", data=result["curso"])
     else:
         return render_template("curso/register_professor_disponivel.html")
+
+@curso.route('/exclui_curso', methods=['POST'])
+def excluir_curso_route():
+    cursos = ler_cursos
+    codigoCurso = request.form['codigoCurso']
+    result = excluir_curso(codigoCurso)
+    if result == "sucesso":
+        flash("Curso excluído com sucesso!", "success")
+    else:
+        flash("Falha ao excluir o curso!", "error")
+    return redirect("/principal")
+
+@curso.route('/consulta_curso', methods=['POST'])
+def consultar_curso_route():
+    codigoCurso = request.form['codigoCurso']
+    result = consultar_curso(codigoCurso)
+    if result:
+        flash(f'Dados do curso: {result}')
+    else:
+        flash("Não existe esse curso!", "error")
+    return redirect("/principal")
+
+@curso.route('/atualiza_curso', methods=['GET'])
+def pagina_atualizar_curso():
+    return render_template('cursos/atualizar_curso.html')
+
+@curso.route('/atualizar', methods=['POST'])
+def atualizar_curso_route():
+    codigoCurso = request.form['codigo']
+    result = excluir_curso(codigoCurso)
+    if result == "sucesso":
+        nome = request.form['nome']
+        descricao = request.form['descricao']
+        codigo = request.form['codigo']
+        pre_requisitos = request.form['pre_requisitos']
+        creditos = request.form['creditos']
+        criterios_aprovacao = request.form['criterios_aprovacao']
+        nota = request.form['nota']
+
+        novo_curso = {
+            'nome': nome,
+            'descricao': descricao,
+            'codigo': codigo,
+            'pre_requisitos': pre_requisitos,
+            'creditos': creditos,
+            'criterios_aprovacao': criterios_aprovacao,
+            'nota': nota
+        }
+
+        salvar_curso(novo_curso)
+        flash("Curso atualizado com sucesso!", "success")
+    else:
+        flash("Falha ao atualizar o curso!", "error")
+    return redirect("/principal")

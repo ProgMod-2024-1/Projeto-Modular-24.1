@@ -61,3 +61,63 @@ def update_curso(updated_curso: dict) -> bool:
                 json.dump(data, file, indent=4, ensure_ascii=False)
             return True
     return False
+
+def salvar_cursos(cursos):
+    try:
+        with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
+            json.dump(cursos, file, ensure_ascii=False, indent=4)
+    except Exception as e:
+        print(f"Erro ao salvar cursos: {e}")
+
+def validar_codigo(codigo):
+    if len(codigo) != 7:
+        return False
+    if not codigo[:3].isalpha() or not codigo[3:].isdigit():
+        return False
+    return True
+
+def validar_dados(dados):
+    required_keys = ["nome", "duracao"]
+    for key in required_keys:
+        if key not in dados:
+            return False
+    return True
+
+def atualizar_curso(codigo, dados):
+    cursos = ler_cursos()
+    if not validar_codigo(codigo):
+        return "falha"
+
+    if not validar_dados(dados):
+        return "falha"
+
+    for curso in cursos:
+        if curso["codigo"] == codigo:
+            curso.update(dados)
+            salvar_cursos(cursos)
+            return "sucesso"
+
+    return "falha"
+
+def consultar_curso(codigo):
+    cursos = ler_cursos()
+    if not validar_codigo(codigo):
+        return "Código de curso inválido"
+    for curso in cursos:
+        if curso["codigo"] == codigo:
+            return curso
+
+    return "Curso não encontrado"
+
+def excluir_curso(codigo):
+    cursos = ler_cursos()
+    if not validar_codigo(codigo):
+        return "falha"
+
+    for i, curso in enumerate(cursos):
+        if curso["codigo"] == codigo:
+            del cursos[i]
+            salvar_cursos(cursos)
+            return "sucesso"
+
+    return "falha"

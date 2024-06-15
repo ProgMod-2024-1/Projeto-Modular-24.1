@@ -32,3 +32,18 @@
 .btn-criar-curso:hover {
     background-color: #0056b3;
 }
+
+.btn-atualizar-curso {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-atualizar-curso:hover {
+    background-color: #0056b3;
+}

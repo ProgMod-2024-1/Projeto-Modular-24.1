@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Cursos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='curso/curso.css') }}">
 </head>
 <body>
     <h1>Cursos</h1>
     <a href="{{ url_for('curso.pagina_criar_curso') }}" class="btn-criar-curso">Criar Curso</a>
-    
+
+    <h1>Atualizar Curso</h1>
+        <a href="{{ url_for('curso.pagina_atualizar_curso') }}" class="btn-atualizar-curso">Atualizar Curso</a>
+    </form>
+</body>
+<head>
+    <title>Gerenciamento de Cursos</title>
+</head>
+<body>
+    <h1>Gerenciamento de Cursos</h1>
+    <h2>Consultar Curso</h2>
+    <form action="/curso/consulta_curso" method="post">
+        <label for="codigoCurso">Código do Curso:</label>
+        <input type="text" id="codigoCurso" name="codigoCurso" required>
+        <button type="submit">Consultar</button>
+    </form>
+    <h2>Excluir Curso</h2>
+    <form action="/curso/exclui_curso" method="post">
+        <label for="codigoCurso">Código do Curso:</label>
+        <input type="text" id="codigoCurso" name="codigoCurso" required>
+        <button type="submit">Excluir</button>
+    </form>
 </body>
 </html>
