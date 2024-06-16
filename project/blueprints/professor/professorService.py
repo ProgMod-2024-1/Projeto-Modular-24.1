@@ -17,11 +17,17 @@ def registrar_professor(nome: str, horario: str, matricula: str, disponibilidade
 def listar_professores() -> list:
     return ler_professores()
 
-
-def gerar_turmas_lista_espera(matricula: str, dados_professores: list, cursoId: str, creditosCurso: int):
-    # Verifica se a matrícula existe nos dados_professores
-    professor = next((prof for prof in dados_professores if prof["matricula"] == matricula), None)
-    if not professor:
+def gerar_turmas_lista_espera(nome: str, horario: dict, matricula: str, disponibilidade: list, cursoId: str, creditosCurso: int):
+    # Cria a estrutura de dados do professor a partir dos parâmetros
+    professor = {
+        "nome": nome,
+        "horarios": horario,
+        "matricula": matricula,
+        "cursos": disponibilidade
+    }
+    
+    # Verifica se a matrícula existe nos dados_professores (embora agora seja redundante)
+    if professor["matricula"] != matricula:
         return {"erro": "Matrícula não encontrada"}
     
     # Lista de filiais
