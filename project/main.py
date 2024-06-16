@@ -1,11 +1,14 @@
-from project.blueprints.principal.principal import principal
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
+from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
+from project.blueprints.principal.principal import principal
 from project.blueprints.principal.principalRepo import get_user
 from project.blueprints.principal.principalService import User
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
-app.register_blueprint(principal)
+app.register_blueprint(principal, url_prefix='/principal')
+app.register_blueprint(lista_espera, url_prefix='/lista_espera')
+
 app.secret_key = "senhaSecreta"
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -19,7 +22,8 @@ def access():
 def load_user(user_id):
     user_data = get_user(user_id)
     return User(user_data["username"], user_data["permission"])
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
+
 

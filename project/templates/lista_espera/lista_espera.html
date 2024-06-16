@@ -1,0 +1,114 @@
+{% extends 'main.html' %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='./principal/css/principal.css') }}">
+  <style>
+    .expandable-header {
+      cursor: pointer;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="container mt-5" id="accordion">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Gerenciamento de Lista de Espera</div>
+          <div class="card-body">
+            <section>
+              <h2 class="expandable-header" data-toggle="collapse" data-target="#create-lista-espera-form-container" aria-expanded="false" aria-controls="create-lista-espera-form-container">
+                Criar Nova Lista de Espera
+              </h2>
+              <div  id="create-lista-espera-form-container" data-parent="#accordion">
+                <form action="{{ url_for('lista_espera.cria_lista_espera') }}" method="POST">
+                  <div class="form-group">
+                    <label for="codLE">Codigo</label>
+                    <input type="text" class="form-control" id="codLE" name="codLE" placeholder="codLE" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="filial">Filial</label>
+                    <input type="text" class="form-control" id="filial" name="filial" placeholder="Filial" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="curso">Curso</label>
+                    <input type="text" class="form-control" id="curso" name="curso" placeholder="Curso" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="horario">Horario</label>
+                    <input type="time" class="form-control" id="horario" name="horario" placeholder="Horario" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="matrProf">Matricula do Professor</label>
+                    <input type="number" class="form-control" id="matrProf" name="matrProf" placeholder="Matricula do Professor" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="num_minimo">Numero Minimo de Alunos</label>
+                    <input type="number" class="form-control" id="num_minimo" name="num_minimo" placeholder="Numero Minimo de Alunos" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="tempo_desde_ultima_adicao">Tempo Desde ultima Adicao (dias)</label>
+                    <input type="number" class="form-control" id="tempo_desde_ultima_adicao" name="tempo_desde_ultima_adicao" placeholder="Tempo Desde ultima Adicao (dias)" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-3">Criar Lista de Espera</button>
+                </form>
+              </div>
+            </section>
+            <section class="mt-5">
+              <h2 class="expandable-header" data-toggle="collapse" data-target="#add-aluno-form-container" aria-expanded="false" aria-controls="add-aluno-form-container">
+                Adicionar Aluno a Lista de Espera
+              </h2>
+              <div  id="add-aluno-form-container" data-parent="#accordion">
+                <form action="{{ url_for('lista_espera.adiciona_aluno_lista_espera') }}" method="POST">
+                  <div class="form-group">
+                    <label for="codLE">Codigo da Lista de Espera</label>
+                    <input type="text" class="form-control" id="codLE_add" name="codLE_add" placeholder="Codigo da Lista de Espera" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="matrAluno_add">Matricula do Aluno</label>
+                    <input type="number" class="form-control" id="matrAluno_add" name="matrAluno_add" placeholder="Matricula do Aluno" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-3">Adicionar Aluno</button>
+                </form>
+              </div>
+            </section>
+            <section class="mt-5">
+              <h2 class="expandable-header" data-toggle="collapse" data-target="#remove-aluno-form-container" aria-expanded="false" aria-controls="remove-aluno-form-container">
+                Remover Aluno da Lista de Espera
+              </h2>
+              <div  id="remove-aluno-form-container" data-parent="#accordion">
+                <form action="{{ url_for('lista_espera.remove_aluno_lista_espera') }}" method="POST">
+                  <div class="form-group">
+                    <label for="codLE_remove">Codigo da Lista de Espera</label>
+                    <input type="text" class="form-control" id="codLE_remove_aluno" name="codLE_remove_aluno" placeholder="Codigo da Lista de Espera" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="matrAluno_remove">Matricula do Aluno</label>
+                    <input type="number" class="form-control" id="matrAluno_remove" name="matrAluno_remove" placeholder="Matricula do Aluno" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-3">Remover Aluno</button>
+                </form>
+              </div>
+            </section>
+            <section class="mt-5">
+              <h2 class="expandable-header" data-toggle="collapse" data-target="#delete-lista-espera-form-container" aria-expanded="false" aria-controls="delete-lista-espera-form-container">
+                Excluir Lista de Espera
+              </h2>
+              <div  id="delete-lista-espera-form-container" data-parent="#accordion">
+                <form action="{{ url_for('lista_espera.exclui_lista_espera') }}" method="POST">
+                  <div class="form-group">
+                    <label for="codLE_delete">Codigo da Lista de Espera</label>
+                    <input type="text" class="form-control" id="codLE_delete" name="codLE_delete" placeholder="Codigo da Lista de Espera" required>
+                  </div>
+                  <div class="form-check mt-3">
+                    <input type="checkbox" class="form-check-input" id="cria_turma" name="cria_turma">
+                    <label class="form-check-label" for="cria_turma">Criar Turma</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-3">Excluir Lista de Espera</button>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
