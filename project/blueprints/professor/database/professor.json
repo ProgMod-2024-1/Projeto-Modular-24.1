@@ -1,8 +1,12 @@
 [
     {
         "nome": "Flavio",
-        "horario": "Todos",
-        "matricula": "123456789",
-        "disponibilidade": "Nunca"
+        "horarios": {
+                "segunda-feira": ["08:00-10:00", "14:00-16:00"],
+                "quarta-feira": ["08:00-10:00", "14:00-16:00"],
+                "sexta-feira": ["08:00-10:00", "14:00-16:00"]
+            },
+        "matricula": "12345",
+        "cursos": ["QUI101", "QUI102", "QUI103", "QUI104"]
     }
 ]
