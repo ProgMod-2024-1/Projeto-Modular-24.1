@@ -9,7 +9,7 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 81,
-            "message": "Falha turma inválida"
+            "message": "Falha turma invalida"
         }
 
     with open(pathToFile, mode="r") as jsonFile:
@@ -19,14 +19,14 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
     if not turma:
         return {
             "success": 71,
-            "message": "Falha na adição turma inexistente"
+            "message": "Falha na adicao turma inexistente"
         }
 
     aluno = consultaAuluno(matrAluno)
     if aluno == -1:
         return {
             "success": 70,
-            "message": "Falha na adição aluno inexistente"
+            "message": "Falha na adicao aluno inexistente"
         }
 
     turma["alunos"].append(aluno)
@@ -36,7 +36,7 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
 
     return {
         "success": 6,
-        "message": "Sucesso na adição"
+        "message": "Sucesso na adicao"
     }
 
 

@@ -10,13 +10,13 @@ def lista_espera_existe_repo(codLE):
         return any(lista_espera["codLE"] == codLE for lista_espera in listas_espera)
     return False
 
-def cria_lista_espera_repo(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
+def cria_lista_espera_repo(codLE, filial, cod_curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
     if lista_espera_existe_repo(codLE):
-        return 1  # Lista de espera já existe // database.py >write_db->return == -1
+        return 1  # Lista de espera já existe
     lista = {
         "codLE": codLE,
         "filial": filial,
-        "curso": curso,
+        "cod_curso": cod_curso,
         "horario": horario,
         "matrProf": matrProf,
         "numMinimo": numMinimo,
@@ -45,8 +45,8 @@ def add_aluno_lista_espera_repo(matrAluno, codLE):
     if isinstance(listas_espera, list):
         for lista_espera in listas_espera:
             if lista_espera["codLE"] == codLE:
-                if matrAluno not in lista_espera["alunos"]:
-                    lista_espera["alunos"].append(matrAluno)
+                if not any(aluno["matrAluno"] == matrAluno for aluno in lista_espera["alunos"]):
+                    lista_espera["alunos"].append({"matrAluno": matrAluno})
                     return update_db(lista_espera, "codLE", USERS_DB_URI)
                 return 80  # Aluno ja esta na lista // database.py >write_db->return == -1
 
@@ -57,12 +57,14 @@ def remove_aluno_lista_espera_repo(matrAluno, codLE):
     if isinstance(listas_espera, list):
         for lista_espera in listas_espera:
             if lista_espera["codLE"] == codLE:
-                if matrAluno in lista_espera["alunos"]:
-                    lista_espera["alunos"].remove(matrAluno)
+                # Procurar o aluno na lista de alunos
+                aluno_encontrado = next((aluno for aluno in lista_espera["alunos"] if aluno["matrAluno"] == matrAluno), None)
+                if aluno_encontrado:
+                    lista_espera["alunos"].remove(aluno_encontrado)
                     return update_db(lista_espera, "codLE", USERS_DB_URI)
-                return 80  # Aluno nao encontrado na lista
-    return 71  # Lista de espera nao encontrada
-
+                return 80  # Aluno não encontrado na lista
+    return 71  # Lista de espera não encontrada
+    
 def exclui_lista_espera_repo(codLE):
     listas_espera = read_db(USERS_DB_URI)
     if isinstance(listas_espera, list):
@@ -72,7 +74,7 @@ def exclui_lista_espera_repo(codLE):
             del listas_espera[index]
             
             with open(USERS_DB_URI, mode="w") as jsonFile:
-                json.dump({"data": listas_espera}, jsonFile)
+                json.dump({"data": listas_espera}, jsonFile, indent=4)
             
             return 1  # Sucesso
         return -1  # Lista de espera nao encontrada

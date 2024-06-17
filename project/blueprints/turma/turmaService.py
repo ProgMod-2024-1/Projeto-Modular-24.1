@@ -7,12 +7,12 @@ def criaTurma(dadosTurma: dict, pathToFile) -> dict:
         turmas_data = json.load(jsonFile)
 
     nova_turma = {
-        "cod_curso": dadosTurma["cod_curso"],
-        "professor": dadosTurma["professor"],
+        "cod_curso": dadosTurma["curso"],
+        "matrProf": dadosTurma["matrProf"],
         "horario": dadosTurma["horario"],
         "online": dadosTurma["online"],
-        "filia": dadosTurma["filia"],
-        "matricula_aluno": dadosTurma["matricula_aluno"]
+        "filial": dadosTurma["filial"],
+        "alunos": dadosTurma["alunos"]
     }
 
     for turma in turmas_data["data"]:
@@ -21,7 +21,7 @@ def criaTurma(dadosTurma: dict, pathToFile) -> dict:
         if turma_copy == nova_turma:
             return {
                 "success": 1,
-                "message": "Falha turma já existente"
+                "message": "Falha turma ja existente"
             }
 
     nova_turma["cod_turma"] = geraCodTurma()
@@ -32,9 +32,8 @@ def criaTurma(dadosTurma: dict, pathToFile) -> dict:
 
     return {
         "success": 0,
-        "message": "Sucesso na criação"
+        "message": "Sucesso na criacao"
     }
-
 
 def consultaTurma(codTurma: str, pathToFile) -> dict:
     if not validaTurma(codTurma):

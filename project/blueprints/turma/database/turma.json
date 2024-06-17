@@ -13,6 +13,189 @@
                     "nome": "Joao"
                 }
             ]
+        },
+        {
+            "cod_curso": "rrwrqwe",
+            "professor": "12312",
+            "horario": "12:03",
+            "online": "off",
+            "filial": "12312gdfs",
+            "alunos": [
+                "325342"
+            ],
+            "cod_turma": "2"
+        },
+        {
+            "cod_curso": "123",
+            "professor": "23421",
+            "horario": "12:03",
+            "online": "off",
+            "filial": "WEQR",
+            "alunos": [
+                {
+                    "matrAluno": "11"
+                },
+                {
+                    "matrAluno": "22"
+                }
+            ],
+            "cod_turma": "3"
+        },
+        {
+            "cod_curso": "LISTA DE ESPERA",
+            "professor": "9999",
+            "horario": "09:59",
+            "online": "off",
+            "filial": "FILIAL DA LISTA DE ESPERA",
+            "alunos": [
+                {
+                    "matrAluno": "777"
+                },
+                {
+                    "matrAluno": "777777"
+                }
+            ],
+            "cod_turma": "4"
+        },
+        {
+            "cod_curso": "CodigoCurso1",
+            "professor": "1231",
+            "horario": "12:03",
+            "online": "off",
+            "filial": "ListaEsp2",
+            "alunos": [],
+            "cod_turma": "5"
+        },
+        {
+            "cod_curso": "CT123",
+            "professor": "1233333",
+            "horario": "12:12",
+            "online": "online",
+            "filial": "BOTAFOGO",
+            "alunos": [
+                {
+                    "matrAluno": "1"
+                },
+                {
+                    "matrAluno": "2"
+                },
+                {
+                    "matrAluno": "3"
+                },
+                {
+                    "matrAluno": "4"
+                },
+                {
+                    "matrAluno": "5"
+                },
+                {
+                    "matrAluno": "0"
+                }
+            ],
+            "cod_turma": "6"
+        },
+        {
+            "cod_curso": "AC123",
+            "professor": "123",
+            "horario": "12:03",
+            "online": "online",
+            "filial": "Biriba",
+            "alunos": [
+                {
+                    "matrAluno": "222"
+                },
+                {
+                    "matrAluno": "333"
+                },
+                {
+                    "matrAluno": "4123"
+                },
+                {
+                    "matrAluno": "3333333"
+                },
+                {
+                    "matrAluno": "3"
+                },
+                {
+                    "matrAluno": "5"
+                },
+                {
+                    "matrAluno": "54"
+                },
+                {
+                    "matrAluno": "2"
+                },
+                {
+                    "matrAluno": "565"
+                }
+            ],
+            "cod_turma": "7"
+        },
+        {
+            "cod_curso": "312",
+            "matrProf": "12",
+            "horario": "03:12",
+            "online": "off",
+            "filial": "12312",
+            "alunos": [
+                {
+                    "matrAluno": "1"
+                },
+                {
+                    "matrAluno": "2"
+                },
+                {
+                    "matrAluno": "3"
+                },
+                {
+                    "matrAluno": "4"
+                },
+                {
+                    "matrAluno": "5"
+                }
+            ],
+            "cod_turma": "8"
+        },
+        {
+            "cod_curso": "312",
+            "matrProf": "12",
+            "horario": "03:12",
+            "online": "on",
+            "filial": "12312",
+            "alunos": [
+                {
+                    "matrAluno": "1"
+                },
+                {
+                    "matrAluno": "2"
+                },
+                {
+                    "matrAluno": "3"
+                }
+            ],
+            "cod_turma": "9"
+        },
+        {
+            "cod_curso": "123e",
+            "matrProf": "123",
+            "horario": "12:03",
+            "online": "on",
+            "filial": "dqw",
+            "alunos": [
+                {
+                    "matrAluno": "23"
+                },
+                {
+                    "matrAluno": "123"
+                },
+                {
+                    "matrAluno": "2134"
+                },
+                {
+                    "matrAluno": "123432"
+                }
+            ],
+            "cod_turma": "10"
         }
     ]
 }

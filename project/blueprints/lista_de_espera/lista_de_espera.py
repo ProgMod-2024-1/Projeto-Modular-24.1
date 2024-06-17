@@ -11,13 +11,13 @@ def pagina_lista():
 def cria_lista_espera():
     codLE = request.form['codLE']
     filial = request.form['filial']
-    curso = request.form['curso']
+    cod_curso = request.form['curso']
     horario = request.form['horario']
     matrProf = request.form['matrProf']
     numMinimo = request.form['num_minimo']
     tempo_desde_ultima_adicao = request.form['tempo_desde_ultima_adicao']
 
-    result = cria_lista_espera_service(codLE, filial, curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
+    result = cria_lista_espera_service(codLE, filial, cod_curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)
 
     if result == 1:
         flash('Lista de Espera criada com sucesso!')

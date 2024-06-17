@@ -15,8 +15,8 @@ def turmaCria():
             "professor": request.form["professor"],
             "horario": request.form["horario"],
             "online": request.form.get('online', 'off'),
-            "filial": request.form["filial"],
-            "alunos": request.form.getlist("matricula_aluno")
+            "filial": request.form["nomeFili"],
+            "alunos": request.form.getlist("matrAluno")
         }
         result = criaTurma(dadosTurma, pathToFile)
         if result["success"] == 0:

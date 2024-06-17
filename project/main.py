@@ -1,13 +1,20 @@
+#general imports
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
+#lista de espera imports
 from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
+#principal imports
 from project.blueprints.principal.principal import principal
 from project.blueprints.principal.principalRepo import get_user
 from project.blueprints.principal.principalService import User
+#turma imports
+from project.blueprints.turma.turma import app_turmas
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
+
 app.register_blueprint(principal, url_prefix='/principal')
 app.register_blueprint(lista_espera, url_prefix='/lista_espera')
+app.register_blueprint(app_turmas)
 
 app.secret_key = "senhaSecreta"
 login_manager = LoginManager()
