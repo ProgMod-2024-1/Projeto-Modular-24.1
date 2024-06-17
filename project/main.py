@@ -1,4 +1,5 @@
 from project.blueprints.principal.principal import principal
+from project.blueprints.certificacao.certificacao import certificacao
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from project.blueprints.principal.principalRepo import get_user
@@ -6,6 +7,7 @@ from project.blueprints.principal.principalService import User
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.register_blueprint(principal)
+app.register_blueprint(certificacao)
 app.secret_key = "senhaSecreta"
 login_manager = LoginManager()
 login_manager.init_app(app)
