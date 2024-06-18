@@ -17,12 +17,12 @@ def get_filial(filial_name:str)-> object:
         
     return None
 
-def add_filial(nome: str, endereco: str, cep:str, min_alunos_p_turma: int)->int:
+def add_filial(codigo:str,nome: str, endereco: str, cep:str, min_alunos_p_turma: int)->int:
     ano_de_criacao = str(datetime.datetime.now().year)
-    return write_db([{"nome": nome, "endereco": endereco, "cep":cep, "min_alunos_p_turma":min_alunos_p_turma,"turmas":{ano_de_criacao:[]}}],"nome", FILIAIS_DB_URI)
+    return write_db([{"codigo": codigo,"nome": nome, "endereco": endereco, "cep":cep, "min_alunos_p_turma":min_alunos_p_turma,"turmas":{ano_de_criacao:[]}}],"codigo", FILIAIS_DB_URI)
 
-def update_filial(filial_velha:object,filial_nova:object)-> int:
-
+def update_filial_velho(filial_velha:object,filial_nova:object)-> int:
+    result_update = update_db(filial_nova,"codigo", FILIAIS_DB_URI)
     result_delete = delete_db(filial_velha, "nome", FILIAIS_DB_URI)
     result_add = write_db(obj_list=[filial_nova],primaryKey="nome",pathToFile=FILIAIS_DB_URI)
     
@@ -39,6 +39,10 @@ def update_filial(filial_velha:object,filial_nova:object)-> int:
     
     else:
         return -3
+    
+def update_filial(filial_nova:object)-> int:
+    return update_db(filial_nova,"codigo", FILIAIS_DB_URI)
+    
 
-def delete_filial(filial:object)-> int:
-    return delete_db(filial, "nome", FILIAIS_DB_URI)
+def delete_filial(codigo:str)-> int:
+    return delete_db({"codigo":codigo}, "codigo", FILIAIS_DB_URI)

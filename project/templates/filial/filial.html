@@ -9,7 +9,6 @@
 
     <h1>Ola</h1>
     <p>nao tem nenhuma filial ainda</p>
-    <button>adicione uma filial</button>
     </div>
 
     {% else %}
@@ -46,6 +45,12 @@
                     <div class="card-body">
                         <form action="{{ url_for('filial.update_filiais_route') }}" method="post" class="form"id="editform-{{ loop.index }}"></form>
                         <div class="form-group">
+                            <label for="codigoFilialVelha">Codigo da Filial</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="codigoFilialVelha" name="codigoFilialVelha" placeholder="Codigo" , value={{filial.codigo}}
+                                readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="nomeFilialVelha">Nome da Filial</label>
                             <input form="editform-{{ loop.index }}" type="string" class="form-control"
                                 id="nomeFilialVelha" name="nomeFilialVelha" placeholder="Nome" , value={{filial.nome}}
@@ -77,8 +82,11 @@
                             data-bs-target="#JanelaModalEdit-{{ loop.index }}">
                             Editar
                         </button>
-
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Deletar filial</button>
+                        <form id="invisibleForm" action="{{ url_for('filial.delete_filiais_route') }}" method="post" class="hidden">
+                            <!-- Hidden Input Field with Pre-set Value -->
+                            <input type="hidden" name="codigo" value="{{filial.codigo}}">
+                            <button type="submit" class="btn btn-danger"> Deletar filial</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -93,6 +101,13 @@
                     </div>
 
                     <div class="modal-body">
+                        <div class="form-group">
+                            <label for="codigoFilialEditada">Codigo da Filial</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="codigoFilialEditada" name="codigoFilialEditada" placeholder="Codigo" ,
+                                value={{filial.codigo}}
+                                readonly>
+                        </div>
                         <div class="form-group">
                             <label for="nomeFilialEditada">Nome da Filial</label>
                             <input form="editform-{{ loop.index }}" type="string" class="form-control"
@@ -130,7 +145,7 @@
     {% endif %}
 
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#JanelaModal">
-        Abrir Modal
+        Adicione uma filial
     </button>
 
     <div id="JanelaModal" class="modal fade">

@@ -24,7 +24,7 @@ def register():
 
         else:
             flash(result["message"], "danger")
-            return render_template("principal/register.html", data = result["user"])
+            return render_template("principal/register.html", data = result["data"])
     
     else:
         return render_template("principal/register.html")
@@ -41,7 +41,7 @@ def login():
 
         else:
             flash(result["message"], "danger")
-            return render_template("principal/login.html", data = result["user"], name=current_user)
+            return render_template("principal/login.html", data = result["data"], name=current_user)
     
     else:
         return render_template("principal/login.html")
