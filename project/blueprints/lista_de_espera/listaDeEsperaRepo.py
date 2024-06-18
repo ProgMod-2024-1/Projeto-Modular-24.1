@@ -1,6 +1,8 @@
 import os
 import json
 from project.db.database import read_db, write_db, update_db, delete_db
+import datetime as dt  # adicionar ano atual na criacao da lista de espera e passar info pra turma.json
+
 
 USERS_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)), "database", "lista_de_espera.json")
 
