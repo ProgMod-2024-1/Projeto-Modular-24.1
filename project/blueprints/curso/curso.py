@@ -1,10 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .cursoRepo import salvar_curso, ler_cursos, consultar_curso, excluir_curso, atualizar_curso, validar_codigo
+from .cursoRepo import salvar_curso, ler_cursos, consultar_curso, excluir_curso, atualizar_curso
 from .cursoService import register_pre_requisito, register_professor_disponivel
 from flask_login import current_user
-
+import re
 
 curso = Blueprint('curso', __name__, url_prefix='/curso')
+
+def validar_codigo(codigo):
+    # Regex para validar se o código tem 3 letras seguidas por 4 números
+    return re.match(r'^[A-Za-z]{3}\d{4}$', codigo) is not None
 
 @curso.route('/criar', methods=['GET'])
 def pagina_criar_curso():
@@ -24,6 +28,10 @@ def criar_curso():
     creditos = request.form['creditos']
     criterios_aprovacao = request.form['criterios_aprovacao']
     nota = request.form['nota']
+
+    if not validar_codigo(codigo):
+        flash('Não foi possível criar o curso: o código deve ter exatamente 3 letras seguidas por 4 números.', 'danger')
+        return redirect(url_for('curso.pagina_criar_curso'))
 
     novo_curso = {
         'nome': nome,
@@ -70,7 +78,7 @@ def register_professor_disponivel_route():
 
 @curso.route('/exclui_curso', methods=['POST'])
 def excluir_curso_route():
-    cursos = ler_cursos
+    cursos = ler_cursos()
     codigoCurso = request.form['codigoCurso']
     result = excluir_curso(codigoCurso)
     if result == "sucesso":

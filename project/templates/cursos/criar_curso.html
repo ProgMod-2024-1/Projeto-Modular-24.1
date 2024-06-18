@@ -8,6 +8,16 @@
     <title>Criar Curso</title>
 </head>
 <body>
+    <!-- Exibir mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <h1>Criar Curso</h1>
     <form action="{{ url_for('curso.criar_curso') }}" method="POST">
         <label for="nome">Nome:</label>
