@@ -38,7 +38,7 @@ def ler_professores():
         return []
 
 
-def gerar_turmas_lista_espera(nome, horario, matricula, disponibilidade, cursoId, creditosCurso):
+def gerar_propostas_turmas(nome, horario, matricula, disponibilidade, cursoId, creditosCurso):
     # Retorna as possiveis turmas para uma determinada matricula de um professor.
     professor = {
         "nome": nome,
