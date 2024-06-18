@@ -17,6 +17,14 @@ def get_filial(filial_name:str)-> object:
         
     return None
 
+def get_filial_by_codigo(filial_codigo:str)-> object:
+    data = read_db(FILIAIS_DB_URI)
+    for filial in data:
+        if(filial["codigo"]==filial_codigo):
+            return filial
+        
+    return None
+
 def add_filial(codigo:str,nome: str, endereco: str, cep:str, min_alunos_p_turma: int)->int:
     ano_de_criacao = str(datetime.datetime.now().year)
     return write_db([{"codigo": codigo,"nome": nome, "endereco": endereco, "cep":cep, "min_alunos_p_turma":min_alunos_p_turma,"turmas":{ano_de_criacao:[]}}],"codigo", FILIAIS_DB_URI)
