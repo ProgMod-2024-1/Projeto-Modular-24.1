@@ -38,6 +38,30 @@ def ler_professores():
         return []
 
 
+
+def update_professor(updated_professor: dict) -> bool:
+    data = ler_professores()
+    for idx, curso in enumerate(data):
+        if curso.get("codigo") == updated_professor.get("codigo"):
+            data[idx] = updated_professor
+            with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
+                json.dump(data, file, indent=4, ensure_ascii=False)
+            return True
+    return False
+
+
+def atualizar_professor(matricula, professor):
+    cursos = ler_professores()
+
+    for matricula in professor:
+        if professor["matricula"] == matricula:
+            professor.update(professor)
+            salvar_professor(cursos)
+            return "sucesso"
+
+    return "falha"
+
+
 def gerar_propostas_turmas(nome, horario, matricula, disponibilidade, cursoId, creditosCurso):
     # Retorna as possiveis turmas para uma determinada matricula de um professor.
     professor = {
@@ -96,3 +120,5 @@ def gerar_propostas_turmas(nome, horario, matricula, disponibilidade, cursoId, c
             turmas.append(turma)
     
     return turmas
+
+

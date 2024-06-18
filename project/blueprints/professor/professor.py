@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .professorRepo import salvar_professor, ler_professores
+from .professorRepo import salvar_professor, ler_professores, atualizar_professor
 from .professorService import registrar_professor
 
 professor = Blueprint('professor', __name__, url_prefix='/professor')
@@ -31,3 +31,32 @@ def criar_professor():
         flash(result["message"], "danger")
 
     return redirect(url_for('professor.listar_professores'))
+
+
+@professor.route('/atualizar', methods=['POST'])
+def atualizar_professor():
+    matriculaProfessor = request.form['matricula']
+    result = excluir_professor(matriculaProfessor)
+
+    if result == "sucesso":
+      nome = request.form['nome']
+      horario = request.form['horario']
+      matricula = request.form['matricula']
+      disponibilidade = request.form['disponibilidade']
+      cursos = request.form['cursos']
+
+      novo_professor = {
+          "nome": nome,
+          "horarios": horario,
+          "matricula": "12345",
+          "cursos": cursos
+      }
+
+      salvar_professor(novo_professor)
+      flash(result["Professor atualizado com sucesso"], "success")
+    
+    else:
+        flash(result["Erro ao atualizar professor"], "error")
+
+    return redirect(url_for('/principal'))
+
