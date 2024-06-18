@@ -41,14 +41,14 @@ def write_db(obj_list: List[object], primaryKey, pathToFile: str) -> int:
                 newData["data"].append(obj)
 
             with open(pathToFile, mode="w") as jsonFile:
-                json.dump(newData, jsonFile)
+                json.dump(newData, jsonFile, indent=4)
 
             return 1 # Sucesso
         
         except Exception as ex:
             print(ex)
             with open(pathToFile, mode="w") as jsonFile:
-                json.dump(data, jsonFile)
+                json.dump(data, jsonFile, indent=4)
             return -2 # Erro nao mapeado, nao salva nada
     else:
         return -4 # Nao achou db
@@ -73,7 +73,7 @@ def update_db(obj: object, primaryKey: str, pathToFile: str) -> int:
                     return -1 # Nao achou o objeto
 
                 with open(pathToFile, mode="w") as jsonFile:
-                    json.dump( data, jsonFile)
+                    json.dump( data, jsonFile, indent=4)
 
                 return 1 # Sucesso
 
@@ -98,7 +98,7 @@ def delete_db(object:object, primaryKey:str,  pathToFile: str) -> int:
                 return -1
             
             with open(pathToFile, mode="w") as jsonFile:
-                json.dump(data, jsonFile)
+                json.dump(data, jsonFile, indent=4)
             
             return 1
         
