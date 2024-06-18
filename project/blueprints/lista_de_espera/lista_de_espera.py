@@ -34,10 +34,11 @@ def cria_lista_espera():
 
     return redirect(url_for('lista_espera.pagina_lista'))
 
-@lista_espera.route('/lista_espera/<codLE>', methods=['GET'])
-def consulta_lista_espera(codLE):
-    result = consulta_lista_espera_service(codLE)
-    return jsonify(result)
+@lista_espera.route('/consulta_lista', methods=['GET'])
+def consulta_lista_espera():
+    codLE = request.args.get('codLE')
+    lista_espera = consulta_lista_espera_service(codLE)
+    return render_template('lista_espera/lista_espera_detalhes.html', lista_espera=lista_espera)
 
 @lista_espera.route('/adiciona_aluno', methods=['POST'])
 def adiciona_aluno_lista_espera():

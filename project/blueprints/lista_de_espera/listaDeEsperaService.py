@@ -1,6 +1,11 @@
 from .listaDeEsperaRepo import *
 from ..turma.turmaService import criaTurma
 
+#from ..filial.filialService import filial_existe_repo
+#from ..professor.professorService import professor_existe_repo
+#from ..curso.cursoService import curso_existe_repo
+#from ..aluno.alunoService import aluno_existe_repo
+
 def cria_lista_espera_service(codLE, filial, cod_curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
     if not lista_espera_existe_repo(codLE):  # caso a lista de espera não exista, ele cria
         # if not filial_existe_repo(filial):
@@ -13,9 +18,8 @@ def cria_lista_espera_service(codLE, filial, cod_curso, horario, matrProf, numMi
     return -1  # Lista de espera já existe
     
 def consulta_lista_espera_service(codLE):
-    if not lista_espera_existe_repo(codLE):
-        return 10  # Lista inexistente // database.py >read_db->return == -1
-    return consulta_lista_espera_repo(codLE) # sucesso // database.py >read_db->return == 1
+    lista_espera = consulta_lista_espera_repo(codLE)
+    return lista_espera
 
 def add_aluno_lista_espera_service(matrAluno, codLE): 
     result = add_aluno_lista_espera_repo(matrAluno, codLE)

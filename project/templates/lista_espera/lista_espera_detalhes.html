@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='./principal/css/principal.css') }}">
+  <style>
+    .list-group-item {
+      margin-bottom: 15px;
+    }
+    .list-group-item h5 {
+      margin: 0;
+    }
+    .list-group-item p {
+      margin: 5px 0;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Detalhes da Lista de Espera</div>
+          <div class="card-body">
+            {% if lista_espera %}
+              <div class="list-group-item">
+                <h5>Codigo: {{ lista_espera.codLE }}</h5>
+                <p>Filial: {{ lista_espera.nomeFili }}</p>
+                <p>Curso: {{ lista_espera.codCurso }}</p>
+                <p>Horario: {{ lista_espera.horario }}</p>
+                <p>Matricula do Professor: {{ lista_espera.matrProf }}</p>
+                <p>Numero Minimo de Alunos: {{ lista_espera.numMinimo }}</p>
+                <p>Tempo Desde Ultima Adicao: {{ lista_espera.tempo_desde_ultima_adicao }} dias</p>
+                <p>Alunos:
+                  <ul>
+                    {% for aluno in lista_espera.alunos %}
+                      <li>{{ aluno.matrAluno }}</li>
+                    {% endfor %}
+                  </ul>
+                </p>
+              </div>
+            {% else %}
+              <p>Lista de espera nao encontrada.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <center>
+    <a href="{{ url_for('lista_espera.pagina_lista') }}" class="btn btn-primary mt-3">Voltar</a>
+    </center>
+
+{% endblock %}

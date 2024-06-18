@@ -7,6 +7,7 @@
     }
   </style>
 {% endblock %}
+
 {% block content %}
   <div class="container mt-5" id="accordion">
     <div class="row justify-content-center">
@@ -106,9 +107,19 @@
                 </form>
               </div>
             </section>
+         <section class="mt-5">
+              <h2>Consultar Lista de Espera</h2>
+              <form action="{{ url_for('lista_espera.consulta_lista_espera') }}" method="GET">
+                <div class="form-group">
+                  <label for="codLE_consulta">Codigo da Lista de Espera</label>
+                  <input type="text" class="form-control" id="codLE_consulta" name="codLE" placeholder="Codigo da Lista de Espera" required>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Consultar Lista de Espera</button>
+              </form>
+            </section>
           </div>
         </div>
       </div>
     </div>
   </div>
-{% endblock %}
+  {% endblock %}

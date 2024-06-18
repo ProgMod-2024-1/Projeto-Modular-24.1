@@ -237,6 +237,22 @@
                 }
             ],
             "cod_turma": "12"
+        },
+        {
+            "cod_curso": "ENG1",
+            "matrProf": "12312",
+            "horario": "12:31",
+            "online": "off",
+            "filial": "BOTAFOGO",
+            "alunos": [
+                {
+                    "matrAluno": "01"
+                },
+                {
+                    "matrAluno": "02"
+                }
+            ],
+            "cod_turma": "13"
         }
     ]
 }

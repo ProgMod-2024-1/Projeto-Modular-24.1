@@ -1,3 +1,21 @@
 {
-    "data": []
+    "data": [
+        {
+            "codLE": "TURMA1",
+            "filial": "BOTAFOGO",
+            "cod_curso": "ENG1",
+            "horario": "12:31",
+            "matrProf": "12312",
+            "numMinimo": "1",
+            "tempo_desde_ultima_adicao": "1",
+            "alunos": [
+                {
+                    "matrAluno": "01"
+                },
+                {
+                    "matrAluno": "02"
+                }
+            ]
+        }
+    ]
 }
