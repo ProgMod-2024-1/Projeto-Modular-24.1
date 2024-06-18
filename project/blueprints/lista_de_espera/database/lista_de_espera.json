@@ -1,30 +1,3 @@
 {
-    "data": [
-        {
-            "codLE": "a33",
-            "filial": "dqw",
-            "cod_curso": "123e",
-            "horario": "12:03",
-            "matrProf": "123",
-            "numMinimo": "123",
-            "tempo_desde_ultima_adicao": "312",
-            "alunos": [
-                {
-                    "matrAluno": "12"
-                },
-                {
-                    "matrAluno": "23"
-                },
-                {
-                    "matrAluno": "123"
-                },
-                {
-                    "matrAluno": "2134"
-                },
-                {
-                    "matrAluno": "123432"
-                }
-            ]
-        }
-    ]
+    "data": []
 }

@@ -47,7 +47,7 @@ def removeAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 111,
-            "message": "Falha turma inválida",
+            "message": "Falha turma invalida",
         }
 
     turma = next((turma for turma in turmas_data["data"] if turma["cod_turma"] == codTurma), None)
