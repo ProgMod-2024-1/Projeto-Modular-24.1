@@ -15,12 +15,12 @@ def mostra_certificacoes_route():
 def ver_info_certificacoes_route():
 
     codCert = request.args.get('codCert')
-    id_aluno = request.args.get('id_aluno')
+    codAluno = request.args.get('id_aluno')
     id_formacao = request.args.get('id_formacao')
 
-    data = seek_certificacoes(codCert, id_aluno, id_formacao)
+    data = seek_certificacoes(codAluno)
 
-    return render_template("certificacao/ver-certificaco.html", certificacao = data)
+    return render_template("certificacao/ver-certificacao.html", certificacao = data)
 
 
 
