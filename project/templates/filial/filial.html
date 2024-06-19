@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-group">
                             <label for="numeroDeAlunosFilialVelha">Minimo de alunos por turma</label>
-                            <input form="editform-{{ loop.index }}" type="number" class="form-control"
+                            <input form="editform-{{ loop.index }}" type="number" min="0" class="form-control"
                                 id="numeroDeAlunosFilialVelha" name="numeroDeAlunosFilialVelha"
                                 placeholder="Numero de alunos por turma" value={{filial.min_alunos_p_turma}}
                                 readonly>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="form-group">
                             <label for="numeroDeAlunosFilialEditada">Minimo de alunos por turma</label>
-                            <input form="editform-{{ loop.index }}" type="number" class="form-control"
+                            <input form="editform-{{ loop.index }}" type="number" min="0" class="form-control"
                                 id="numeroDeAlunosFilialEditada" name="numeroDeAlunosFilialEditada"
                                 placeholder="Numero de alunos por turma" value={{filial.min_alunos_p_turma}}>
                         </div>
@@ -176,7 +176,7 @@
                         </div>
                         <div class="form-group">
                             <label for="numeroDeAlunosFilialNova">Minimo de alunos por turma</label>
-                            <input type="number" class="form-control" id="numeroDeAlunosFilialNova"
+                            <input type="number" min="0" class="form-control" id="numeroDeAlunosFilialNova"
                                 name="numeroDeAlunosFilialNova" placeholder="Numero de alunos por turma"
                                 value={{data["username"]}}>
                         </div>
@@ -198,7 +198,7 @@
                         </div>
                         <div class="form-group">
                             <label for="numeroDeAlunosFilialNova">Minimo de alunos por turma</label>
-                            <input type="number" class="form-control" id="numeroDeAlunosFilialNova"
+                            <input type="number" min="0" class="form-control" id="numeroDeAlunosFilialNova"
                                 name="numeroDeAlunosFilialNova" placeholder="Numero de alunos por turma">
                         </div>
                         {% endif %}
