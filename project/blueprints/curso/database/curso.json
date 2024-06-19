@@ -1,4 +1,46 @@
-{
-    "data":[
-    ]
-}
+[
+    {
+        "nome": "Programação Modular",
+        "descricao": "Flavio",
+        "codigo": "inf1040",
+        "pre_requisitos": "existir",
+        "creditos": "4",
+        "criterios_aprovacao": "Levar nove 4+ seguidos no uno"
+    },
+    {
+        "nome": "Gabriel ",
+        "descricao": "ss",
+        "codigo": "s",
+        "pre_requisitos": "s",
+        "creditos": "4",
+        "criterios_aprovacao": "d",
+        "nota": "5"
+    },
+    {
+        "nome": "Prisma",
+        "descricao": "a",
+        "codigo": "a",
+        "pre_requisitos": "a",
+        "creditos": "8",
+        "criterios_aprovacao": "a",
+        "nota": "7"
+    },
+    {
+        "nome": "2",
+        "descricao": "2",
+        "codigo": "abc1542",
+        "pre_requisitos": "2",
+        "creditos": "2",
+        "criterios_aprovacao": "2",
+        "nota": "2"
+    },
+    {
+        "nome": "4",
+        "descricao": "4",
+        "codigo": "inf1018",
+        "pre_requisitos": "8",
+        "creditos": "8",
+        "criterios_aprovacao": "8",
+        "nota": "8"
+    }
+]

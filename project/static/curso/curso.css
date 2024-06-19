@@ -1,0 +1,97 @@
+/* Estilo básico para a página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Estilo para o cabeçalho principal */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #4CAF50;
+}
+
+/* Container para centralizar os botões */
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Estilo para links de criação e atualização de cursos */
+a.btn-criar-curso, a.btn-atualizar-curso {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 15px;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+a.btn-criar-curso:hover, a.btn-atualizar-curso:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para a lista de cursos */
+ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+ul li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+ul li strong {
+    color: #333;
+}
+
+/* Estilo para os formulários */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button[type="submit"] {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: #45a049;
+}
