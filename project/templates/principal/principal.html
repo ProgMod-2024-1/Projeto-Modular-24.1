@@ -1,44 +1,142 @@
 {% extends '/main.html' %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='./principal/css/principal.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 {% endblock %}
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-<div class="intro">
-    {% if current_user.is_authenticated %}
-    <h1>Ola</h1>
-    <p>vc esta logado</p>
-    <button>Learn More</button>
-    {% else %}
-    <h1>Site Educacional</h1>
-    <p>esse site bla bla bla bla</p>
-    <button>Learn More</button>
-    {% endif %}
-</div>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="intro" style="background-image: url('https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80');">
+          {% if current_user.is_authenticated %}
+          <h1>Site Educacional</h1>
+          <p>Olá, Bem-vindo novamente</p>
+          <button>Saiba mais</button>
+          {% else %}
+          <h1>Site Educacional</h1>
+          <p>A plataforma que revoluciona o estudo</p>
+          <button>Saiba mais</button>
+          {% endif %}
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="intro" style="background-image: url('https://img.freepik.com/free-photo/people-working-as-team-company_23-2149136893.jpg?t=st=1718816894~exp=1718820494~hmac=27288f8f5ed597f32914c8da1952d5ac7cb8590bbdea364dcbd1f3b749262e4d&w=1380');">
+          <h1>Nosso professores</h1>
+          <p>Profissionais super qualificados, Melhores do mercado!</p>
+          <button>Saiba mais</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="intro" style="background-image: url('https://img.freepik.com/free-photo/close-up-people-studying-library_23-2149204752.jpg?t=st=1718817092~exp=1718820692~hmac=a257e7f284919d50e143ceb1625fe68d2357d791dfbfe7c5cec60da48af6704d&w=1380');">
+          <h1>Nosso cursos</h1>
+          <p>De tudo e para todos!</p>
+          <button>Saiba mais</button>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Próximo</span>
+    </button>
+  </div>
 <div class="achievements">
     <div class="work">
         <i class="fas fa-atom"></i>
-        <p class="work-heading">Cursos</p>
-        <p class="work-text">sei la</p>
+        <p class="work-heading">Nossos Cursos</p>
+        <p class="work-text"> Se inscreva hoje mesmo!</p>
     </div>
     <div class="work">
         <i class="fas fa-skiing"></i>
         <p class="work-heading">Professores</p>
-        <p class="work-text"> sei la</p>
+        <p class="work-text"> Mais qualificados do mercado!</p>
     </div>
     <div class="work">
         <i class="fas fa-ethernet"></i>
-        <p class="work-heading">sei la</p>
-        <p class="work-text">sei la</p>
+        <p class="work-heading">Ensino</p>
+        <p class="work-text">Online e Presencial</p>
     </div>
 </div>
 <div class="about-me">
     <div class="about-me-text">
-        <h2>About Me</h2>
-        <p>bla bla bla bla</p>
+        <center>
+        <h2>Sobre nossa plataforma</h2>
+        
+          <p>
+            Nossa plataforma foi desenvolvida para oferecer uma experiência de aprendizado abrangente e flexível. Com uma interface amigável, nossos alunos podem acessar uma ampla gama de cursos em diversas áreas, tanto no formato presencial quanto online ao vivo. 
+            Os cursos são ministrados por professores qualificados, garantindo ensino de qualidade. Além disso, facilitamos a alocação de alunos nas turmas mais convenientes e próximas de suas residências, e oferecemos suporte contínuo para ajudar cada aluno a atingir seus objetivos educacionais e profissionais.
+          </p>
+        </center>
+        
     </div>
-    <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"
-        alt="me">
+
 </div>
+<div class="about-me-text"><center><h2>Experiências dos nossos alunos</h2></center>   </div>
+
+<div class="testimonials">
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <img src="https://img.freepik.com/free-photo/prosperous-businessman-keeps-hands-crossed-has-satisfied-expression_273609-16711.jpg?t=st=1718819969~exp=1718823569~hmac=3dfedd1110c129e81985c3e6fcc31bfab272d12eb15ab17096a17d9a93503bf6&w=1380" alt="Foto do Aluno 1">
+                    <p>"A plataforma foi fundamental para o meu desenvolvimento em Inteligência Artificial. Os conteúdos são atualizados e os professores estão sempre dispostos a ajudar."</p>
+                    <p><strong>João da Silva</strong>, Pos-graduando em AI</p>
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <img src="https://img.freepik.com/free-photo/portrait-beautiful-young-woman-standing-grey-wall_231208-10760.jpg?t=st=1718819091~exp=1718822691~hmac=cd83b573b437f30531bff70d6b47dfa2bfd2bba06bbb92e2d0e573628ca97b2d&w=1380" alt="Foto do Aluno 2">
+                    <p>"Os professores são incríveis e o suporte da plataforma me ajuda a resolver qualquer dúvida rapidamente. Estou mais confiante para os exames do ensino médio."</p>
+                    <p><strong>Maria Souza</strong>, Aluna do Ensino Médio</p>
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <img src='https://img.freepik.com/free-photo/handsome-hispanic-man-with-beard-wearing-casual-clothes-with-happy-cool-smile-face-lucky-person_839833-31901.jpg?t=st=1718818876~exp=1718822476~hmac=52a60855f14615efb6d51f7449784933a8a11ac30b28af9bbc57de4bbf1ca9d9&w=1380'alt="Foto do Aluno 3">
+                    <p>"A flexibilidade dos cursos online me permitiu conciliar o trabalho com os estudos. A qualidade das aulas é excelente e estou avançando rápido na minha carreira."</p>
+                    <p><strong>Carlos Oliveira</strong>, Graduando em Engenharia Química</p>
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock %}

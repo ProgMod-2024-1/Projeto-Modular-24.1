@@ -15,7 +15,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="{{ url_for('principal.pagina_principal') }}">Home</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -30,10 +30,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('principal.login') }}">Login</a>
               </li>
-              {% endif %}
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
+              
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('principal.register') }}">Cadastre-se</a>
               </li>
@@ -56,6 +53,7 @@
               <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li>
+              {% endif %}
             </ul>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -77,7 +75,9 @@
   </body>
   <footer class="footer">
       <div class="container">
-          <p>&copy; 2024 EduPlatform. All rights reserved.</p>
+        <center>
+          <span class="text-muted">Feitos por alunos de programação modular da PUC-RIO 24.1</span><br>
+          <span class="text-muted">© 2024 Alunos ProgMod. Todos os direitos reservados.</span></center>
       </div>
   </footer>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

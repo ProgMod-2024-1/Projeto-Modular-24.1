@@ -39,7 +39,7 @@ def register():
                 "codigo_professor": request.form['codigo_professor'],
                 "cursos_ministrados": "",
             }
-            result2 = cria_professor(aluno)
+            result2 = cria_professor(professor)
         else:
             result2 = 1
 
