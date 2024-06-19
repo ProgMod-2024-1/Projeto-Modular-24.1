@@ -22,11 +22,14 @@
 
   .intro p {
     font-size: 20px;
-    color: #d1d1d1;
+    color: #fff;
     text-transform: uppercase;
     margin: 20px 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo preto com 50% de opacidade */
+    border-radius: 5px; /* Borda arredondada para suavizar o visual */
   }
-
+  
   .intro button {
     background-color: #5edaf0;
     color: #000;
@@ -144,3 +147,41 @@
     color: #a1a1a1;
     padding: 10px 20px;
   }
+  .testimonials {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.testimonial {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.testimonial img {
+    width: 200px;
+    height: 175px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.testimonial-content {
+    flex: 1;
+}
+
+.stars {
+    display: inline-block;
+    font-size: 20px;
+    color: #585858; 
+}
+
+.fa {
+    cursor: pointer;
+}
+
+.fa-star.checked {
+    color: #f1c40f; 
+}
