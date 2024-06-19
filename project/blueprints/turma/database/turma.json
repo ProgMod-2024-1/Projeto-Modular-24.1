@@ -253,6 +253,19 @@
                 }
             ],
             "cod_turma": "13"
+        },
+        {
+            "cod_curso": "11",
+            "matrProf": "111",
+            "horario": "11:01",
+            "online": "on",
+            "filial": "11",
+            "alunos": [
+                {
+                    "matrAluno": "11111"
+                }
+            ],
+            "cod_turma": "1"
         }
     ]
 }
