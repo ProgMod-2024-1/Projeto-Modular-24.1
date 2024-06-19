@@ -46,7 +46,7 @@ def remove_turmasFilial(filial_nome: str, ano: str, turma_codigo: str)->int:
 	if(!flag):
 		return -1
 
-	filial = get_filial(filial_codigo)
+	filial = get_filial(filial_nome)
 
 	# Atualiza a lista dos elementos da key ano
 	lista_aux = filial["turmas"].get(ano)
