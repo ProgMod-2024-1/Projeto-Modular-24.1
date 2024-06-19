@@ -96,7 +96,7 @@
 </head>
 
 <body>
-    <a href="http://127.0.0.1:5000/principal" class="top-left-button">Voltar para página principal</a>
+    <a href="http://127.0.0.1:5000/principal" class="top-left-button">Voltar para pagina principal</a>
 
     <h2>Turma</h2>
     <form method="POST">
@@ -118,8 +118,8 @@
     <form method="POST">
         <input type="text" name="turma" placeholder="Codigo da Turma">
         <input type="text" name="matricula" placeholder="Codigo do Aluno">
-        <button type="submit" name="atualizar">Adicionar</button>
-        <button type="submit" name="apagar">Apagar</button>
+        <button type="submit" name="adicionar">Adicionar</button>
+        <button type="submit" name="deletar">Apagar</button>
     </form>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -135,7 +135,7 @@
     {% if turma %}
         <h2>Dados da Turma</h2>
         <ul>
-            <li>Código: {{ turma.cod_turma }}</li>
+            <li>Codigo: {{ turma.cod_turma }}</li>
             <li>Curso: {{ turma.cod_curso }}</li>
             <li>Professor: {{ turma.matrProf }}</li>
             <li>Horario: {{ turma.horario }}</li>
