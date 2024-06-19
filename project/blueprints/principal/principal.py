@@ -32,7 +32,6 @@ def register():
                 "formacoes_atuais": "",
                 "listas_espera": ""
             }
-            print("AAAAAAAAAAAA",aluno)
             result2 = cria_aluno(aluno)
         elif request.form['permission'] == '2':
             professor = {
