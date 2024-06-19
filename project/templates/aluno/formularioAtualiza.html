@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Aluno</title>
+</head>
+
+<body>
+    <h2>Atualizar Aluno</h2>
+    <form method="post">
+        <label for="matricula">Matrícula:</label><br>
+        <input type="text" id="matricula" name="matricula" required><br><br>
+
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="endereco">Endereço:</label><br>
+        <input type="text" id="endereco" name="endereco" required><br><br>
+
+        <label for="cep">CEP:</label><br>
+        <input type="text" id="cep" name="cep" required><br><br>
+
+        <label for="cpf">CPF:</label><br>
+        <input type="text" id="cpf" name="cpf" required><br><br>
+
+        <label for="curso">Curso:</label><br>
+        <select id="curso" name="curso" required>
+            {% for curso in cursos %}
+            <option value="{{ curso }}">{{ curso }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Filiais de Preferência:</label><br>
+        {% for filial in filiais %}
+        <input type="checkbox" id="{{ filial }}" name="filiais" value="{{ filial }}">
+        <label for="{{ filial }}">{{ filial }}</label><br>
+        {% endfor %}
+
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
