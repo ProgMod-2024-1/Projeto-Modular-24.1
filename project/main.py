@@ -1,11 +1,13 @@
 from project.blueprints.principal.principal import principal
 from project.blueprints.filial.filial import filial
 from flask import Flask, redirect, url_for, flash
+from flask_login import AnonymousUserMixin
 from flask_login import LoginManager
 from project.blueprints.principal.principalRepo import get_user
 from project.blueprints.principal.principalService import User
 from project.db.database import read_db_json, save_cache
 from project.cache import cache
+from flask_login import logout_user
 import os
 
 ALUNO_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)),"blueprints","aluno","database","aluno.json")
@@ -79,11 +81,13 @@ def save():
 
 @login_manager.user_loader
 def load_user(user_id):
-    if user_id is not None:
-        print(user_id)
-        user_data = get_user(user_id)
-        return User(user_data["username"], int(user_data["permission"]))
-    return None
+    if user_id is None:
+        return None
+    print(user_id)
+    user_data = get_user(user_id)
+    if user_data == None:
+        return None
+    return User(user_data["username"], int(user_data["permission"]))
     
 if __name__ == '__main__':
     app.run(debug=True)

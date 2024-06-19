@@ -9,6 +9,8 @@ def adm_required(func):
     def decorated_view(*args, **kwargs):
         if current_app.config.get("LOGIN_DISABLED"):
             pass
+        elif current_user == None:
+            return current_app.login_manager.unauthorized()
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         elif int(current_user.group) != 3:
@@ -28,6 +30,8 @@ def professor_required(func):
     def decorated_view(*args, **kwargs):
         if current_app.config.get("LOGIN_DISABLED"):
             pass
+        elif current_user == None:
+            return current_app.login_manager.unauthorized()
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
 
@@ -47,6 +51,8 @@ def aluno_required(func):
     def decorated_view(*args, **kwargs):
         if current_app.config.get("LOGIN_DISABLED"):
             pass
+        elif current_user == None:
+            return current_app.login_manager.unauthorized()        
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         
@@ -65,6 +71,8 @@ def aluno_ou_adm_required(func):
     def decorated_view(*args, **kwargs):
         if current_app.config.get("LOGIN_DISABLED"):
             pass
+        elif current_user == None:
+            return current_app.login_manager.unauthorized()        
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         
@@ -84,6 +92,8 @@ def professor_ou_adm_required(func):
     def decorated_view(*args, **kwargs):
         if current_app.config.get("LOGIN_DISABLED"):
             pass
+        elif current_user == None:
+            return current_app.login_manager.unauthorized()        
         elif not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
         

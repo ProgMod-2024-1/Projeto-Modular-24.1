@@ -8,7 +8,6 @@ principal = Blueprint("principal",__name__,url_prefix= '/principal')
 
 @principal.route("/")
 def pagina_principal():
-    print(current_user)
     return render_template("principal/principal.html", current_user=current_user)
 
 def cria_aluno(aluno):
@@ -64,8 +63,6 @@ def login():
     if request.method =='POST':
         result = user_login(username=request.form["username"], password=request.form["password"])
         if(result["success"] == 1):
-            print(current_user.id)
-            print(current_user.is_authenticated)
             flash(result["message"], "success")
             return redirect(url_for('.pagina_principal'))
 
