@@ -99,27 +99,29 @@
 </head>
 <body>
     <a href="http://127.0.0.1:5000/principal" class="top-left-button">Voltar para página principal</a>
-    <a href="http://127.0.0.1:5000/turma/aluno" class="top-right-button">Turma-Aluno</a>
 
-    <h2>Consulta de Turma</h2>
+    <h2>Turma</h2>
     <form method="POST">
         <input type="text" name="codTurma" placeholder="Codigo da Turma">
         <button type="submit" name="consulta">Consultar</button>
         <button type="submit" name="apagar">Apagar</button>
     </form>
 
-    <h2>Atualizar Turma</h2>
     <form method="POST">
         <input type="text" name="cod_turma" placeholder="Nome da Turma">
         <input type="text" name="cod_curso" placeholder="Codigo do Curso">
         <input type="text" name="professor" placeholder="Nome do Professor">
         <input type="time" name="horario" placeholder="Horario">
-        <label class="container">
-            <input type="checkbox" name="online">
-            <span class="checkmark">Online</span>
-        </label>
         <input type="text" name="filial" placeholder="Nome da Filial">
         <button type="submit" name="atualizar">Atualizar</button>
+    </form>
+
+    <h2>Aluno</h2>
+    <form method="POST">
+        <input type="text" name="turma" placeholder="Codigo da Turma">
+        <input type="text" name="matricula" placeholder="Codigo do Aluno">
+        <button type="submit" name="atualizar">Adicionar</button>
+        <button type="submit" name="apagar">Apagar</button>
     </form>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -137,7 +139,7 @@
         <ul>
             <li>Código: {{ turma.cod_turma }}</li>
             <li>Curso: {{ turma.cod_curso }}</li>
-            <li>Professor: {{ turma.professor }}</li>
+            <li>Professor: {{ turma.matrProf }}</li>
             <li>Horario: {{ turma.horario }}</li>
             <li>Online: {{ turma.online }}</li>
             <li>Filial: {{ turma.filial}}</li>

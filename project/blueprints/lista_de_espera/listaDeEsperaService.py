@@ -7,7 +7,7 @@ from ..turma.turmaService import criaTurma
 #from ..aluno.alunoService import aluno_existe_repo
 
 def cria_lista_espera_service(codLE, filial, cod_curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
-    if not lista_espera_existe_repo(codLE):  # caso a lista de espera não exista, ele cria
+    if not lista_espera_existe_repo(codLE):  # caso a lista de espera nï¿½o exista, ele cria
         # if not filial_existe_repo(filial):
         #     return 102  # Filial inexistente
         # if not curso_existe_repo(curso):
@@ -15,7 +15,7 @@ def cria_lista_espera_service(codLE, filial, cod_curso, horario, matrProf, numMi
         # if not professor_existe_repo(matrProf):
         #     return 104  # Professor inexistente
         return cria_lista_espera_repo(codLE, filial, cod_curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao)  # sucesso
-    return -1  # Lista de espera já existe
+    return -1  # Lista de espera jï¿½ existe
     
 def consulta_lista_espera_service(codLE):
     lista_espera = consulta_lista_espera_repo(codLE)
@@ -45,7 +45,7 @@ def exclui_lista_espera_service(codLE, cria_turma):
     if not lista_espera_existe_repo(codLE):
         return 101  # Lista de espera inexistente
 
-    # Consulta a lista de espera antes de excluí-la
+    # Consulta a lista de espera antes de excluï¿½-la
     lista_espera = consulta_lista_espera_repo(codLE)
     if not lista_espera:
         return 101  # Lista de espera inexistente
@@ -53,11 +53,11 @@ def exclui_lista_espera_service(codLE, cria_turma):
     result = exclui_lista_espera_repo(codLE)
     
     if result == 1 and cria_turma:
-        # Contar o número de alunos na lista de espera
+        # Contar o nï¿½mero de alunos na lista de espera
         num_alunos = len(lista_espera["alunos"])
         num_minimo = int(lista_espera["numMinimo"])
 
-        # Determinar se a turma será online ou presencial
+        # Determinar se a turma serï¿½ online ou presencial
         if num_alunos >= num_minimo:
             online_status = 'off'  # Turma presencial
         else:
@@ -72,10 +72,10 @@ def exclui_lista_espera_service(codLE, cria_turma):
             "filial": lista_espera["filial"],
             "alunos": lista_espera["alunos"]
         }
-        pathToFile = "project/blueprints/turma/database/turma.json"  # Caminho correto para turma.json
-        criaTurma(dados_turma, pathToFile)
+
+        criaTurma(dados_turma)
         return 9  # Sucesso
     elif result == 1:
         return 9  # Sucesso ao excluir a lista de espera
     else:
-        return result  # Retorna o código de erro diretamente
+        return result  # Retorna o cï¿½digo de erro diretamente

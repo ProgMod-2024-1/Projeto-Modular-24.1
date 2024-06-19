@@ -7,25 +7,6 @@ app_turmas = Blueprint("turma", __name__, url_prefix='/turma')
 pathToFile = TURMA_DB_URI
 
 
-@app_turmas.route('/', methods=['GET', 'POST'])
-def turmaCria():
-    if request.method == 'POST':
-        dadosTurma = {
-            "cod_curso": request.form["cod_curso"],
-            "professor": request.form["professor"],
-            "horario": request.form["horario"],
-            "online": request.form.get('online', 'off'),
-            "filial": request.form["nomeFili"],
-            "alunos": request.form.getlist("matrAluno")
-        }
-        result = criaTurma(dadosTurma, pathToFile)
-        if result["success"] == 0:
-            flash(result["message"], "success")
-        else:
-            flash(result["message"], "danger")
-    return render_template("turma/turma.html")
-
-
 @app_turmas.route('/consulta', methods=['GET', 'POST'])
 def turmaConsulta():
     turma = None
@@ -33,19 +14,18 @@ def turmaConsulta():
         if 'atualizar' in request.form:
             dados = {key: value for key, value in {
                 'cod_curso': request.form['cod_curso'],
-                'professor': request.form['professor'],
+                'matrProf': request.form['professor'],
                 'horario': request.form['horario'],
-                "online": request.form.get('online', 'off'),
                 'filial': request.form['filial']
             }.items() if value}
 
             result = atualizaDadosTurma(
-                codTurma=str(request.form["cod_turma"]), dadosTurma=dados, pathToFile=pathToFile)
+                codTurma=request.form["cod_turma"], dadosTurma=dados, pathToFile=pathToFile)
             if result["success"] == 6:
                 flash(result["message"], "success")
             else:
                 flash(result["message"], "danger")
-        elif 'apagar' in request.form:
+        if 'apagar' in request.form:
             result = excluiTurma(codTurma=request.form["codTurma"], pathToFile=pathToFile)
             if result["success"] == 9:
                 flash(result["message"], "success")

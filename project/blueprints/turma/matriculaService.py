@@ -1,4 +1,5 @@
 from project.blueprints.turma.turmaService import validaTurma, json
+from project.db.database import *
 
 
 def consultaAuluno(matrAluno):  # mocking
@@ -12,10 +13,8 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
             "message": "Falha turma invalida"
         }
 
-    with open(pathToFile, mode="r") as jsonFile:
-        turmas_data = json.load(jsonFile)
-
-    turma = next((turma for turma in turmas_data["data"] if turma["cod_turma"] == codTurma), None)
+    turmas_data = read_db("turma")
+    turma = next((turma for turma in turmas_data if turma["cod_turma"] == codTurma), None)
     if not turma:
         return {
             "success": 71,
@@ -29,10 +28,8 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
             "message": "Falha na adicao aluno inexistente"
         }
 
-    turma["alunos"].append(aluno)
-
-    with open(pathToFile, mode="w") as jsonFile:
-        json.dump(turmas_data, jsonFile, indent=4)
+    turma["alunos"].append({"matrAluno": aluno["matricula"]})
+    update_db(turma, "cod_turma", "turma")
 
     return {
         "success": 6,
@@ -41,16 +38,15 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
 
 
 def removeAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
-    with open(pathToFile, mode="r") as jsonFile:
-        turmas_data = json.load(jsonFile)
-
     if not validaTurma(codTurma):
         return {
             "success": 111,
             "message": "Falha turma invalida",
         }
 
-    turma = next((turma for turma in turmas_data["data"] if turma["cod_turma"] == codTurma), None)
+    turmas_data = read_db("turma")
+
+    turma = next((turma for turma in turmas_data if turma["cod_turma"] == codTurma), None)
     if not turma:
         return {
             "success": 101,
@@ -58,20 +54,16 @@ def removeAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
         }
 
     aluno_index = next((index for index, aluno in enumerate(turma["alunos"])
-                        if aluno["matricula"] == matrAluno), None)
+                        if aluno["matrAluno"] == matrAluno), None)
     if aluno_index is None:
         return {
             "success": 10,
             "message": "Falha de aluno inexistente"
         }
 
-    turma["alunos"].pop(aluno_index)
-
-    with open(pathToFile, mode="w") as jsonFile:
-        json.dump(turmas_data, jsonFile, indent=4)
+    delete_db(turma["aluno"][aluno_index], "cod_turma", "turma")
 
     return {
         "success": 9,
         "message": "Sucesso na remoção"
     }
-

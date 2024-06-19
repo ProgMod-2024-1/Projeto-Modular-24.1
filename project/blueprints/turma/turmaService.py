@@ -1,10 +1,10 @@
 from project.blueprints.turma.turmaRepo import geraCodTurma, validaTurma
+from project.db.database import *
 import json
 
 
-def criaTurma(dadosTurma: dict, pathToFile) -> dict:
-    with open(pathToFile, mode="r") as jsonFile:
-        turmas_data = json.load(jsonFile)
+def criaTurma(dadosTurma: dict) -> dict:
+    turmas_data = read_db("turma")
 
     nova_turma = {
         "cod_curso": dadosTurma["curso"],
@@ -14,8 +14,9 @@ def criaTurma(dadosTurma: dict, pathToFile) -> dict:
         "filial": dadosTurma["filial"],
         "alunos": dadosTurma["alunos"]
     }
+    print(nova_turma)
 
-    for turma in turmas_data["data"]:
+    for turma in turmas_data:
         turma_copy = turma.copy()
         turma_copy.pop("cod_turma")
         if turma_copy == nova_turma:
@@ -25,10 +26,8 @@ def criaTurma(dadosTurma: dict, pathToFile) -> dict:
             }
 
     nova_turma["cod_turma"] = geraCodTurma()
-    turmas_data["data"].append(nova_turma)
 
-    with open(pathToFile, mode="w") as jsonFile:
-        json.dump(turmas_data, jsonFile, indent=4)
+    write_db([nova_turma], "cod_turma", "turma")
 
     return {
         "success": 0,
@@ -43,11 +42,9 @@ def consultaTurma(codTurma: str, pathToFile) -> dict:
             "turma": {}
         }
 
-    with open(pathToFile, mode="r") as jsonFile:
-        turmas_data = json.load(jsonFile)
+    turmas_data = read_db("turma")
 
-
-    turma = next((turma for turma in turmas_data["data"] if turma["cod_turma"] == codTurma), None)
+    turma = next((turma for turma in turmas_data if turma["cod_turma"] == codTurma), None)
     if turma:
         return {
             "success": 3,
@@ -69,19 +66,15 @@ def excluiTurma(codTurma: str, pathToFile) -> dict:
             "message": "Falha turma inválida"
         }
 
-    with open(pathToFile, mode="r") as jsonFile:
-        turmas_data = json.load(jsonFile)
+    turmas_data = read_db("turma")
 
-    turma = next((turma for turma in turmas_data["data"] if turma["cod_turma"] == codTurma), None)
+    turma = next((turma for turma in turmas_data if turma["cod_turma"] == codTurma), None)
     if not turma:
         return {
             "success": 10,
             "message": "Falha turma inexistente"
         }
-    turmas_data["data"].remove(turma)
-
-    with open(pathToFile, mode="w") as jsonFile:
-        json.dump(turmas_data, jsonFile, indent=4)
+    delete_db(turma, "cod_turma", "turma")
 
     return {
         "success": 9,
@@ -96,20 +89,17 @@ def atualizaDadosTurma(codTurma: str, dadosTurma: dict, pathToFile) -> dict:
             "message": "Falha turma inválida"
         }
 
-    with open(pathToFile, mode="r") as jsonFile:
-        turmas_data = json.load(jsonFile)
+    turmas_data = read_db("turma")
 
-    index = next((i for i, turma in enumerate(turmas_data["data"]) if turma["cod_turma"] == codTurma), None)
+    index = next((i for i, turma in enumerate(turmas_data) if turma["cod_turma"] == codTurma), None)
     if index is None:
         return {
             "success": 7,
             "message": "Falha turma inexistente"
         }
 
-    turmas_data["data"][index].update(dadosTurma)
-
-    with open(pathToFile, mode="w") as jsonFile:
-        json.dump(turmas_data, jsonFile, indent=4)
+    turmas_data[index].update(dadosTurma)
+    update_db(turmas_data[index], "cod_turma", "turma")
 
     return {
         "success": 6,

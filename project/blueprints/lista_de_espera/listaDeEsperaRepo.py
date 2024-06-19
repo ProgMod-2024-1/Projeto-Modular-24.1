@@ -12,7 +12,7 @@ def lista_espera_existe_repo(codLE):
 
 def cria_lista_espera_repo(codLE, filial, cod_curso, horario, matrProf, numMinimo, tempo_desde_ultima_adicao):
     if lista_espera_existe_repo(codLE):
-        return 1  # Lista de espera j� existe
+        return 1  # Lista de espera j� existe
     lista = {
         "codLE": codLE,
         "filial": filial,
@@ -62,21 +62,21 @@ def remove_aluno_lista_espera_repo(matrAluno, codLE):
                 if aluno_encontrado:
                     lista_espera["alunos"].remove(aluno_encontrado)
                     return update_db(lista_espera, "codLE", "lista_de_espera")
-                return 80  # Aluno n�o encontrado na lista
-    return 71  # Lista de espera n�o encontrada
-    
+                return 80  # Aluno n�o encontrado na lista
+    return 71  # Lista de espera n�o encontrada
+
+
 def exclui_lista_espera_repo(codLE):
-    listas_espera = read_db("lista_de_espera")
+    listas_espera = read_db("lista_de_espera")  # Lê da cache agora, que é o que você já está fazendo.
     if isinstance(listas_espera, list):
         index = next((i for i, lista_espera in enumerate(listas_espera) if lista_espera["codLE"] == codLE), None)
-        
+
         if index is not None:
             del listas_espera[index]
-            
-            with open("lista_de_espera", mode="w") as jsonFile:
-                json.dump({"data": listas_espera}, jsonFile, indent=4)
-            
+
+        # Atualiza a cache com a lista modificada
+            cache.set("lista_de_espera", {"data": listas_espera})  # Isso substitui a escrita em arquivo.
+
             return 1  # Sucesso
-        return -1  # Lista de espera nao encontrada
+        return -1  # Lista de espera não encontrada
     return -4  # Erro ao acessar o banco de dados
-    
