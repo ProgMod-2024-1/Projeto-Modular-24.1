@@ -1,6 +1,6 @@
 from project.db import read_db, write_db, update_db, delete_db
 from formacaoService import validaCodForm
-FORMACAO_DB_URI = ""
+FORMACAO_DB_URI = "formacao"
 
 def criaFormacao(dadosForm):
     return write_db(dadosForm,"codigo",FORMACAO_DB_URI)

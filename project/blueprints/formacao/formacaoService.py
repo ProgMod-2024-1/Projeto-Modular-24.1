@@ -59,8 +59,14 @@ def deletaFormacao(dadosForm):
             "mensagem": "Erro ao excluir formação"
         }
     
-def buscaFormacao(dadosForm):
-    retorno = consultaFormacao(dadosForm)
+def buscaFormacao(codForm: str):
+    if not validaCodForm(codForm):
+        return {
+            "codigo": 7,
+            "mensagem": "Erro ao consultar formação"
+        }
+    
+    retorno = consultaFormacao(codForm)
     if retorno == None: 
         return {
             "codigo": 7,

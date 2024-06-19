@@ -1,6 +1,9 @@
-import random
+from project.blueprints.formacao.formacaoService import *
 from alunoRepo import criaAluno, excluiAluno, consultaAluno, consultaTodosAlunos, atualizaAluno
 from project.blueprints.formacao.formacaoService import *
+import random
+
+
 def geraNovaMatricula():
     alunos = consultaTodosAlunos()
     tentativas = 0
@@ -96,6 +99,20 @@ def addCursosAluno(matrAluno: int, listaCursos): #espera uma lista de codigos de
         dadosAluno['cursos'] = cursosAluno
         return mudaAluno(dadosAluno)
 
+def buscaNotaCursoAluno(matrAluno: int, codCurso):
+    dadosAluno = consultaAluno(matrAluno)
+    if dadosAluno == None:
+        return -1
+    else:
+        if "cursos" not in dadosAluno:
+            return -1
+        else:
+            cursos = dadosAluno["cursos"]
+            for curso in cursos:
+                if codCurso == curso["codigo"]:
+                    return curso["nota"]
+            return -1
+
 def addAvalAluno(matrAluno:int, dadosAval):
     dadosAluno = consultaAluno(matrAluno)
     if dadosAluno == None:
@@ -108,4 +125,35 @@ def addAvalAluno(matrAluno:int, dadosAval):
             dadosAluno["avaliacao"] = []
         dadosAluno["avaliacao"].append(dadosAval)
         return mudaAluno(dadosAluno)
+
+def defAprovado(matrAluno: int, codForm: str):
+    if not validaCodForm(codForm):
+        return {
+            "codigo":72,
+            "mensagem":"Código de formação inválida"
+        }
     
+    dadosAluno = consultaAluno(matrAluno)
+    if dadosAluno == None:
+        return {
+            "codigo": 71,
+            "mensagem": "Erro ao consultar aluno"
+        }
+    else:
+        dadosForm = consultaFormacao(codForm)
+        gradeForm = dadosForm["grade"]
+        for curso in gradeForm:
+            criterio = 5 #modulo criterios
+            if buscaNotaCursoAluno(matrAluno, curso['codigo']) < criterio:
+                return {
+                    "codigo": 61,
+                    "mensagem": "Aluno Não Aprovado"
+                }
+
+        return {
+            "codigo": 62,
+            "mensagem": "Aluno Aprovado"
+        }
+
+    
+

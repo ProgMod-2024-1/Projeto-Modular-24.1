@@ -3,7 +3,7 @@ import random
 #import lista global
 alunos = []
 
-ALUNOS_DB_URI = ""
+ALUNOS_DB_URI = "aluno"
 
 def criaAluno(dadosAluno):
     return write_db(dadosAluno,"matricula",ALUNOS_DB_URI)

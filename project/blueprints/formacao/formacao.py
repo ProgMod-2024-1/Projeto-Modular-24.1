@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, url_for
 from formacaoService import *
 
 formacao = Blueprint("formacao",__name__,url_prefix= '/formacao')

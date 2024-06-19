@@ -74,6 +74,11 @@
             "username": "teste_formacao",
             "password": "aaa",
             "permission": "1"
+        },
+        {
+            "username": "teste4",
+            "password": "grupo4",
+            "permission": "1"
         }
     ]
 }
