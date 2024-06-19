@@ -1,6 +1,7 @@
 from project.blueprints.filial.filialRepo import add_filial, delete_filial, update_filial, get_all_filiais, update_filial
 import random
 import string
+import ast
 
 def get_filiais():
     return get_all_filiais()
@@ -38,9 +39,8 @@ def add_filiais(nome,endereco,cep,nAlunos):
     
 def update_filias(data):
     turmas = data["turmas"]
-    print(turmas)
-    filial_nova = {"codigo":data["codigoFilialEditada"],"nome": data["nomeFilialEditada"], "endereco": data["enderecoFilialEditada"], "cep": data["cepFilialEditada"], "min_alunos_p_turma": int(data["numeroDeAlunosFilialEditada"]), "turmas": {"2024": []}}
-    filial_velha = {"nome": data["nomeFilialVelha"], "endereco": data["enderecoFilialVelha"], "cep": data["cepFilialVelha"], "min_alunos_p_turma": int(data["numeroDeAlunosFilialVelha"]), "turmas": {"2024": []}}
+    turmas = ast.literal_eval(turmas)
+    filial_nova = {"codigo":data["codigoFilialEditada"],"nome": data["nomeFilialEditada"], "endereco": data["enderecoFilialEditada"], "cep": data["cepFilialEditada"], "min_alunos_p_turma": int(data["numeroDeAlunosFilialEditada"]), "turmas": turmas}
     result = update_filial(filial_nova)
     
     if result == 1:
