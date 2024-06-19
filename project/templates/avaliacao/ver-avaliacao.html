@@ -18,7 +18,7 @@
                 <div class="row gx-3">
                     <div class="col-md-4">
                         <h1 class="mb-0">
-                            Avaliação: {{avaliacao.info.curso}}
+                            Curso: {{avaliacao.curso}}
                         </h1>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                 </div>
                 {%endfor%}
                 <hr>
-                <a href="{{ url_for('avaliacao.mudar_questoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}">
+                <a href="{{ url_for('avaliacao.mudar_questoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
                     <button>Editar Questões</button>
                 </a>
             </div>
@@ -104,23 +104,23 @@
                 {%if avaliacao.correcoes%}
                 {%for correcao in avaliacao.correcoes%}
                 <div class="form-group">
-                    <h5>{{ correcao.nomeAluno }}</h5>
+                    <h5>{{ correcao.codAluno }}</h5>
                     <label for="Pergunta">Nota: {{ correcao.nota }}</label>
                     <!-- <input form="editform-bb" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly> -->
                 </div>
-                <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=correcao.nomeAluno) }}">
+                <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma,  codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}">
                     <button>Ver Correção</button>
                 </a>
-                <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso, codAval=avaliacao.info.codAval, nomeAluno=correcao.nomeAluno) }}">
+                <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma,  codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}">
                     <button style="color:red">Deletar Correção</button>
                 </a>
                 <hr>
                 {%endfor%}
-                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
                 {%else%}
                 <div>
                 <p>Ainda não há correções registradas!</p>
-                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
                 </div>
                 {%endif%}
                 

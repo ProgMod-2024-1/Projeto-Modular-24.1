@@ -12,11 +12,11 @@ def registra_avaliacao(novaAval: object)->int:
     return write_db([novaAval], "info", "avaliacao")
 
 #Retorna uma avaliação específica com os dados fornecidos
-def seek_avaliacao(turma: str, codAval: str, curso:str)-> object:
+def seek_avaliacao(turma: str, codAval: str)-> object:
     data = read_db("avaliacao")
 
     for avaliacao in data:
-        if(avaliacao["info"]["turma"]==turma and avaliacao["info"]["codAval"]==codAval and avaliacao["info"]["curso"]==curso):
+        if(avaliacao["info"]["turma"]==turma and avaliacao["info"]["codAval"]==codAval):
             return avaliacao
 
     return None

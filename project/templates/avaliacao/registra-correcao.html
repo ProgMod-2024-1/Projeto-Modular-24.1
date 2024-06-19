@@ -9,7 +9,7 @@
 {% if criando %}
 
 
-<form action="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}" method="post" class="form">
+<form action="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}" method="post" class="form">
 
         <br>
         <div class="form-group">
@@ -22,12 +22,12 @@
         </div>
         <div class="form-group">
             <label for="curso">Nome do Curso</label>
-            <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value="{{avaliacao.info.curso}}" readonly>
+            <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value="{{avaliacao.curso}}" readonly>
         </div>
         <br>
         <div class="form-group">
-            <label for="nomeAluno">Aluno</label>
-            <input type="string" class="form-control" id="nomeAluno" name="nomeAluno"> 
+            <label for="codAluno">Aluno</label>
+            <input type="string" class="form-control" id="codAluno" name="codAluno"> 
         </div>
         
         <br><br>
@@ -54,13 +54,13 @@
         <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 <br>
-<a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
+<a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
 
 
 {% else %}
 
 
-<form action="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval, nomeAluno=correcao.nomeAluno) }}" method="post" class="form">
+<form action="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}" method="post" class="form">
 
     <br>
     <div class="form-group">
@@ -73,12 +73,12 @@
     </div>
     <div class="form-group">
         <label for="curso">Nome do Curso</label>
-        <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value="{{avaliacao.info.curso}}" readonly>
+        <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value="{{avaliacao.curso}}" readonly>
     </div>
     <br>
     <div class="form-group">
-        <label for="nomeAluno">Aluno</label>
-        <input type="string" class="form-control" id="nomeAluno" name="nomeAluno" value="{{correcao.nomeAluno}}" readonly> 
+        <label for="codAluno">Aluno</label>
+        <input type="string" class="form-control" id="codAluno" name="codAluno" value="{{correcao.codAluno}}" readonly> 
     </div>
     
     <br><br>
@@ -105,7 +105,7 @@
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 <br>
-<a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
+<a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
 
 {% endif %}
 
