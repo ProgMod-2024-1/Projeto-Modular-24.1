@@ -1,5 +1,5 @@
-import json
 import os
+from project.cache import cache
 
 CAMINHO_ARQUIVO = os.path.join(os.path.dirname(__file__), 'database', 'curso.json')
 
@@ -7,38 +7,30 @@ def salvar_curso(curso):
     try:
         if os.path.exists(CAMINHO_ARQUIVO):
             with open(CAMINHO_ARQUIVO, 'r+', encoding='utf-8') as file:
-                try:
-                    data = json.load(file)
-                    if not isinstance(data, list):
-                        data = []  # Inicializa como uma lista se não for uma lista válida
-                except json.JSONDecodeError:
-                    data = []  # Em caso de erro de decodificação
-
+                data = cache.get("curso")
+                if not isinstance(data, list):
+                    data = []  # Inicializa como uma lista se não for uma lista válida
                 data.append(curso)
 
                 file.seek(0)
-                json.dump(data, file, indent=4, ensure_ascii=False)
+                cache.set("curso", data)
         else:
             with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
-                json.dump([curso], file, indent=4, ensure_ascii=False)
+                cache.set("curso", [curso])
     except FileNotFoundError:
         with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
-            json.dump([curso], file, indent=4, ensure_ascii=False)
+            cache.set("curso", [curso])
 
 
 
 def ler_cursos():
     try:
         with open(CAMINHO_ARQUIVO, 'r', encoding='utf-8') as file:
-            try:
-                data = json.load(file)
-                if isinstance(data, list):
-                    return data
-                else:
-                    print(f"Erro: Os dados carregados não são uma lista válida: {data}")
-                    return []
-            except json.JSONDecodeError as e:
-                print(f"Erro ao decodificar JSON: {e}")
+            data = cache.get("curso")
+            if isinstance(data, list):
+                return data
+            else:
+                print(f"Erro: Os dados carregados não são uma lista válida: {data}")
                 return []
     except FileNotFoundError:
         return []
@@ -58,14 +50,14 @@ def update_curso(updated_curso: dict) -> bool:
         if curso.get("codigo") == updated_curso.get("codigo"):
             data[idx] = updated_curso
             with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
-                json.dump(data, file, indent=4, ensure_ascii=False)
+                cache.set("curso", data)
             return True
     return False
 
 def salvar_cursos(cursos):
     try:
         with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
-            json.dump(cursos, file, ensure_ascii=False, indent=4)
+            cache.set("curso", cursos)
     except Exception as e:
         print(f"Erro ao salvar cursos: {e}")
 
