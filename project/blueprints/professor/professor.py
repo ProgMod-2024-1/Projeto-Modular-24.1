@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .professorRepo import salvar_professor, ler_professores, atualizar_professor
+from .professorRepo import salvar_professor, ler_professores, atualizar_professor, excluir_professor
 from .professorService import registrar_professor
 
 professor = Blueprint('professor', __name__, url_prefix='/professor')
@@ -7,6 +7,8 @@ professor = Blueprint('professor', __name__, url_prefix='/professor')
 @professor.route('/criar', methods=['GET'])
 def pagina_criar_professor():
     return render_template('professor/criar_professor.html')
+
+
 
 
 @professor.route('/', methods=['GET'])
@@ -29,7 +31,6 @@ def criar_professor():
         flash(result["message"], "danger")
 
     return redirect(url_for('professor.listar_professores'))
-
 
 @professor.route('/atualizar', methods=['POST'])
 def atualizar_professor():
