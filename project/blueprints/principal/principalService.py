@@ -1,4 +1,4 @@
-from project.blueprints.principal.principalRepo import add_user, get_user
+from project.blueprints.principal.principalRepo import create_user, get_user
 from flask_login import UserMixin, login_user, logout_user
 
 class User(UserMixin):
@@ -7,25 +7,25 @@ class User(UserMixin):
         self.group = permission
 
 def register_user(username: str, password:str, permission: int)->object:
-    result = add_user(username=username, password=password, permission=permission)
+    result = create_user(username=username, password=password, permission=permission)
     print(result)
     if result == 1:
         return {
                 "success": 1,
                 "message": "Registro concluido com sucesso",
-                "user":{"username":username,"password":password, "permission": permission}
+                "data":{"username":username,"password":password, "permission": permission}
                 }
     elif result == -1:
         return {
                 "success": 0,
                 "message": "Este usuario ja existe. Tente novamente com outro usuario",
-                "user":{"username":username,"password":password, "permission": permission}
+                "data":{"username":username,"password":password, "permission": permission}
                 }
     elif result == -2 or result == -3:
         return {
                 "success": 0,
                 "message": "Ocorreu um erro ao criar o usuario. Tente novamente mais tarde",
-                "user":{"username":username,"password":password}
+                "data":{"username":username,"password":password}
                 }
     
 def user_login(username: str, password:str)->object:
@@ -35,7 +35,7 @@ def user_login(username: str, password:str)->object:
         return {
                 "success": 0,
                 "message": "Este usuario nao existe",
-                "user":{"username":username,"password":password}
+                "data":{"username":username,"password":password}
                 }
     
     elif password == user["password"]:
@@ -45,14 +45,14 @@ def user_login(username: str, password:str)->object:
         return {
                 "success": 1,
                 "message": "Login feito com sucesso",
-                "user":{"username":username,"password":password}
+                "data":{"username":username,"password":password}
                 }
     
     else:
         return {
                 "success": 0,
                 "message": "Senha incorreta, tente novamente",
-                "user":{"username":username,"password":password}
+                "data":{"username":username,"password":password}
                 }
 
 

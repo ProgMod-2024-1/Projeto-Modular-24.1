@@ -1,0 +1,221 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./filial/css/filial.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+{% if filiais|length < 1 %} <div>
+
+    <h1>Ola</h1>
+    <p>nao tem nenhuma filial ainda</p>
+    </div>
+
+    {% else %}
+
+    <div class="container">
+
+        {% for filial in filiais %}
+        <div class="container my-5">
+            <div class="card" id="card-{{ loop.index }}">
+                <div class="card-header" id="headingOne-{{ loop.index }}">
+
+                    <div class="container" id="container-{{ loop.index }}">
+
+                        <div class="row gx-3" id="row gx3-{{ loop.index }}">
+                            <div class="col-md-4" id="col-md-4-{{ loop.index }}">
+                                <h1 class="mb-0" id="mb-0-{{ loop.index }}">
+                                    Filial {{filial.nome}}
+                                </h1>
+                            </div>
+                            <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-{{ loop.index }}">
+                                <a class="btn btn-primary" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne-{{ loop.index }}" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    Mostrar mais/menos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="collapseOne-{{ loop.index }}" class="collapse hide" aria-labelledby="headingOne"
+                    data-bs-parent="#accordion">
+                    <div class="card-body">
+                        <form action="{{ url_for('filial.update_filiais_route') }}" method="post" class="form"id="editform-{{ loop.index }}"></form>
+                        <div class="form-group">
+                            <label for="codigoFilialVelha">Codigo da Filial</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="codigoFilialVelha" name="codigoFilialVelha" placeholder="Codigo" , value={{filial.codigo}}
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomeFilialVelha">Nome da Filial</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="nomeFilialVelha" name="nomeFilialVelha" placeholder="Nome" , value={{filial.nome}}
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="enderecoFilialVelha">Endereco</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="enderecoFilialVelha" name="enderecoFilialVelha" placeholder="Endereco" ,
+                                value={{filial.endereco}} readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="cepFilialVelha">CEP</label>
+                            <input form="editform-{{ loop.index }}" type="Address" class="form-control"
+                                id="cepFilialVelha" name="cepFilialVelha" placeholder="CEP" , value={{filial.cep}}
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDeAlunosFilialVelha">Minimo de alunos por turma</label>
+                            <input form="editform-{{ loop.index }}" type="number" class="form-control"
+                                id="numeroDeAlunosFilialVelha" name="numeroDeAlunosFilialVelha"
+                                placeholder="Numero de alunos por turma" value={{filial.min_alunos_p_turma}}
+                                readonly>
+                        </div>
+
+                    </div>
+                    <div class="card-footer" id="card-footer-{{ loop.index }}">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#JanelaModalEdit-{{ loop.index }}">
+                            Editar
+                        </button>
+                        <form id="invisibleForm" action="{{ url_for('filial.delete_filiais_route') }}" method="post" class="hidden">
+                            <!-- Hidden Input Field with Pre-set Value -->
+                            <input type="hidden" name="codigo" value="{{filial.codigo}}">
+                            <button type="submit" class="btn btn-danger"> Deletar filial</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="JanelaModalEdit-{{ loop.index }}" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Editar filial {{filial.nome}}</h3>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="codigoFilialEditada">Codigo da Filial</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="codigoFilialEditada" name="codigoFilialEditada" placeholder="Codigo" ,
+                                value={{filial.codigo}}
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomeFilialEditada">Nome da Filial</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="nomeFilialEditada" name="nomeFilialEditada" placeholder="Nome" ,
+                                value={{filial.nome}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="enderecoFilialEditada">Endereco</label>
+                            <input form="editform-{{ loop.index }}" type="string" class="form-control"
+                                id="enderecoFilialEditada" name="enderecoFilialEditada" placeholder="Endereco" ,
+                                value={{filial.endereco}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="cepFilialEditada">CEP</label>
+                            <input form="editform-{{ loop.index }}" type="Address" class="form-control"
+                                id="cepFilialEditada" name="cepFilialEditada" placeholder="CEP" , value={{filial.cep}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDeAlunosFilialEditada">Minimo de alunos por turma</label>
+                            <input form="editform-{{ loop.index }}" type="number" class="form-control"
+                                id="numeroDeAlunosFilialEditada" name="numeroDeAlunosFilialEditada"
+                                placeholder="Numero de alunos por turma" value={{filial.min_alunos_p_turma}}>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button form="editform-{{ loop.index }}" type="submit" class="btn btn-primary">Aceitar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#JanelaModal">
+        Adicione uma filial
+    </button>
+
+    <div id="JanelaModal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Criar uma filial</h3>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ url_for('filial.add_filiais_route') }}" method="post" class="form">
+                    <div class="modal-body">
+                        {%if data_new_filial %}
+                        <div class="form-group">
+                            <label for="nomeFilial">Nome da Filial</label>
+                            <input type="string" class="form-control" id="nomeFilialNova" name="nomeFilialNova"
+                                placeholder="Nome" , value={{data["username"]}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="enderecoFilial">Endereco</label>
+                            <input type="string" class="form-control" id="enderecoFilialNova" name="enderecoFilialNova"
+                                placeholder="Endereco" , value={{data["username"]}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="cepFilial">CEP</label>
+                            <input type="Address" class="form-control" id="cepFilialNova" name="cepFilialNova"
+                                placeholder="CEP" , value={{data["username"]}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDeAlunosFilialNova">Minimo de alunos por turma</label>
+                            <input type="number" class="form-control" id="numeroDeAlunosFilialNova"
+                                name="numeroDeAlunosFilialNova" placeholder="Numero de alunos por turma"
+                                value={{data["username"]}}>
+                        </div>
+                        {% else %}
+                        <div class="form-group">
+                            <label for="nomeFilial">Nome da Filial</label>
+                            <input type="string" class="form-control" id="nomeFilialNova" name="nomeFilialNova"
+                                placeholder="Nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="enderecoFilial">Endereco</label>
+                            <input type="string" class="form-control" id="enderecoFilialNova" name="enderecoFilialNova"
+                                placeholder="Endereco">
+                        </div>
+                        <div class="form-group">
+                            <label for="cepFilial">CEP</label>
+                            <input type="Address" class="form-control" id="cepFilialNova" name="cepFilialNova"
+                                placeholder="CEP">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDeAlunosFilialNova">Minimo de alunos por turma</label>
+                            <input type="number" class="form-control" id="numeroDeAlunosFilialNova"
+                                name="numeroDeAlunosFilialNova" placeholder="Numero de alunos por turma">
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Criar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Fechar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+    <script src="{{ url_for('static', filename='./filial/js/filial.js') }}"></script>
+    {% endblock %}
