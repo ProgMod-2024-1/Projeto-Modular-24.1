@@ -19,8 +19,6 @@ def registrar_avaliacoes_route():
 
     if request.method == 'POST':
         data = request.form
-        for key in data.keys():
-            print(key)
 
         perguntas = []
         for i in range(10):
@@ -28,7 +26,7 @@ def registrar_avaliacoes_route():
             if question_text:
                 perguntas.append(question_text)
 
-        novaAval = {"perguntas":perguntas, "correcoes":[], "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"], "curso": data["nomeCurso"], "corretor":""}}
+        novaAval = {"perguntas":perguntas, "correcoes":[], "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"], "curso": data["nomeCurso"].lower(), "corretor":""}}
 
         result = registra_avaliacoes(novaAval)
 

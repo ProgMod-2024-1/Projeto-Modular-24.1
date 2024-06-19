@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from project.blueprints.principal.principal import principal
-from project.blueprints.avaliacao.avaliacao import avaliacaos
+from project.blueprints.avaliacao.avaliacao import avaliacao
 from project.blueprints.curso.curso import curso
 from project.blueprints.principal.principalRepo import get_user
 from project.blueprints.principal.principalService import User

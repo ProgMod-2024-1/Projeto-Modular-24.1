@@ -1,4 +1,5 @@
 from project.blueprints.avaliacao.avaliacaoRepo import get_all_avaliacoes, registra_avaliacao, seek_avaliacao, muda_avaliacao, deleta_avaliacao
+from project.blueprints.curso.cursoRepo import consultar_curso
 
 #Retorna todas as avalçiações presentes no json
 def get_avaliacoes():
@@ -7,6 +8,12 @@ def get_avaliacoes():
 
 #Registra uma nova avaliação
 def registra_avaliacoes(novaAval):
+
+    consulta = consultar_curso(novaAval["info"]["curso"])
+    if type(consulta) == str:
+        return {"success": 0,
+                "message": "Dados inseridos são inválidos"}
+
     result = registra_avaliacao(novaAval)
     if result == 1:
         return {
