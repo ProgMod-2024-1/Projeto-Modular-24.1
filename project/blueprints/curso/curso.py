@@ -10,6 +10,12 @@ def validar_codigo(codigo):
     # Regex para validar se o código tem 3 letras seguidas por 4 números
     return re.match(r'^[A-Za-z]{3}\d{4}$', codigo) is not None
 
+def valida_prereq(pre_requisito):
+    curso_retorno = consultar_curso(pre_requisito)
+    if curso_retorno == ("Curso não encontrado" or "Código de curso inválido"):
+        return False
+    return True
+
 @curso.route('/criar', methods=['GET'])
 def pagina_criar_curso():
     return render_template('cursos/criar_curso.html')
@@ -31,6 +37,10 @@ def criar_curso():
 
     if not validar_codigo(codigo):
         flash('Não foi possível criar o curso: o código deve ter exatamente 3 letras seguidas por 4 números.', 'danger')
+        return redirect(url_for('curso.pagina_criar_curso'))
+
+    if not valida_prereq(pre_requisitos):
+        flash('Não foi possível conectar o pré-requisito: o pré-requisito não existe.', 'danger')
         return redirect(url_for('curso.pagina_criar_curso'))
 
     novo_curso = {
