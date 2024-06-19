@@ -9,8 +9,6 @@ def pagina_criar_professor():
     return render_template('professor/criar_professor.html')
 
 
-
-
 @professor.route('/', methods=['GET'])
 def listar_professores():
     professores = ler_professores()
@@ -60,3 +58,26 @@ def atualizar_professor():
 
     return redirect(url_for('/principal'))
 
+#A partir da bela
+
+@professor.route('/excluir', methods=['POST'])
+def excluir_professor_route():
+    codigo_professor = request.form['codigo_professor']
+    status = excluir_professor(codigo_professor)
+    if status == 9:
+        flash("Professor excluído com sucesso!", "success")
+    elif status == 10:
+        flash("Falha ao excluir o professor: inexistência!", "danger")
+    elif status == 5:
+        flash("Falha ao excluir o professor: dados inválidos!", "danger")
+    return redirect(url_for('professor.listar_professores'))
+
+@professor.route('/buscar_por_curso', methods=['POST'])
+def buscar_professores_por_curso_route():
+    codigo_curso = request.form['codigo_curso']
+    status, resultado = buscar_professores_por_curso(codigo_curso)
+    if status == 3:
+        flash(f'Professores disponíveis para o curso {codigo_curso}: {len(resultado)}', "success")
+    elif status == 4:
+        flash("Nenhum professor disponível para o curso!", "danger")
+    return redirect(url_for('professor.listar_professores'))

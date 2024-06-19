@@ -121,4 +121,71 @@ def gerar_propostas_turmas(nome, horario, matricula, disponibilidade, cursoId, c
     
     return turmas
 
+#A partir da bela
 
+def excluir_professor(codigo_professor):
+    status, professores = ler_professores()
+    if status != 3:
+        return status
+
+    if not validar_codigo(codigo_professor):
+        return 5  # Falha na leitura por dados inválidos
+
+    for i, professor in enumerate(professores):
+        if professor["codigo_professor"] == codigo_professor:
+            del professores[i]
+            salvar_professores(professores)
+            return 9  # Sucesso na exclusão
+
+    return 10  # Falha na exclusão por inexistência
+
+def buscar_professores_por_curso(codigo_curso):
+    status, professores = ler_professores()
+    if status != 3:
+        return status, []
+
+    professores_para_curso = [prof for prof in professores if any(curso['codigo'] == codigo_curso for curso in prof['cursos_ministrados'])]
+    if professores_para_curso:
+        return 3, professores_para_curso  # Sucesso na leitura
+    return 4, []  # Falha na leitura por inexistência
+
+def salvar_professores(professores):
+    try:
+        with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as file:
+            json.dump(professores, file, ensure_ascii=False, indent=4)
+        return 1  # Sucesso na atualização
+    except Exception as e:
+        print(f"Erro ao salvar professores: {e}")
+        return 8  # Falha na atualização por dados inválidos
+
+def validar_codigo(codigo):
+    if len(codigo) != 7:
+        return False
+    if not codigo[:3].isalpha() or not codigo[3:].isdigit():
+        return False
+    return True
+
+def validar_dados(dados):
+    required_keys = ["nome", "departamento"]
+    for key in required_keys:
+        if key not in dados:
+            return False
+    return True
+
+def atualizar_professor(codigo_professor, dados):
+    status, professores = ler_professores()
+    if status != 3:
+        return status
+
+    if not validar_codigo(codigo_professor):
+        return 7  # Falha na atualização por inexistência
+
+    if not validar_dados(dados):
+        return 8  # Falha na atualização por dados inválidos
+
+    for professor in professores:
+        if professor["codigo_professor"] == codigo_professor:
+            professor.update(dados)
+            return salvar_professores(professores)
+
+    return 7  # Falha na atualização por inexistência
