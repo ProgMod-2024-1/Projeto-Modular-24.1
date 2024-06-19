@@ -7,14 +7,14 @@ app_turmas = Blueprint("turma", __name__, url_prefix='/turma')
 pathToFile = TURMA_DB_URI
 
 
-@app_turmas.route('/consulta', methods=['GET', 'POST'])
+@app_turmas.route('/', methods=['GET', 'POST'])
 def turmaConsulta():
     turma = None
     if request.method == 'POST':
         if 'atualizar' in request.form:
             dados = {key: value for key, value in {
-                'cod_curso': request.form['cod_curso'],
-                'matrProf': request.form['professor'],
+                'matricula': request.form['matricula'],
+                'matrProf': request.form['matrProf'],
                 'horario': request.form['horario'],
                 'filial': request.form['filial']
             }.items() if value}
@@ -41,7 +41,7 @@ def turmaConsulta():
     return render_template('turma/consultaturma.html', turma=turma)
 
 
-@app_turmas.route('/aluno', methods=['GET', 'POST'])
+@app_turmas.route('/', methods=['GET', 'POST'])
 def turmaAluno():
     if request.method == 'POST':
         if 'atualizar' in request.form:
@@ -56,4 +56,4 @@ def turmaAluno():
                 flash(result["message"], "success")
             else:
                 flash(result["message"], "danger")
-    return render_template('turma/alunoturma.html')
+    return render_template('turma/consultaturma.html')

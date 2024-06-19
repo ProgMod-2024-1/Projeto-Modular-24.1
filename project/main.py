@@ -56,7 +56,7 @@ cache.set("turma", read_db_json(TURMA_DB_URI))
 
 app.register_blueprint(principal, url_prefix='/principal')
 app.register_blueprint(lista_espera, url_prefix='/lista_espera')
-app.register_blueprint(app_turmas)
+app.register_blueprint(app_turmas, url_prefix='/turma')
 #app.register_blueprint(filial)
 
 app.secret_key = "senhaSecreta"
