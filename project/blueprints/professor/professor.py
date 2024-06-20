@@ -48,31 +48,27 @@ def criar_professor():
     return redirect(url_for('professor.listar_professores'))
 
 @professor.route('/atualizar', methods=['POST'])
-def atualizar_professor():
-    matricula = request.form['matricula']
-    result = excluir_professor(matricula)
-
+def atualizar_curso_route():
+    codigoCurso = request.form['codigo']
+    result = excluir_professor(codigoCurso)
     if result == "sucesso":
-      nome = request.form['nome']
-      horario = request.form['horario']
-      matricula = request.form['matricula']
-      disponibilidade = request.form['disponibilidade']
-      cursos = request.form['cursos']
+        nome = request.form['nome']
+        horarios = request.form['horario']
+        matricula = request.form['matricula']
+        cursos = request.form['disponibilidade']
 
-      novo_professor = {
-          "nome": nome,
-          "horarios": horario,
-          "matricula": "12345",
-          "cursos": cursos
-      }
+        novo_professor = {
+            'nome': nome,
+            'horarios': horarios,
+            'matricula': matricula,
+            'cursos': cursos,
+        }
 
-      salvar_professor(novo_professor)
-      flash(result["Professor atualizado com sucesso"], "success")
-    
+        salvar_professor(novo_professor)
+        flash("Curso atualizado com sucesso!", "success")
     else:
-        flash(result["Erro ao atualizar professor"], "error")
-
-    return redirect(url_for('/principal'))
+        flash("Falha ao atualizar o curso!", "error")
+    return redirect('professor.listar_professores')
 
 #A partir da bela
 
