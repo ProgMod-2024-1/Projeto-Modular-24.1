@@ -117,8 +117,10 @@
                 <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma,  codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}">
                     <button style="color:red">Deletar Correção</button>
                 </a>
+                {%endif%}
                 <hr>
                 {%endfor%}
+                {%if not avaliacao.lancada%}
                 <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
                 {%endif%}
                 {%else%}

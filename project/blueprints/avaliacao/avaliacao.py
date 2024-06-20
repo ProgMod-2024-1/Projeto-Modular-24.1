@@ -31,7 +31,7 @@ def registrar_avaliacoes_route():
         if perguntas == []:
             flash("Por favor, insira pelo menos uma questão", "danger")
             return redirect(url_for('.registrar_avaliacoes_route'))
-        if len(data["codigoAvaliacao"][0]) != 2 or data["codigoAvaliacao"][0].upper() != "G" or not data["codigoAvaliacao"][1].isnumeric():
+        if len(data["codigoAvaliacao"]) != 2 or data["codigoAvaliacao"][0].upper() != "G" or not data["codigoAvaliacao"][1].isnumeric():
             flash("Código inválido de avaliação. Siga o formato Gn", "danger")
             return redirect(url_for('.registrar_avaliacoes_route'))
 

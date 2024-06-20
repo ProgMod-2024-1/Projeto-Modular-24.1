@@ -27,8 +27,13 @@
                 <div class="row gx-3" id="row gx3-{{ loop.index }}">
                     <div class="col-md-4" id="col-md-4-{{ loop.index }}">
                         <h1 class="mb-0" id="mb-0-{{ loop.index }}">
-                            Avaliação {{avaliacao.curso}}
+                            Avaliação {{avaliacao.info.codAval}} de {{avaliacao.curso}}
                         </h1>
+                        {%if avaliacao.lancada%}
+                        <h5 class="mb-0" style="color:green">
+                            Lançada!
+                        </h5>
+                        {%endif%}
                     </div>
                     <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-{{ loop.index }}">
                         <a class="btn btn-primary" data-bs-toggle="collapse"
