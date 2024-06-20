@@ -1,0 +1,22 @@
+{% extends '/main.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<body>
+    <h1>{{ msg }}</h1>
+    <div>
+        <h2>Informações da Formação</h2>
+        <p><strong>Código:</strong> {{ data['codigo'] }}</p>
+        <p><strong>Nome:</strong> {{ data['nome'] }}</p>
+        <ul>
+            {% for item in grade %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
+{% endblock %}

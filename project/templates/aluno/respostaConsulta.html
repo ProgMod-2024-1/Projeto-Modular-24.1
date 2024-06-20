@@ -1,0 +1,33 @@
+{% extends '/main.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<body>
+    <h1>{{ msg }}</h1>
+    <div>
+        <h2>Informações do Aluno</h2>
+        <p><strong>Matrícula:</strong> {{ data['matricula'] }}</p>
+        <p><strong>Nome:</strong> {{ data['nome'] }}</p>
+        <p><strong>Endereço:</strong> {{ data['endereco'] }}</p>
+        <p><strong>CEP:</strong> {{ data['cep'] }}</p>
+        <p><strong>CPF:</strong> {{ data['cpf'] }}</p>
+        <p><strong>Formação:</strong> {{ data['formacao'] }}</p>
+        <p><strong>Cursos:</strong></p>
+        <ul>
+            {% for item in cursos %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Filiais:</strong></p>
+        <ul>
+            {% for item in filiais %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
+{% endblock %}

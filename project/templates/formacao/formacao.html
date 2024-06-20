@@ -1,0 +1,18 @@
+{% extends '/main.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <h1>Formação</h1>
+    <ul>
+        <li><a href="{{ url_for('formacao.paginaCriarForm') }}">Criar Formação</a></li>
+        <li><a href="{{ url_for('formacao.paginaConsultarForm') }}">Consultar Formação</a></li>
+        <li><a href="{{ url_for('formacao.paginaAtualizarForm') }}">Atualizar Formação</a></li>
+        <li><a href="{{ url_for('formacao.paginaExcluirForm') }}">Excluir Formação</a></li>
+    </ul>
+</body>
+
+</html>
+{% endblock %}

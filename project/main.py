@@ -8,6 +8,8 @@ from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
 from project.blueprints.principal.principal import principal
 from project.blueprints.avaliacao.avaliacao import avaliacao
 from project.blueprints.filial.filial import filial
+from project.blueprints.aluno.aluno import aluno
+from project.blueprints.formacao.formacao import formacao
 from flask import Flask, redirect, url_for, flash
 from flask_login import AnonymousUserMixin
 from flask_login import LoginManager
@@ -65,6 +67,8 @@ cache.set("turma",read_db_json(TURMA_DB_URI))
 app.register_blueprint(principal)
 app.register_blueprint(avaliacao)
 app.register_blueprint(filial)
+app.register_blueprint(aluno)
+app.register_blueprint(formacao)
 app.register_blueprint(lista_espera)
 app.register_blueprint(app_turmas)
 app.register_blueprint(curso)
