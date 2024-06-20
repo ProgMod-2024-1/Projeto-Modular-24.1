@@ -1,5 +1,6 @@
 from project.db.database import write_db, delete_db, update_db, read_db
 import json,os
+from project.cache import cache
 
 TEST_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","test_db.json")
 TEST_URI_INEXITENTE = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","falso.json")

@@ -6,7 +6,7 @@ formacao = Blueprint("formacao",__name__,url_prefix= '/formacao')
 todosCursos = ["ENG4007"] #consultaCursos
 
 @formacao.route("/", methods=['GET', 'POST'])
-def paginaAluno():
+def paginaFormacao():
     return render_template("formacao/formacao.html")
 
 @formacao.route("/criar", methods=['GET', 'POST'])

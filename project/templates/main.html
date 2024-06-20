@@ -21,23 +21,78 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-              {% if current_user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('principal.logout') }}">Logout</a>
+                <a class="nav-link" href="{{ url_for('principal.logout') }}">{{current_user.permission}}</a>
               </li>
 
-              {% if current_user.permission == 3 %}
+                {% if current_user.is_authenticated and current_user.group == 3 %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('principal.logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('aluno.paginaAluno') }}">Alunos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('formacao.paginaFormacao') }}">Formacao</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('curso.listar_cursos') }}">Cursos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('turma.turmaConsulta') }}" tabindex="-1" aria-disabled="false">Turma</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('filial.pagina_filiais_route') }}">Filial</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('save') }}">Salvar dados</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/professor">Professor</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('lista_espera.pagina_lista') }}" tabindex="-1" aria-disabled="false">Lista de Espera</a>
+                </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('filial') }}">Logout</a>
-              </li>
+                {% elif current_user.is_authenticated and current_user.group == 2 %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('principal.logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('aluno.paginaAluno') }}">Alunos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('curso.listar_cursos') }}">Cursos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('turma.turmaConsulta') }}" tabindex="-1" aria-disabled="false">Turma</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('avaliacao.mostrar_avaliacoes_route') }}">Avaliações</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('save') }}">Salvar dados</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('lista_espera.pagina_lista') }}" tabindex="-1" aria-disabled="false">Lista de Espera</a>
+                </li>
 
-              {% elif current_user.permission == 2 %}
-
-              {% elif current_user.permission == 1 %}
-
-              {% endif %}
+                {% elif current_user.is_authenticated and current_user.group == 2 %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('principal.logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('curso.listar_cursos') }}">Cursos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('turma.turmaConsulta') }}" tabindex="-1" aria-disabled="false">Turma</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('certificacao.mostra_certificacoes_route') }}">Cetificações</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('save') }}">Salvar dados</a>
+                </li>
               {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('principal.login') }}">Login</a>
@@ -46,41 +101,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('principal.register') }}">Cadastre-se</a>
               </li>
-              <li><a class="dropdown-item" href="/professor">Professor</a></li>
 
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('save') }}">Salvar dados</a>
-              </li>
-               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('save') }}">Salvar dados</a>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Lista de Espera</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('curso.listar_cursos') }}">Cursos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('lista_espera.pagina_lista') }}" tabindex="-1" aria-disabled="false">Lista de Espera</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('turma.turmaConsulta') }}" tabindex="-1" aria-disabled="false">Turma</a>
               </li>
               {% endif %}
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
           </div>
         </div>
       </nav>
