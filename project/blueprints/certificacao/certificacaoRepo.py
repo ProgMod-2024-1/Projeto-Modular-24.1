@@ -11,10 +11,10 @@ def registra_certificacao(novaCert: object) -> int:
     return write_db([novaCert], "codAluno", "certificacao")
 
 # Retorna um aluno e suas certificações
-def seek_certificacoes_aluno(codAluno: str) -> object:
+def seek_certificacoes_aluno(nome: str) -> object:
     data = read_db("certificacao")
     for certificacao in data:
-        if (certificacao["codAluno"] == codAluno):
+        if (certificacao["nome"] == nome):
             return certificacao
     return None
 

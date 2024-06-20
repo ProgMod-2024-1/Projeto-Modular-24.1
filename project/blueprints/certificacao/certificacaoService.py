@@ -5,14 +5,14 @@ def get_certificacoes():
     return get_all_certificacoes()
 
 # Registra uma nova certificação
-def cria_certificacao(codAluno, codForm, dataConc):
+def cria_certificacao(codAluno, nome, codForm, dataConc):
 
     novaCert = {"formacao": codForm, "dataConc": dataConc}
 
-    cert = seek_certificacoes_aluno(codAluno)
+    cert = seek_certificacoes_aluno(nome)
 
     if cert == None:
-        novo_aluno = {"codAluno": codAluno, "certificados": [novaCert]}
+        novo_aluno = {"codAluno": codAluno, "nome":nome ,"certificados": [novaCert]}
         result = registra_certificacao(novo_aluno)
     else:
         cert["certificados"].append(novaCert)
