@@ -3,6 +3,7 @@ from project.blueprints.aluno.alunoService import *
 from project.blueprints.formacao.formacaoRepo import *
 from project.blueprints.filial.filialService import get_filiais
 from project.blueprints.filial.filialRepo import get_all_filiais
+from flask_login import current_user
 aluno = Blueprint("aluno",__name__,url_prefix= '/aluno')
 
     
@@ -12,6 +13,7 @@ def paginaAluno():
 
 @aluno.route("/criar", methods=['GET', 'POST'])
 def paginaCriarAluno():
+    print(current_user.id)
     dicFiliais = get_all_filiais()
     print(dicFiliais)
     todasFiliais = []
@@ -38,7 +40,8 @@ def paginaCriarAluno():
             "cep": cep,
             "cpf": cpf,
             "formacao": formacao,
-            "filiais": filiais
+            "filiais": filiais,
+            "user": current_user.id
         }
         print(novoAluno)
         retorno = insereAluno(novoAluno)

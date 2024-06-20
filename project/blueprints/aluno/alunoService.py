@@ -1,6 +1,7 @@
 from project.blueprints.formacao.formacaoService import *
 from project.blueprints.aluno.alunoRepo import criaAluno, excluiAluno, consultaAluno, consultaTodosAlunos, atualizaAluno
 from project.blueprints.formacao.formacaoService import *
+from datetime import datetime
 import random
 
 
@@ -149,6 +150,7 @@ def defAprovado(matrAluno: int, codForm: str):
                     "mensagem": "Aluno Não Aprovado"
                 }
 
+        #cria_certificacao(matrAluno, codForm, datetime.now().strftime("%d-%m-%Y"))
         return {
             "codigo": 62,
             "mensagem": "Aluno Aprovado"
