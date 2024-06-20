@@ -34,7 +34,8 @@ def criaTurma(dadosTurma: dict) -> dict:
         "message": "Sucesso na criacao"
     }
 
-def consultaTurma(codTurma: str, pathToFile) -> dict:
+
+def consultaTurma(codTurma: str) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 5,
@@ -59,7 +60,7 @@ def consultaTurma(codTurma: str, pathToFile) -> dict:
     }
 
 
-def excluiTurma(codTurma: str, pathToFile) -> dict:
+def excluiTurma(codTurma: str) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 5,
@@ -82,7 +83,7 @@ def excluiTurma(codTurma: str, pathToFile) -> dict:
     }
 
 
-def atualizaDadosTurma(codTurma: str, dadosTurma: dict, pathToFile) -> dict:
+def atualizaDadosTurma(codTurma: str, dadosTurma: dict) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 5,

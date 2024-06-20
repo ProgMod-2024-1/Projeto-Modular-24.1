@@ -2,11 +2,11 @@ from project.blueprints.turma.turmaService import validaTurma, json
 from project.db.database import *
 
 
-def consultaAuluno(matrAluno):  # mocking
+def consultaAluno(matrAluno):  # mocking
     return {"matricula": matrAluno, "nome": "Aluno Teste"}
 
 
-def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
+def addAlunoTurma(matrAluno: str, codTurma: str) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 81,
@@ -21,7 +21,7 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
             "message": "Falha na adicao turma inexistente"
         }
 
-    aluno = consultaAuluno(matrAluno)
+    aluno = consultaAluno(matrAluno)
     if aluno == -1:
         return {
             "success": 70,
@@ -37,7 +37,7 @@ def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
     }
 
 
-def removeAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:
+def removeAlunoTurma(matrAluno: str, codTurma: str) -> dict:
     if not validaTurma(codTurma):
         return {
             "success": 111,
