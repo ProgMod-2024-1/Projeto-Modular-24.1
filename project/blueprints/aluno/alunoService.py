@@ -150,7 +150,7 @@ def defAprovado(matrAluno: int, codForm: str):
                     "mensagem": "Aluno Não Aprovado"
                 }
 
-        #cria_certificacao(matrAluno, codForm, datetime.now().strftime("%d-%m-%Y"))
+        #cria_certificacao(matrAluno, dadosAluno["user"], codForm, datetime.now().strftime("%d-%m-%Y"))
         return {
             "codigo": 62,
             "mensagem": "Aluno Aprovado"
