@@ -4,7 +4,7 @@ from typing import List
 from project.db.database import read_db, write_db, update_db, delete_db
 
 #Retorna todas as avalçiações presentes no json
-def get_all_avaliacoes()-> List[object]:
+def get_all_avaliacao()-> List[object]:
     return read_db("avaliacao")
 
 #Registra uma nova avaliação

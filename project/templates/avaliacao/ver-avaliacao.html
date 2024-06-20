@@ -91,9 +91,11 @@
                 </div>
                 {%endfor%}
                 <hr>
+                {%if not avaliacao.lancada%}
                 <a href="{{ url_for('avaliacao.mudar_questoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
                     <button>Editar Questões</button>
                 </a>
+                {%endif%}
             </div>
         </div>
         
@@ -108,6 +110,7 @@
                     <label for="Pergunta">Nota: {{ correcao.nota }}</label>
                     <!-- <input form="editform-bb" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly> -->
                 </div>
+                {%if not avaliacao.lancada%}
                 <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma,  codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}">
                     <button>Ver Correção</button>
                 </a>
@@ -117,11 +120,14 @@
                 <hr>
                 {%endfor%}
                 <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                {%endif%}
                 {%else%}
+                {%if not avaliacao.lancada%}
                 <div>
                 <p>Ainda não há correções registradas!</p>
                 <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
                 </div>
+                {%endif%}
                 {%endif%}
                 
             </div>

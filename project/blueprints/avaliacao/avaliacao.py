@@ -1,6 +1,7 @@
 from flask import Blueprint,render_template,redirect, request, flash, url_for, jsonify
-from project.blueprints.avaliacao.avaliacaoService import get_avaliacoes, registra_avaliacoes, seek_avaliacoes, muda_avaliacoes, deleta_avaliacoes, lanca_avaliacoes
+from project.blueprints.avaliacao.avaliacaoService import get_avaliacoes, get_all_avaliacoes, registra_avaliacoes, seek_avaliacoes, muda_avaliacoes, deleta_avaliacoes, lanca_avaliacoes
 from flask_login import current_user
+from project.utils import professor_required
 
 
 
@@ -8,19 +9,16 @@ avaliacao = Blueprint("avaliacao",__name__,url_prefix= '/avaliacao')
 
 #Página que mostra todas as avaliações do professor
 @avaliacao.route("/")
+@professor_required
 def mostrar_avaliacoes_route():
-    avaliacoes = get_avaliacoes()
-    #!!!
+    avaliacoes = get_avaliacoes(current_user)
     return render_template("avaliacao/mostra-avaliacoes.html", current_user=current_user, avaliacoes = avaliacoes)
 
 
 #Página onde um professor pode registrar uma nova avaliação
 @avaliacao.route("/registrar_avaliacoes", methods=['POST', 'GET'])
+@professor_required
 def registrar_avaliacoes_route():
-    if current_user == None:
-        user = ""
-    else:
-        user = current_user
 
     if request.method == 'POST':
         data = request.form
@@ -33,8 +31,18 @@ def registrar_avaliacoes_route():
         if perguntas == []:
             flash("Por favor, insira pelo menos uma questão", "danger")
             return redirect(url_for('.registrar_avaliacoes_route'))
+        if len(data["codigoAvaliacao"][0]) != 2 or data["codigoAvaliacao"][0].upper() != "G" or not data["codigoAvaliacao"][1].isnumeric():
+            flash("Código inválido de avaliação. Siga o formato Gn", "danger")
+            return redirect(url_for('.registrar_avaliacoes_route'))
 
-        novaAval = {"perguntas":perguntas, "correcoes":[], "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"]}, "curso": data["nomeCurso"].lower(), "corretor":""}
+        novaAval = {
+                    "perguntas":perguntas, 
+                    "correcoes":[], 
+                    "info": {"turma": data["turmaAvaliacao"], "codAval": data["codigoAvaliacao"]}, 
+                    "curso": data["nomeCurso"].lower(), 
+                    "corretor":current_user.id, 
+                    "lancada": False
+                    }
 
         result = registra_avaliacoes(novaAval)
 
@@ -51,12 +59,16 @@ def registrar_avaliacoes_route():
 
 #Rota para deletar uma avaliação
 @avaliacao.route("/deletar_avaliacoes")
+@professor_required
 def deletar_avaliacoes_route():
 
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
 
     aval = seek_avaliacoes(turma, codAval)
+
+    if aval["corretor"] != current_user.id:
+        return redirect(url_for('.mostrar_avaliacoes_route'))
 
     result = deleta_avaliacoes(aval)
 
@@ -71,6 +83,7 @@ def deletar_avaliacoes_route():
 
 #Página onde um professor pode ver todas as informações sobre uma avaliação específica
 @avaliacao.route("/ver_avaliacoes")
+@professor_required
 def ver_info_avaliacoes_route():
 
     turma = request.args.get('turma')
@@ -78,17 +91,24 @@ def ver_info_avaliacoes_route():
 
     data = seek_avaliacoes(turma, codAval)
 
+    if data["corretor"] != current_user.id:
+        return redirect(url_for('.mostrar_avaliacoes_route'))
+
     return render_template("avaliacao/ver-avaliacao.html", avaliacao=data)
 
 
 #Página onde um professor pode alterar as questões de uma avaliação
 @avaliacao.route("/mudar_questoes", methods=['POST', 'GET'])
+@professor_required
 def mudar_questoes_route():
 
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
     
     aval = seek_avaliacoes(turma, codAval)
+
+    if aval["corretor"] != current_user.id or aval["lancada"]:
+        return redirect(url_for('.mostrar_avaliacoes_route'))
 
     if request.method == 'POST':
 
@@ -118,12 +138,16 @@ def mudar_questoes_route():
 
 #Página onde um professor pode adicionar uma correção
 @avaliacao.route("/registrar_correcao", methods=['POST', 'GET'])
+@professor_required
 def registrar_correcoes_route():
 
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
 
     aval = seek_avaliacoes(turma, codAval)
+
+    if aval["corretor"] != current_user.id or aval["lancada"]:
+        return redirect(url_for('.mostrar_avaliacoes_route'))
 
     if request.method == 'POST':
         data = request.form
@@ -158,6 +182,7 @@ def registrar_correcoes_route():
 
 #Página onde um professor pode mudar uma correção
 @avaliacao.route("/mudar_correcao", methods=['POST', 'GET'])
+@professor_required
 def mudar_correcoes_route():
 
     turma = request.args.get('turma')
@@ -165,6 +190,9 @@ def mudar_correcoes_route():
     codAluno = request.args.get('codAluno')
 
     aval = seek_avaliacoes(turma, codAval)
+
+    if aval["corretor"] != current_user.id or aval["lancada"]:
+        return redirect(url_for('.mostrar_avaliacoes_route'))
 
     index_correcao = next((i for i, item in enumerate(aval["correcoes"]) if item["codAluno"] == codAluno), None)
 
@@ -202,6 +230,7 @@ def mudar_correcoes_route():
 
 #Rota para deletar uma correção
 @avaliacao.route("/deletar_correcao")
+@professor_required
 def deletar_correcoes_route():
 
     turma = request.args.get('turma')
@@ -209,6 +238,9 @@ def deletar_correcoes_route():
     codAluno = request.args.get('codAluno')
 
     aval = seek_avaliacoes(turma, codAval)
+
+    if aval["corretor"] != current_user.id or aval["lancada"]:
+        return redirect(url_for('.mostrar_avaliacoes_route'))
 
     index_correcao = next((i for i, item in enumerate(aval["correcoes"]) if item["codAluno"] == codAluno), None)
 
@@ -228,12 +260,13 @@ def deletar_correcoes_route():
 
 #Rota para lançar uma correção
 @avaliacao.route("/lancar_avaliacao")
+@professor_required
 def lancar_avaliacoes_route():
 
     turma = request.args.get('turma')
     codAval = request.args.get('codAval')
 
-    result = lanca_avaliacoes(turma, codAval)
+    result = lanca_avaliacoes(turma, codAval, current_user)
 
     if(result["success"] == 1):
         flash(result["message"], "success")

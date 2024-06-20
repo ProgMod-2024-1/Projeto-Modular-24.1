@@ -60,9 +60,11 @@
                 <a href="{{ url_for('avaliacao.deletar_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
                     <button style="color:red">Deletar Avaliação</button>
                 </a>
+                {%if not avaliacao.lancada%}
                 <a href="{{ url_for('avaliacao.lancar_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
                     <button style="color:rgb(50, 132, 82)">Lançar Avaliação</button>
                 </a>
+                {%endif%}
             </div>
         </div>
     </div>
