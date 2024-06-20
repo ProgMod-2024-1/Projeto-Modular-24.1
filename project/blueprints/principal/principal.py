@@ -19,20 +19,7 @@ def cria_professor(professor):
 @principal.route("/register", methods = ["POST", "GET"])
 def register():
     if request.method =='POST':
-        if request.form['permission'] == '1': # aluno
-            aluno = {
-                "matricula": "",
-                "nome": request.form['nome'],
-                "endereco": request.form['endereco'],
-                "status": "",
-                "preferencia_filiais": "",
-                "cursos_e_formacoes_feitas":"",
-                "cursos_avulsos": "",
-                "formacoes_atuais": "",
-                "listas_espera": ""
-            }
-            result2 = cria_aluno(aluno)
-        elif request.form['permission'] == '2':
+        if request.form['permission'] == '2':
             professor = {
                 "nome": request.form['nome'],
                 "departamento": request.form['departamento'],
@@ -49,7 +36,9 @@ def register():
         print(result)
         if(result["success"] == 1 and result2 == 1):
             flash(result["message"], "success")
-            return redirect(url_for('.login'))
+            result = user_login(request.form["username"], request.form["password"])
+            flash(result["message"], "success")
+            return redirect(url_for('aluno.paginaCriarAluno'))
 
         else:
             flash(result["message"], "danger")
