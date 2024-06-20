@@ -14,7 +14,7 @@ function updateFormFields() {
         </div>
         <div class="form-group">
             <label for="departamento">Departamento</label>
-            <input type="text" class="form-control" id="departmento" name="departmento" required placeholder="Departamento">
+            <input type="text" class="form-control" id="departamento" name="departamento" required placeholder="Departamento">
         </div>
 
         <div class="form-group">
