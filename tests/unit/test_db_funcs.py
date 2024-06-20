@@ -6,6 +6,7 @@ TEST_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","test
 TEST_URI_INEXITENTE = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","falso.json")
 
 def test_db_read():
+    cache.set()
     test_data = {"data":[
         { 
             "id": 1,

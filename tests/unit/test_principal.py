@@ -10,7 +10,13 @@ def test_register_user():
     assert(result["success"], 0)
 
 def test_login_user():
-    pass
+    ##Login User
+    result = register_user("test123", "abc")
+    assert(result["success"], 1)
+
+    ##Registrando usuario repetido
+    result = register_user("test123", "abc")
+    assert(result["success"], 0)
 
 def test_logout_user():
     pass
