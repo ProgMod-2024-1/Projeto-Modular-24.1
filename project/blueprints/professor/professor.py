@@ -14,7 +14,7 @@ def pagina_atualizar_professor():
     return render_template('professor/atualizar_professor.html')
 
 
-@professor.route('/busca', methods=['GET'])
+@professor.route('/consultar', methods=['GET'])
 def pagina_buscar_professor():
     return render_template('professor/consultar_professor.html')
 
@@ -88,7 +88,7 @@ def excluir_professor_route():
         flash("Falha ao excluir o professor: dados inválidos!", "danger")
     return redirect(url_for('professor.listar_professores'))
 
-@professor.route('/buscar_por_curso', methods=['POST'])
+@professor.route('/consultar', methods=['POST'])
 def buscar_professores_por_curso_route():
     codigo_curso = request.form['codigo_curso']
     status, resultado = buscar_professores_por_curso(codigo_curso)
