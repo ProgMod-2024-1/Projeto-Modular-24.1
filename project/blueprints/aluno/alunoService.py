@@ -88,14 +88,13 @@ def addCursosAluno(matrAluno: int, listaCursos): #espera uma lista de codigos de
             "mensagem": "Erro ao consultar aluno"
         }
     else:
-        cursosAluno = []
+        if "cursos" not in dadosAluno:
+            cursosAluno = []
+        else:
+            cursosAluno = dadosAluno["cursos"]
+
         for curso in listaCursos:
-            cursosAluno.append({
-                "curso":curso,
-                "status": True,
-                "nota": ""
-                }
-            ) 
+                cursosAluno.append({"curso":curso,"status": True,"nota": ""}) 
         dadosAluno['cursos'] = cursosAluno
         return mudaAluno(dadosAluno)
 

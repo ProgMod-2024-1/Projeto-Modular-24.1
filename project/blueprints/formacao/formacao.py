@@ -11,6 +11,7 @@ def paginaAluno():
 
 @formacao.route("/criar", methods=['GET', 'POST'])
 def paginaCriarForm():
+    todosCursos = ["ENG4007","ENG4008"] #consultaCursos
     if request.method == 'POST':
         codigo = request.form['codigo']
         nome = request.form['nome']
@@ -43,6 +44,7 @@ def paginaConsultarForm():
 
 @formacao.route("/atualizar",methods=['GET','POST'])
 def paginaAtualizarForm():
+    todosCursos = ["ENG4007","ENG4008"] #consultaCursos
     if request.method == 'POST':
         codigo = request.form['codigo']
         nome = request.form['nome']

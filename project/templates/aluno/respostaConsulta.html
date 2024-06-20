@@ -14,6 +14,18 @@
         <p><strong>CEP:</strong> {{ data['cep'] }}</p>
         <p><strong>CPF:</strong> {{ data['cpf'] }}</p>
         <p><strong>Formação:</strong> {{ data['formacao'] }}</p>
+        <p><strong>Cursos:</strong></p>
+        <ul>
+            {% for item in cursos %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Filiais:</strong></p>
+        <ul>
+            {% for item in filiais %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </body>
 

@@ -5,26 +5,24 @@ from project.blueprints.filial.filialService import get_filiais
 from project.blueprints.filial.filialRepo import get_all_filiais
 aluno = Blueprint("aluno",__name__,url_prefix= '/aluno')
 
-todasForms = ["ENGCMP"]
-formacoes = consultaTodasFormacoes()
-for formacao in formacoes:
-    todasForms.append(formacao['codigo'])
     
-#todasFiliais = ["A","B","C"] #consultaFiliais
-dicFiliais = get_all_filiais()
-todasFiliais = []
-for f in dicFiliais:
-    todasFiliais.append(f['nome'])
-
 @aluno.route("/", methods=['GET', 'POST'])
 def paginaAluno():
-    print("Db filiais")
-    print(dicFiliais)
-    print(todasFiliais)
     return render_template("aluno/aluno.html")
 
 @aluno.route("/criar", methods=['GET', 'POST'])
 def paginaCriarAluno():
+    dicFiliais = get_all_filiais()
+    print(dicFiliais)
+    todasFiliais = []
+    for f in dicFiliais:
+        todasFiliais.append(f['nome'])
+
+    todasForms = ["ENGCMP"]
+    formacoes = consultaTodasFormacoes()
+    for formacao in formacoes:
+        todasForms.append(formacao['codigo'])
+
     if request.method == 'POST':
         nome = request.form['nome']
         endereco = request.form['endereco']
@@ -44,7 +42,7 @@ def paginaCriarAluno():
         }
         print(novoAluno)
         retorno = insereAluno(novoAluno)
-        return render_template("aluno/exibeMsg.html",msg=retorno["mensagem"] + ".a\n Sua matricula é " + str(novoAluno["matricula"]))
+        return render_template("aluno/exibeMsg.html",msg=retorno["mensagem"] + ". Sua matricula é " + str(novoAluno["matricula"]))
     
     return render_template("aluno/formularioCria.html", filiais = todasFiliais, cursos = todasForms)
 
@@ -56,12 +54,28 @@ def paginaConsultarAluno():
         if retorno["codigo"] == 7:
             return render_template("aluno/exibeMsg.html", msg=retorno["mensagem"])
         elif retorno["codigo"] == 6:
-            return render_template("aluno/respostaConsulta.html", msg=retorno["mensagem"], data = retorno["dados"])
-        
+            dadosAluno = retorno["dados"]
+            print(dadosAluno)
+            if "cursos" in dadosAluno:
+                return render_template("aluno/respostaConsulta.html", msg=retorno["mensagem"], data = dadosAluno, filiais = dadosAluno["filiais"], cursos = dadosAluno["cursos"])
+            else:
+                return render_template("aluno/respostaConsulta.html", msg=retorno["mensagem"], data = dadosAluno, filiais = dadosAluno["filiais"], cursos = [])
+
     return render_template("aluno/consultaExcluiAluno.html", acao = "Consultar Aluno")
 
 @aluno.route("/atualizar",methods=['GET','POST'])
 def paginaAtualizarAluno():
+    dicFiliais = get_all_filiais()
+    print(dicFiliais)
+    todasFiliais = []
+    for f in dicFiliais:
+        todasFiliais.append(f['nome'])
+
+    todasForms = ["ENGCMP"]
+    formacoes = consultaTodasFormacoes()
+    for formacao in formacoes:
+        todasForms.append(formacao['codigo'])
+        
     if request.method == 'POST':
         matricula = request.form["matricula"] 
         nome = request.form['nome']
