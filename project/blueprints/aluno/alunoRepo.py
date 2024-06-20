@@ -1,12 +1,11 @@
-from project.db import read_db, write_db, update_db, delete_db
-import random
+from project.db.database import read_db, write_db, update_db, delete_db
 #import lista global
 alunos = []
 
 ALUNOS_DB_URI = "aluno"
 
 def criaAluno(dadosAluno):
-    return write_db(dadosAluno,"matricula",ALUNOS_DB_URI)
+    return write_db([dadosAluno],"matricula",ALUNOS_DB_URI)
 
 def excluiAluno(dadosAluno):
     return delete_db(dadosAluno,"matricula",ALUNOS_DB_URI)

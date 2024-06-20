@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, url_for
-from formacaoService import *
+from project.blueprints.formacao.formacaoService import *
 
 formacao = Blueprint("formacao",__name__,url_prefix= '/formacao')
 
-todosCursos = [] #consultaCursos
+todosCursos = ["ENG4007"] #consultaCursos
 
 @formacao.route("/", methods=['GET', 'POST'])
 def paginaAluno():
@@ -23,11 +23,11 @@ def paginaCriarForm():
             "qt_cursos": len(grade),
             "historico": []
         }
-        
-        retorno = insereFormacao(novaForm)
+        print(novaForm)
+        retorno = insereFormacao([novaForm])
         return render_template("formacao/exibeMsg.html",msg=retorno["mensagem"])
     
-    return render_template("formacao/formularioCria.html", msg=retorno["mensagem"], cursos = todosCursos, acao = "Criar Formação")
+    return render_template("formacao/formularioCria.html", cursos = todosCursos, acao = "Criar Formação")
 
 @formacao.route("/consultar", methods=['GET','POST'])
 def paginaConsultarForm():
@@ -37,7 +37,7 @@ def paginaConsultarForm():
         if retorno["codigo"] == 7:
             return render_template("formacao/exibeMsg.html", msg=retorno["mensagem"])
         elif retorno["codigo"] == 6:
-            return render_template("formacao/respostaConsulta", msg=retorno["mensagem"], data = retorno["dados"], grade = retorno['dados']['grade'])
+            return render_template("formacao/respostaConsulta.html", msg=retorno["mensagem"], data = retorno["dados"], grade = retorno["dados"]["grade"])
         
     return render_template("formacao/consultaExcluiForm.html", acao = "Consultar Formação")
 

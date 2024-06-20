@@ -1,5 +1,4 @@
-from project.db import read_db, write_db, update_db, delete_db
-from formacaoService import validaCodForm
+from project.db.database import read_db, write_db, update_db, delete_db
 FORMACAO_DB_URI = "formacao"
 
 def criaFormacao(dadosForm):
@@ -14,6 +13,7 @@ def atualizaFormacao(dadosForm):
 def consultaFormacao(cod: str):
     formacoes = consultaTodasFormacoes()
     for i,formacao in enumerate(formacoes):
+        print(formacao)
         if cod == formacao["codigo"]:
             return formacao
     return None

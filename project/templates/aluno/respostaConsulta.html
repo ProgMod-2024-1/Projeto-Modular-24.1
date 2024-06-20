@@ -1,11 +1,8 @@
+{% extends '/main.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exibição de Dados</title>
-</head>
 
 <body>
     <h1>{{ msg }}</h1>
@@ -16,8 +13,9 @@
         <p><strong>Endereço:</strong> {{ data['endereco'] }}</p>
         <p><strong>CEP:</strong> {{ data['cep'] }}</p>
         <p><strong>CPF:</strong> {{ data['cpf'] }}</p>
-        <p><strong>Curso:</strong> {{ data['curso'] }}</p>
+        <p><strong>Formação:</strong> {{ data['formacao'] }}</p>
     </div>
 </body>
 
 </html>
+{% endblock %}

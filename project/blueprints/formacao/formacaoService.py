@@ -1,4 +1,4 @@
-from formacaoRepo import criaFormacao, atualizaFormacao, consultaFormacao, consultaTodasFormacoes, excluiFormacao
+from project.blueprints.formacao.formacaoRepo import criaFormacao, atualizaFormacao, consultaFormacao, consultaTodasFormacoes, excluiFormacao
 
 #Codigo deve ser uma string de tamanho 6 contendo apenas letras maiusculas
 def validaCodForm(cod: str):
@@ -23,6 +23,7 @@ def insereFormacao(dadosForm):
             "mensagem": "Dados inválidos"
         }
     else:
+        #print(retorno)
         return {
             "codigo": 0,
             "mensagem": "Erro ao inserir nova formação"

@@ -1,11 +1,8 @@
+{% extends '/main.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Aluno</title>
-</head>
 
 <body>
     <h2>Atualizar Aluno</h2>
@@ -25,8 +22,8 @@
         <label for="cpf">CPF:</label><br>
         <input type="text" id="cpf" name="cpf" required><br><br>
 
-        <label for="curso">Curso:</label><br>
-        <select id="curso" name="curso" required>
+        <label for="formacao">Formação:</label><br>
+        <select id="formacao" name="formacao" required>
             {% for curso in cursos %}
             <option value="{{ curso }}">{{ curso }}</option>
             {% endfor %}
@@ -44,3 +41,4 @@
 </body>
 
 </html>
+{% endblock %}

@@ -1,5 +1,5 @@
 from project.blueprints.formacao.formacaoService import *
-from alunoRepo import criaAluno, excluiAluno, consultaAluno, consultaTodosAlunos, atualizaAluno
+from project.blueprints.aluno.alunoRepo import criaAluno, excluiAluno, consultaAluno, consultaTodosAlunos, atualizaAluno
 from project.blueprints.formacao.formacaoService import *
 import random
 

@@ -1,11 +1,8 @@
+{% extends '/main.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ acao }}</title>
-</head>
 
 <body>
     <h2>{{ acao }}</h2>
@@ -16,12 +13,11 @@
         <label for="nome">Nome:</label><br>
         <input type="text" id="nome" name="nome" required><br><br>
 
-        <label for="curso">Curso:</label><br>
-        <select id="curso" name="curso" required>
-            {% for curso in cursos %}
-            <option value="{{ curso }}">{{ curso }}</option>
-            {% endfor %}
-        </select><br><br>
+        <label>Cursos na Grade:</label><br>
+        {% for curso in cursos %}
+        <input type="checkbox" id="{{ curso }}" name="grade" value="{{ curso }}">
+        <label for="{{ curso }}">{{ curso }}</label><br>
+        {% endfor %}
 
         <br><br>
         <input type="submit" value="Submit">
@@ -29,3 +25,4 @@
 </body>
 
 </html>
+{% endblock %}
