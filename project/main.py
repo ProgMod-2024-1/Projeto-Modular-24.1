@@ -61,6 +61,8 @@ cache.set("turma",read_db_json(TURMA_DB_URI))
 
 app.register_blueprint(principal)
 app.register_blueprint(filial)
+app.register_blueprint(lista_espera)
+app.register_blueprint(app_turmas)
 app.secret_key = "senhaSecreta"
 login_manager = LoginManager()
 login_manager.init_app(app)
