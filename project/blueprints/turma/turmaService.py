@@ -1,5 +1,6 @@
 from project.blueprints.turma.turmaRepo import geraCodTurma, validaTurma
 from project.db.database import *
+from project.blueprints.filial.turmasFIlialService import insere_turmasFilial, remove_turmasFilial
 import json
 
 
@@ -26,6 +27,7 @@ def criaTurma(dadosTurma: dict) -> dict:
             }
 
     nova_turma["cod_turma"] = geraCodTurma()
+
 
     write_db([nova_turma], "cod_turma", "turma")
 

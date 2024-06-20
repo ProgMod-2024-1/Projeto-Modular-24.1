@@ -38,7 +38,10 @@ def register():
             flash(result["message"], "success")
             result = user_login(request.form["username"], request.form["password"])
             flash(result["message"], "success")
-            return redirect(url_for('aluno.paginaCriarAluno'))
+            if request.form["permission"] == "1":
+                return redirect(url_for('aluno.paginaCriarAluno'))
+            else:
+                return redirect(url_for('.pagina_principal'))
 
         else:
             flash(result["message"], "danger")

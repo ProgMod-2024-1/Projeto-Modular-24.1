@@ -1,6 +1,7 @@
 from project.blueprints.formacao.formacaoService import *
 from project.blueprints.aluno.alunoRepo import criaAluno, excluiAluno, consultaAluno, consultaTodosAlunos, atualizaAluno
 from project.blueprints.formacao.formacaoService import *
+from project.blueprints.curso.cursoRepo import *
 from datetime import datetime
 import random
 
@@ -81,7 +82,7 @@ def buscaAluno(dadosAluno):
             "dados": retorno
         }
 
-def addCursosAluno(matrAluno: int, listaCursos): #espera uma lista de codigos de curso 
+def addCursosAluno(matrAluno: int, curso): #espera uma lista de codigos de curso 
     dadosAluno = consultaAluno(matrAluno)
     if dadosAluno == None:
         return {
@@ -93,10 +94,11 @@ def addCursosAluno(matrAluno: int, listaCursos): #espera uma lista de codigos de
             cursosAluno = []
         else:
             cursosAluno = dadosAluno["cursos"]
-
-        for curso in listaCursos:
-                cursosAluno.append({"curso":curso,"status": True,"nota": ""}) 
+        
+        cursosAluno.append({"curso":curso,"status": True,"nota": ""}) 
+        print(cursosAluno)
         dadosAluno['cursos'] = cursosAluno
+        print(dadosAluno)
         return mudaAluno(dadosAluno)
 
 def buscaNotaCursoAluno(matrAluno: int, codCurso):
@@ -126,13 +128,48 @@ def addAvalAluno(matrAluno:int, dadosAval):
         dadosAluno["avaliacao"].append(dadosAval)
         return mudaAluno(dadosAluno)
 
-def defAprovado(matrAluno: int, codForm: str):
+def defAprovadoCurso(matrAluno: int, codCurso: str):
+    dadosAluno = consultaAluno(matrAluno)
+    if dadosAluno == None:
+        return {
+            "codigo": 71,
+            "mensagem": "Erro ao consultar aluno"
+        }
+    else:
+        dadosCurso = get_curso(codCurso)
+        if dadosCurso == None:
+            return {
+            "codigo": 72,
+            "mensagem": "Erro ao consultar curso"
+        }
+        else:
+            todasAvaliacoes = dadosAluno["avaliacao"]
+            avaliacoesCurso = []
+            for aval in todasAvaliacoes:
+                if aval["curso"] == codCurso:
+                    avaliacoesCurso.append(aval)
+            media = 0
+            for av in avaliacoesCurso:
+                media += int(av["nota"])
+            media = media / len(avaliacoesCurso)
+            criterio = dadosCurso["criterios_aprovacao"]
+            if media < criterio:
+                return {
+                    "codigo": 61,
+                    "mensagem": "Aluno Não Aprovado no Curso"
+                }
+            else:
+                return {
+                    "codigo": 62,
+                    "mensagem": "Aluno Aprovado no Curso"
+                }
+
+def defAprovadoForm(matrAluno: int, codForm: str):
     if not validaCodForm(codForm):
         return {
             "codigo":72,
             "mensagem":"Código de formação inválida"
         }
-    
     dadosAluno = consultaAluno(matrAluno)
     if dadosAluno == None:
         return {
@@ -143,8 +180,18 @@ def defAprovado(matrAluno: int, codForm: str):
         dadosForm = consultaFormacao(codForm)
         gradeForm = dadosForm["grade"]
         for curso in gradeForm:
-            criterio = 5 #modulo criterios
-            if buscaNotaCursoAluno(matrAluno, curso['codigo']) < criterio:
+            dadosCurso = get_curso(curso)
+            criterio = dadosCurso["criterios_aprovacao"]
+            todasAvaliacoes = dadosAluno["avaliacao"]
+            avaliacoesCurso = []
+            for aval in todasAvaliacoes:
+                if aval["curso"] == dadosCurso[""]:
+                    avaliacoesCurso.append(aval)
+            media = 0
+            for av in avaliacoesCurso:
+                media += int(av["nota"])
+            media = media / len(avaliacoesCurso)
+            if media < criterio:
                 return {
                     "codigo": 61,
                     "mensagem": "Aluno Não Aprovado"
@@ -155,6 +202,3 @@ def defAprovado(matrAluno: int, codForm: str):
             "codigo": 62,
             "mensagem": "Aluno Aprovado"
         }
-
-    
-

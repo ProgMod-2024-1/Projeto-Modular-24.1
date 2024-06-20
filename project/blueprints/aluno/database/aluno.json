@@ -1,1 +1,30 @@
-{"data": [{"matricula": 2412362, "nome": "lalala", "endereco": "lalala", "cep": "343434", "cpf": "3434343", "formacao": "ENGCMP", "filiais": ["Teste"], "user": "lalala"}]}
+{
+    "data": [
+        {
+            "matricula": 2410965,
+            "nome": "aaa",
+            "endereco": "aaa",
+            "cep": "aaa",
+            "cpf": "aaa",
+            "formacao": "ENGCVL",
+            "filiais": [
+                "Teste"
+            ],
+            "cursos": [],
+            "user": "aluno11"
+        },
+        {
+            "matricula": 2419931,
+            "nome": "bbb",
+            "endereco": "bbb",
+            "cep": "bbb",
+            "cpf": "bbb",
+            "formacao": "ENGCVL",
+            "filiais": [
+                "Teste"
+            ],
+            "cursos": [],
+            "user": "aluno12"
+        }
+    ]
+}

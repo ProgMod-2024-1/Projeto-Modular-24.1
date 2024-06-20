@@ -1,1 +1,1 @@
-{"data": []}
+{"data": [{"codigo": "ENGCVL", "nome": "Engenharia Civil", "grade": ["ENG4007", "ENG4008"], "qt_cursos": 2, "historico": []}, {"codigo": "ENGAMB", "nome": "Engenharia Ambiental", "grade": ["ENG4008", "ENG4009"], "qt_cursos": 2, "historico": []}]}

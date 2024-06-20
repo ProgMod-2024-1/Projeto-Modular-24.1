@@ -1,4 +1,5 @@
 from project.blueprints.avaliacao.avaliacaoRepo import get_all_avaliacao, registra_avaliacao, seek_avaliacao, muda_avaliacao, deleta_avaliacao
+from project.blueprints.aluno.alunoService import addAvalAluno
 #from project.blueprints.curso.cursoRepo import consultar_curso
 
 #Retorna todas as avalçiações presentes no json
@@ -109,8 +110,9 @@ def lanca_avaliacoes(turma, codAval, user):
                 }
 
     for correcao in aval["correcoes"]:
+        infos = {"curso":aval["curso"], "codAval":aval["info"]["codAval"], "nota":correcao["nota"], "codAluno":correcao["codAluno"]}
         #!chamada da função addAvalAluno
-        pass
+        return addAvalAluno(int(correcao["codAluno"]),infos)
 
     aval["lancada"] = True
     muda_avaliacao(aval)
