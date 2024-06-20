@@ -1,0 +1,148 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./avaliacao/css/avaliacao.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+<div class="container my-5">
+    <a href="{{ url_for('avaliacao.mostrar_avaliacoes_route') }}"><button>Voltar Para Todas as Avaliações</button></a><br>
+    <div class="card">
+        <div class="card-header">
+
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Curso: {{avaliacao.curso}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Turma: {{avaliacao.info.turma}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Código: {{avaliacao.info.codAval}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Questões
+                        </h1>
+                    </div>
+                    <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-aa">
+                        <a class="btn btn-primary" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne-aa" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            Mostrar mais/menos
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row gx-3">
+                    <div class="col-md-4">
+                        <h1 class="mb-0">
+                            Correções
+                        </h1>
+                    </div>
+                    <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-bb">
+                        <a class="btn btn-primary" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne-bb" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            Mostrar mais/menos
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="collapseOne-aa" class="collapse hide" aria-labelledby="headingOne"
+            data-bs-parent="#accordion">
+            <div class="card-body">
+                <form action="" method="post" class="form"id="editform-aa"></form>
+                {%for pergunta in avaliacao.perguntas%}
+                <div class="form-group">
+                    <label for="Pergunta">Questão {{ loop.index }}</label>
+                    <input form="editform-aa" type="string" class="form-control" placeholder="Pergunta" value="{{pergunta}}" readonly>
+                </div>
+                {%endfor%}
+                <hr>
+                {%if not avaliacao.lancada%}
+                <a href="{{ url_for('avaliacao.mudar_questoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
+                    <button>Editar Questões</button>
+                </a>
+                {%endif%}
+            </div>
+        </div>
+        
+        <div id="collapseOne-bb" class="collapse hide" aria-labelledby="headingOne"
+            data-bs-parent="#accordion">
+            <div class="card-body">
+                <form action="" method="post" class="form"id="editform-bb"></form>
+                {%if avaliacao.correcoes%}
+                {%for correcao in avaliacao.correcoes%}
+                <div class="form-group">
+                    <h5>{{ correcao.codAluno }}</h5>
+                    <label for="Pergunta">Nota: {{ correcao.nota }}</label>
+                    <!-- <input form="editform-bb" type="string" class="form-control" placeholder="Pergunta" value={{pergunta}} readonly> -->
+                </div>
+                {%if not avaliacao.lancada%}
+                <a href="{{ url_for('avaliacao.mudar_correcoes_route', turma=avaliacao.info.turma,  codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}">
+                    <button>Ver Correção</button>
+                </a>
+                <a href="{{ url_for('avaliacao.deletar_correcoes_route', turma=avaliacao.info.turma,  codAval=avaliacao.info.codAval, codAluno=correcao.codAluno) }}">
+                    <button style="color:red">Deletar Correção</button>
+                </a>
+                {%endif%}
+                <hr>
+                {%endfor%}
+                {%if not avaliacao.lancada%}
+                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                {%endif%}
+                {%else%}
+                {%if not avaliacao.lancada%}
+                <div>
+                <p>Ainda não há correções registradas!</p>
+                <a href="{{ url_for('avaliacao.registrar_correcoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Registrar uma Nova Correção</button></a>
+                </div>
+                {%endif%}
+                {%endif%}
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+{% endblock %}

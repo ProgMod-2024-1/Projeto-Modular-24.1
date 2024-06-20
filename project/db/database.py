@@ -106,7 +106,7 @@ def save_cache(memory_storage, pathToFile):
         except Exception as ex:
             print(ex)
             with open(pathToFile, mode="w") as jsonFile:
-                json.dump(data, jsonFile)
+                json.dump(data, jsonFile, indent=4)
             return -2 # Erro nao mapeado, nao salva nada
     else:
         return -4 # Nao achou db

@@ -6,6 +6,7 @@ from flask_login import AnonymousUserMixin
 from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
 #principal imports
 from project.blueprints.principal.principal import principal
+from project.blueprints.avaliacao.avaliacao import avaliacao
 from project.blueprints.filial.filial import filial
 from flask import Flask, redirect, url_for, flash
 from flask_login import AnonymousUserMixin
@@ -62,6 +63,7 @@ cache.set("professor",read_db_json(PROFESSOR_DB_URI))
 cache.set("turma",read_db_json(TURMA_DB_URI))
 
 app.register_blueprint(principal)
+app.register_blueprint(avaliacao)
 app.register_blueprint(filial)
 app.register_blueprint(lista_espera)
 app.register_blueprint(app_turmas)
