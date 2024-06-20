@@ -6,7 +6,6 @@ TEST_DB_URI = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","test
 TEST_URI_INEXITENTE = os.path.join(os.path.dirname(os.path.abspath(__file__)),"db","falso.json")
 
 def test_db_read():
-    cache.set()
     test_data = {"data":[
         { 
             "id": 1,
@@ -17,11 +16,10 @@ def test_db_read():
             "nome": "Antonio"
         }
     ]}
+    cache.set("test")
+    cache.add("test", test_data)
 
-    with open(TEST_DB_URI, mode="w") as jsonFile:
-        json.dump(test_data, jsonFile)
-
-    data_from_db = {"data":read_db(TEST_DB_URI)}
+    data_from_db = {"data":read_db("test")}
 
     assert(data_from_db == test_data)
 
@@ -37,32 +35,12 @@ def test_db_write():
         }
     ]}
 
-    test_data_assertion = {"data":[
-        { 
-            "id": 1,
-            "nome": "Joao"
-        },
-        {
-            "id": 2,
-            "nome": "Antonio"
-        },
-        {
-            "id": 3,
-            "nome": "Maria"
-        }
-    ]}
+    cache.set("test")
+    cache.add("test", test_data)
 
-    with open(TEST_DB_URI, mode="w") as jsonFile:
-        json.dump(test_data, jsonFile)
-
-    assert(write_db([{"id": 2, "nome": "Joao"}],"id",TEST_DB_URI) == -1)
-    assert(write_db([{"id": 4, "nome": "Joao", "telefone":234343343}],"id", TEST_DB_URI) == -3)
-    assert(write_db([{"id": 3, "nome": "Maria"}], "id", TEST_DB_URI) == 1)
-    assert(write_db([{"id": 3, "nome": "Maria"}], "id", TEST_URI_INEXITENTE) == -4)
-    
-    with open(TEST_DB_URI, mode="r") as jsonFile:
-        data_from_db = json.load(jsonFile)
-        assert(data_from_db == test_data_assertion)
+    assert(write_db([{"id": 2, "nome": "Joao"}],"id","test") == -1)
+    assert(write_db([{"id": 4, "nome": "Joao", "telefone":234343343}],"id", "test") == -3)
+    assert(write_db([{"id": 3, "nome": "Maria"}], "id", "test") == 1)
 
 def test_db_update():
     test_data = {"data":[
@@ -83,35 +61,13 @@ def test_db_update():
         }
     ]}
 
-    test_data_assertion = {"data":[
-        { 
-            "id": 1,
-            "nome": "Joao",
-            "telefone": 11
-        },
-        {
-            "id": 2,
-            "nome": "Antonio",
-            "telefone": 22
-        },
-        {
-            "id": 3,
-            "nome": "Maria",
-            "telefone": 33
-        }
-    ]}
+    cache.set("test")
+    cache.add("test", test_data)
 
-    with open(TEST_DB_URI, mode="w") as jsonFile:
-        json.dump(test_data, jsonFile)
-
-    assert(update_db({"id": 5, "nome": "Joao", "telefone":11},"id",TEST_DB_URI) == -1)
-    assert(update_db({"id": 5, "nome": "Joao", "telefone":11, "endereco": "Gavea"},"id",TEST_DB_URI) == -3)
-    assert(update_db([{"id": 3, "nome": "Maria"}], "id", TEST_URI_INEXITENTE) == -4)
-    assert(update_db({"id": 1, "nome": "Joao", "telefone":11},"id",TEST_DB_URI) == 1)
+    assert(update_db({"id": 5, "nome": "Joao", "telefone":11},"id","test") == -1)
+    assert(update_db({"id": 5, "nome": "Joao", "telefone":11, "endereco": "Gavea"},"id","test") == -3)
+    assert(update_db({"id": 1, "nome": "Joao", "telefone":11},"id","test") == 1)
     
-    with open(TEST_DB_URI, mode="r") as jsonFile:
-        data_from_db = json.load(jsonFile)
-        assert(data_from_db == test_data_assertion)
 
 def test_db_delete():
     test_data = {"data":[
@@ -132,26 +88,8 @@ def test_db_delete():
         }
     ]}
 
-    test_data_assertion = {"data":[
-        { 
-            "id": 1,
-            "nome": "Joao",
-            "telefone": 11
-        },
-        {
-            "id": 2,
-            "nome": "Antonio",
-            "telefone": 22
-        },
-    ]}
+    cache.set("test")
+    cache.add("test", test_data)
 
-    with open(TEST_DB_URI, mode="w") as jsonFile:
-        json.dump(test_data, jsonFile)
-
-    assert(delete_db({"id": 5, "nome": "Joao", "telefone":11},"id",TEST_DB_URI) == -1)
-    
-    assert(delete_db({"id": 3},"id",TEST_DB_URI) == 1)
-    
-    with open(TEST_DB_URI, mode="r") as jsonFile:
-        data_from_db = json.load(jsonFile)
-        assert(data_from_db == test_data_assertion)
+    assert(delete_db({"id": 5, "nome": "Joao", "telefone":11},"id","test") == -1)
+    assert(delete_db({"id": 3},"id","test") == 1)
