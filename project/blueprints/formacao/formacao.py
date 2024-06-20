@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template, request, url_for
 from project.blueprints.formacao.formacaoService import *
+from project.blueprints.curso.cursoRepo import ler_cursos
 
 formacao = Blueprint("formacao",__name__,url_prefix= '/formacao')
-
-todosCursos = ["ENG4007"] #consultaCursos
 
 @formacao.route("/", methods=['GET', 'POST'])
 def paginaAluno():
@@ -11,7 +10,12 @@ def paginaAluno():
 
 @formacao.route("/criar", methods=['GET', 'POST'])
 def paginaCriarForm():
-    todosCursos = ["ENG4007","ENG4008"] #consultaCursos
+    listaDic = ler_cursos()
+    todosCursos = []
+    for curso in listaDic:
+        todosCursos.append(curso["codigo"])
+    print(todosCursos)
+
     if request.method == 'POST':
         codigo = request.form['codigo']
         nome = request.form['nome']
@@ -44,7 +48,11 @@ def paginaConsultarForm():
 
 @formacao.route("/atualizar",methods=['GET','POST'])
 def paginaAtualizarForm():
-    todosCursos = ["ENG4007","ENG4008"] #consultaCursos
+    listaDic = ler_cursos()
+    todosCursos = []
+    for curso in listaDic:
+        todosCursos.append(curso["codigo"])
+
     if request.method == 'POST':
         codigo = request.form['codigo']
         nome = request.form['nome']

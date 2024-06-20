@@ -20,7 +20,7 @@ def paginaCriarAluno():
     for f in dicFiliais:
         todasFiliais.append(f['nome'])
 
-    todasForms = ["ENGCMP"]
+    todasForms = []
     formacoes = consultaTodasFormacoes()
     for formacao in formacoes:
         todasForms.append(formacao['codigo'])
@@ -41,6 +41,8 @@ def paginaCriarAluno():
             "cpf": cpf,
             "formacao": formacao,
             "filiais": filiais,
+            "cursos": [],
+            "avaliacao": [],
             "user": current_user.id
         }
         print(novoAluno)
@@ -60,7 +62,10 @@ def paginaConsultarAluno():
             dadosAluno = retorno["dados"]
             print(dadosAluno)
             if "cursos" in dadosAluno:
-                return render_template("aluno/respostaConsulta.html", msg=retorno["mensagem"], data = dadosAluno, filiais = dadosAluno["filiais"], cursos = dadosAluno["cursos"])
+                listaCursos = []
+                for curso in dadosAluno["cursos"]:
+                    listaCursos.append(curso["curso"])
+                return render_template("aluno/respostaConsulta.html", msg=retorno["mensagem"], data = dadosAluno, filiais = dadosAluno["filiais"], cursos = listaCursos)
             else:
                 return render_template("aluno/respostaConsulta.html", msg=retorno["mensagem"], data = dadosAluno, filiais = dadosAluno["filiais"], cursos = [])
 
@@ -95,9 +100,17 @@ def paginaAtualizarAluno():
             "cep": cep,
             "cpf": cpf,
             "formacao": formacao,
-            "filiais": filiais
+            "filiais": filiais,
+            "cursos": [],
+            "avaliacao": [],
+            "user": ""
         }
 
+        dadosAluno = consultaAluno(int(matricula))
+        if dadosAluno != None:
+            novosDados["cursos"] = dadosAluno["cursos"]
+            novosDados["user"] = dadosAluno["user"]
+            novosDados["avaliacao"] = dadosAluno["avaliacao"]
         retorno = mudaAluno(novosDados)
         return render_template("aluno/exibeMsg.html", msg=retorno["mensagem"])
     

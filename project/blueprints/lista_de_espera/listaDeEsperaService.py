@@ -1,5 +1,6 @@
 from .listaDeEsperaRepo import *
 from ..turma.turmaService import criaTurma
+from project.blueprints.aluno.alunoService import addCursosAluno
 
 #from ..filial.filialService import filial_existe_repo
 #from ..professor.professorService import professor_existe_repo
@@ -72,6 +73,12 @@ def exclui_lista_espera_service(codLE, cria_turma):
             "filial": lista_espera["filial"],
             "alunos": lista_espera["alunos"]
         }
+        
+        print(dados_turma)
+        listaAlunos = dados_turma["alunos"]
+        for dic in listaAlunos:
+            retorno = addCursosAluno(int(dic["matrAluno"]),dados_turma["curso"])            
+            print(retorno)
 
         criaTurma(dados_turma)
         return 9  # Sucesso

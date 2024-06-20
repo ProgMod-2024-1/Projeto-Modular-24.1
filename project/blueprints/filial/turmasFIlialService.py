@@ -1,4 +1,4 @@
-from filialRepo import get_filial_by_codigo, update_filial, get_all_filiais
+from project.blueprints.filial.filialRepo import get_filial_by_codigo, update_filial, get_all_filiais, get_filial
 
 def insere_turmasFilial(filial_nome: str, ano: str, turma_codigo: str)->int:
 	query = get_all_filiais()
@@ -34,6 +34,7 @@ def insere_turmasFilial(filial_nome: str, ano: str, turma_codigo: str)->int:
 def remove_turmasFilial(filial_nome: str, ano: str, turma_codigo: str)->int:
 	query = get_all_filiais()
 	query_element = []
+	flag = None
 	for filial in query:
 		query_elements.append(list(filial["turmas"].values()))
 
@@ -43,7 +44,7 @@ def remove_turmasFilial(filial_nome: str, ano: str, turma_codigo: str)->int:
 				if codigos == turma_codigo:
 					flag = 1
 
-	if(!flag):
+	if flag == None:
 		return -1
 
 	filial = get_filial(filial_nome)
