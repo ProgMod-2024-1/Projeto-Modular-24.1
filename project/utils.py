@@ -1,4 +1,3 @@
-
 from flask import current_app, flash
 from flask_login import current_user
 from functools import wraps

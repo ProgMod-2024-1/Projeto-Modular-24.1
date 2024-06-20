@@ -93,7 +93,7 @@ def delete_db(object:object, primaryKey:str,  memory_storage) -> int:
     
     return 1
 
-def save_cache(memory_storage, pathToFile):
+def save_cache(memory_storage, pathToFile):   
     if os.path.isfile(pathToFile) and os.access(pathToFile, os.R_OK):
         with open(pathToFile, mode="r") as jsonFile:
             data = json.load(jsonFile)
@@ -111,4 +111,5 @@ def save_cache(memory_storage, pathToFile):
     else:
         return -4 # Nao achou db
         
+
 
