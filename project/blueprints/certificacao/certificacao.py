@@ -7,14 +7,14 @@ certificacao = Blueprint("certificacao",__name__,url_prefix= '/certificacao')
 
 #Página que mostra todas as certificações de um aluno
 @certificacao.route("/")
-#@aluno_required
+@aluno_required
 def mostra_certificacoes_route():
     certificacoes = seek_certificacoes_aluno(current_user.id)
     return render_template("certificacao/mostra-certificacoes.html", current_user=current_user, certificacoes = certificacoes)
 
 #Página onde é possível ver todas as informações sobre uma certificação específica
 @certificacao.route("/ver_certificacoes")
-#@aluno_required
+@aluno_required
 def ver_info_certificacoes_route():
 
     codAluno = request.args.get('codAluno')
