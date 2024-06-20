@@ -8,7 +8,6 @@ professor = Blueprint('professor', __name__, url_prefix='/professor')
 def pagina_criar_professor():
     return render_template('professor/criar_professor.html')
 
-
 @professor.route('/atualizar_professor', methods=['POST','GET'])
 def pagina_atualizar_professor():
     return render_template('professor/atualizar_professor.html')
@@ -22,8 +21,6 @@ def pagina_buscar_professor():
 @professor.route('/excluir', methods=['GET'])
 def pagina_excluir_professor():
     return render_template('professor/excluir_professor.html')
-
-
 
 
 @professor.route('/', methods=['GET'])
@@ -58,7 +55,6 @@ def atualizar_professor_route():
                 'cursos': request.form['cursos']
             }.items() if value}
             result = atualizar_professor(request.form['matricula'], dados)
-
     if result == "sucesso":
         flash("Professor atualizado com sucesso!", "success")
     else:
