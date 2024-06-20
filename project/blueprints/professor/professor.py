@@ -9,7 +9,7 @@ def pagina_criar_professor():
     return render_template('professor/criar_professor.html')
 
 
-@professor.route('/atualizar_professor', methods=['GET'])
+@professor.route('/atualizar_professor', methods=['POST','GET'])
 def pagina_atualizar_professor():
     return render_template('professor/atualizar_professor.html')
 
@@ -47,24 +47,19 @@ def criar_professor():
 
     return redirect(url_for('professor.listar_professores'))
 
-@professor.route('/atualizar', methods=['POST'])
-def atualizar_curso_route():
-    codigoCurso = request.form['codigo']
-    result = excluir_professor(codigoCurso)
+@professor.route('/atualizar_professor', methods=['POST', 'GET'])
+def atualizar_professor_route():
+    if request.method == 'POST':
+        if 'atualizar' in request.form:
+            dados = {key: value for key, value in {
+                'nome': request.form['nome'],
+                'horarios': request.form['horarios'],
+                'matricula': request.form['matricula'],
+                'cursos': request.form['cursos']
+            }.items() if value}
+            result = atualizar_professor(request.form['matricula'], dados)
+
     if result == "sucesso":
-        nome = request.form['nome']
-        horarios = request.form['horario']
-        matricula = request.form['matricula']
-        cursos = request.form['disponibilidade']
-
-        novo_professor = {
-            'nome': nome,
-            'horarios': horarios,
-            'matricula': matricula,
-            'cursos': cursos,
-        }
-
-        salvar_professor(novo_professor)
         flash("Professor atualizado com sucesso!", "success")
     else:
         flash("Falha ao atualizar o professor!", "error")

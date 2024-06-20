@@ -1,5 +1,6 @@
 import json
 import os
+from project.db.database import *
 
 CAMINHO_ARQUIVO = os.path.join(os.path.dirname(__file__), 'database', 'professor.json')
 
@@ -50,16 +51,14 @@ def update_professor(updated_professor: dict) -> bool:
     return False
 
 
-def atualizar_professor(matricula, professor):
-    cursos = ler_professores()
-
-    for matricula in professor:
-        if professor["matricula"] == matricula:
-            professor.update(professor)
-            salvar_professor(cursos)
-            return "sucesso"
-
-    return "falha"
+def atualizar_professor(matricula, dadosProfessor):
+    result = buscaProfessor(matricula)
+    if result['sucess'] == 4:
+        return 1
+    professor = result['professor']
+    professor.update(dadosProfessor)
+    update_db(professor, 'matricula', 'professor')
+    return 0
 
 
 def gerar_propostas_turmas(nome, horario, matricula, disponibilidade, cursoId, creditosCurso):
@@ -146,3 +145,18 @@ def buscar_professores_por_curso(codigo_curso):
         return 3, professores_para_curso  # Sucesso na leitura
     return 4, []  # Falha na leitura por inexistência
 
+def buscaProfessor(matricula):
+    professores = read_db("professor")
+    professor = next((professor for professor in professores if professor["matricula"] == matricula), None)
+    if professor:
+        return {
+            "success": 3,
+            "message": "Sucesso na consulta",
+            "professor": professor
+        }
+
+    return {
+        "success": 4,
+        "message": "Falha professor inexistente",
+        "professor": {}
+    }
