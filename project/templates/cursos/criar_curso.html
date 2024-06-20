@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='curso/curso_criar.css') }}">
+
+    <title>Criar Curso</title>
+</head>
+<body>
+    <!-- Exibir mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <h1>Criar Curso</h1>
+    <form action="{{ url_for('curso.criar_curso') }}" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+        
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required><br>
+        
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required><br>
+        
+        <label for="pre_requisitos">Pré-requisitos:</label>
+        <input type="text" id="pre_requisitos" name="pre_requisitos" required><br>
+        
+        <label for="creditos">Créditos:</label>
+        <input type="number" id="creditos" name="creditos" required><br>
+        
+        <label for="criterios_aprovacao">Critérios de Aprovação:</label>
+        <input type="text" id="criterios_aprovacao" name="criterios_aprovacao" required><br>
+
+        <label for="nota">Nota:</label>
+        <input type="number" id="nota" name="nota" required><br>
+        
+        <button type="submit">Criar Curso</button>
+    </form>
+
+    <a href="{{ url_for('curso.listar_cursos') }}" class="btn-voltar-curso">Voltar para a Lista de Cursos</a>
+
+
+
+</body>
+</html>
