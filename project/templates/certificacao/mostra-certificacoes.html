@@ -8,14 +8,14 @@
 {% if certificacoes|length < 1 %} 
 
 <div>
-<p>Ainda não há nenhuma certificação registrada!</p>
+<p>Você não tem nenhuma certificação!</p>
 </div>
 
 {% else %}
 
 <div class="container">
 
-{% for certificacao in certificacoes %}
+{% for certificacao in certificacoes.certificados %}
 
 <div class="container my-5">
     <div class="card" id="card-{{ loop.index }}">
@@ -26,7 +26,7 @@
                 <div class="row gx-3" id="row gx3-{{ loop.index }}">
                     <div class="col-md-4" id="col-md-4-{{ loop.index }}">
                         <h1 class="mb-0" id="mb-0-{{ loop.index }}">
-                            certificação {{certificacao.info.id_formacao}}
+                            Certificado de Conclusão de {{certificacao.formacao}}
                         </h1>
                     </div>
                     <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-{{ loop.index }}">
@@ -45,12 +45,8 @@
             data-bs-parent="#accordion">
             <div class="card-body">
                 <form action="" method="post" class="form"id="editform-{{ loop.index }}"></form>
-                <div class="form-group">
-                    <label>Código certificação</label>
-                    <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Código certificação" value={{certificacao.info.codCert}} readonly>
-                </div>
                 <hr>
-                <a href="{{ url_for('certificacao.ver_info_certificacoes_route', codCert=certificacao.info.codCert, id_aluno=certificacao.info.id_aluno, id_formacao=certificacao.info.id_formacao) }}"><button>Ver Tudo</button></a>
+                <a href="{{ url_for('certificacao.ver_info_certificacoes_route', formacao=certificacao.formacao, codAluno = certificacoes.codAluno) }}"><button>Ver Certificação</button></a>
             </div>
         </div>
     </div>

@@ -1,26 +1,28 @@
 from flask import Blueprint,render_template,redirect, request, flash, url_for, jsonify
-from project.blueprints.certificacao.certificacaoService import get_certificacoes, registra_certificacoes, seek_certificacoes, muda_certificacoes
+from project.blueprints.certificacao.certificacaoService import seek_certificacoes_aluno, get_certificacoes, seek_certificacoes, muda_certificacoes
 from flask_login import current_user
+from project.utils import aluno_required
 
 certificacao = Blueprint("certificacao",__name__,url_prefix= '/certificacao')
 
 #Página que mostra todas as certificações de um aluno
 @certificacao.route("/")
+#@aluno_required
 def mostra_certificacoes_route():
-    certificacoes = get_certificacoes()
+    certificacoes = seek_certificacoes_aluno("345")
     return render_template("certificacao/mostra-certificacoes.html", current_user=current_user, certificacoes = certificacoes)
 
 #Página onde é possível ver todas as informações sobre uma certificação específica
 @certificacao.route("/ver_certificacoes")
+#@aluno_required
 def ver_info_certificacoes_route():
 
-    codCert = request.args.get('codCert')
-    codAluno = request.args.get('id_aluno')
-    id_formacao = request.args.get('id_formacao')
+    codAluno = request.args.get('codAluno')
+    formacao = request.args.get('formacao')
 
-    data = seek_certificacoes(codAluno)
+    data = seek_certificacoes(codAluno, formacao)
 
-    return render_template("certificacao/ver-certificacao.html", certificacao = data)
+    return render_template("certificacao/ver-certificacao.html", nome=codAluno, certificacao = data)
 
 
 

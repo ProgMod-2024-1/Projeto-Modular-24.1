@@ -8,16 +8,27 @@ def get_all_certificacoes() -> List[object]:
 
 # Registra uma nova certificação
 def registra_certificacao(novaCert: object) -> int:
-    return write_db([novaCert], "info", "certificacao")
+    return write_db([novaCert], "codAluno", "certificacao")
 
-# Retorna uma certificação específica com os dados fornecidos
-def seek_certificacao(codAluno: str) -> object:
+# Retorna um aluno e suas certificações
+def seek_certificacoes_aluno(codAluno: str) -> object:
     data = read_db("certificacao")
     for certificacao in data:
-        if (certificacao["info"]["codAluno"] == codAluno):
+        if (certificacao["codAluno"] == codAluno):
             return certificacao
     return None
 
 # Atualiza os dados de uma certificação existente
 def muda_certificacao(certAtualizada: object) -> int:
-    return update_db(certAtualizada, "info", "certificacao")
+    return update_db(certAtualizada, "codAluno", "certificacao")
+
+# Retorna uma certificação específica com os dados fornecidos
+def seek_certificacao(codAluno: str, formacao: str) -> object:
+    data = read_db("certificacao")
+    for certificacao in data:
+        if (certificacao["codAluno"] == codAluno):
+            for certificado in certificacao["certificados"]:
+                if (certificado["formacao"] == formacao):
+                    return certificado
+    return None
+

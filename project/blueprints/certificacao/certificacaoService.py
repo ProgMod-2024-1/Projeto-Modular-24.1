@@ -1,4 +1,4 @@
-from project.blueprints.certificacao.certificacaoRepo import cria_certificacao_vazia, get_all_certificacoes, registra_certificacao, seek_certificacao, muda_certificacao
+from project.blueprints.certificacao.certificacaoRepo import seek_certificacoes_aluno, get_all_certificacoes, registra_certificacao, seek_certificacao, muda_certificacao
 
 # Retorna todas as certificações presentes no json
 def get_certificacoes():
@@ -9,14 +9,14 @@ def cria_certificacao(codAluno, codForm, dataConc):
 
     novaCert = {"formacao": codForm, "dataConc": dataConc}
 
-    cert = seek_certificacoes(codAluno)
+    cert = seek_certificacoes_aluno(codAluno)
 
     if cert == None:
         novo_aluno = {"codAluno": codAluno, "certificados": [novaCert]}
-        result = cria_certificacao_vazia(novo_aluno)
+        result = registra_certificacao(novo_aluno)
     else:
         cert["certificados"].append(novaCert)
-        result = registra_certificacao(novaCert)
+        result = muda_certificacao(cert)
 
     if result == 1:
         return {
@@ -35,8 +35,8 @@ def cria_certificacao(codAluno, codForm, dataConc):
         }
 
 # Retorna uma certificação específica com os dados fornecidos
-def seek_certificacoes(codAluno):
-    return seek_certificacao(codAluno)
+def seek_certificacoes(codAluno, formacao):
+    return seek_certificacao(codAluno, formacao)
 
 # Atualiza os dados de uma certificação existente
 def muda_certificacoes(certAtualizada):
