@@ -1,6 +1,5 @@
 import json
 import os
-from project.cache import cache
 
 CAMINHO_ARQUIVO = os.path.join(os.path.dirname(__file__), 'database', 'professor.json')
 
@@ -75,9 +74,9 @@ def salvar_professores(professores):
 def validar_codigo(codigo):
     if len(codigo) != 7:
         return False
-    if not codigo[:3].isalpha() or not codigo[3:].isdigit():
-        return False
-    return True
+    if codigo.isnumeric():
+        return True
+    return False
 
 def validar_dados(dados):
     required_keys = ["nome", "duracao"]
@@ -141,18 +140,18 @@ def consultar_professor(codigo):
     if not validar_codigo(codigo):
         return "Código de curso inválido"
     for professor in professores:
-        if professor["codigo"] == codigo:
+        if professor["matricula"] == codigo:
             return professor
 
     return "Professor não encontrado"
 
-def excluir_professor(codigo):
+def excluir_professor(matricula):
     professores = ler_professores()
-    if not validar_codigo(codigo):
+    if not validar_codigo(matricula):
         return "falha"
 
     for i, professor in enumerate(professores):
-        if professor["codigo"] == codigo:
+        if professor["matricula"] == matricula:
             del professores[i]
             salvar_professores(professores)
             return "sucesso"

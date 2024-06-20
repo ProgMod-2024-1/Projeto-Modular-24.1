@@ -1,29 +1,5 @@
 [
     {
-        "nome": "Flavio",
-        "horarios": {
-            "segunda-feira": [
-                "08:00-10:00",
-                "14:00-16:00"
-            ],
-            "quarta-feira": [
-                "08:00-10:00",
-                "14:00-16:00"
-            ],
-            "sexta-feira": [
-                "08:00-10:00",
-                "14:00-16:00"
-            ]
-        },
-        "matricula": "12345",
-        "cursos": [
-            "QUI101",
-            "QUI102",
-            "QUI103",
-            "QUI104"
-        ]
-    },
-    {
         "nome": "Herman",
         "horario": "segunda 10:25 - 20:00",
         "matricula": "123213",
