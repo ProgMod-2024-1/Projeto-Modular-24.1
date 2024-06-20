@@ -3,7 +3,7 @@ from project.db.database import *
 
 
 def consultaAuluno(matrAluno):  # mocking
-    return {"matricula": matrAluno, "nome": "Aluno Teste"} if matrAluno == "VALIDO" else -1
+    return {"matricula": matrAluno, "nome": "Aluno Teste"}
 
 
 def addAlunoTurma(matrAluno: str, codTurma: str, pathToFile) -> dict:

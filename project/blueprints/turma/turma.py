@@ -38,13 +38,7 @@ def turmaConsulta():
                 turma = result["turma"]
             else:
                 flash(result["message"], "danger")
-    return render_template('turma/consultaturma.html', turma=turma)
-
-
-@app_turmas.route('/', methods=['GET', 'POST'])
-def turmaAluno():
-    if request.method == 'POST':
-        if 'adicionar' in request.form:
+        elif 'adicionar' in request.form:
             result = addAlunoTurma(matrAluno=request.form["matricula"], codTurma=request.form["turma"], pathToFile=pathToFile)
             if result["success"] == 6:
                 flash(result["message"], "success")
@@ -56,4 +50,22 @@ def turmaAluno():
                 flash(result["message"], "success")
             else:
                 flash(result["message"], "danger")
-    return render_template('turma/consultaturma.html')
+    return render_template('turma/consultaturma.html', turma=turma)
+
+
+# @app_turmas.route('/', methods=['GET', 'POST'])
+# def turmaAluno():
+#     if request.method == 'POST':
+#         elif 'adicionar' in request.form:
+#             result = addAlunoTurma(matrAluno=request.form["matricula"], codTurma=request.form["turma"], pathToFile=pathToFile)
+#             if result["success"] == 6:
+#                 flash(result["message"], "success")
+#             else:
+#                 flash(result["message"], "danger")
+#         elif 'deletar' in request.form:
+#             result = removeAlunoTurma(matrAluno=request.form["matricula"], codTurma=request.form["turma"], pathToFile=pathToFile)
+#             if result["success"] == 9:
+#                 flash(result["message"], "success")
+#             else:
+#                 flash(result["message"], "danger")
+#     return render_template('turma/consultaturma.html')
