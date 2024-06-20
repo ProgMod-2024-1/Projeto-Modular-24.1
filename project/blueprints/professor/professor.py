@@ -14,6 +14,16 @@ def pagina_atualizar_professor():
     return render_template('professor/atualizar_professor.html')
 
 
+@professor.route('/busca', methods=['GET'])
+def pagina_buscar_professor():
+    return render_template('professor/consultar_professor.html')
+
+
+@professor.route('/excluir', methods=['GET'])
+def pagina_excluir_professor():
+    return render_template('professor/excluir_professor.html')
+
+
 
 
 @professor.route('/', methods=['GET'])
@@ -39,8 +49,8 @@ def criar_professor():
 
 @professor.route('/atualizar', methods=['POST'])
 def atualizar_professor():
-    matriculaProfessor = request.form['matricula']
-    result = excluir_professor(matriculaProfessor)
+    matricula = request.form['matricula']
+    result = excluir_professor(matricula)
 
     if result == "sucesso":
       nome = request.form['nome']

@@ -1,4 +1,4 @@
-from .professorRepo import salvar_professor, ler_professores
+from .professorRepo import salvar_professor, ler_professores, excluir_professor
 
 def registrar_professor(nome: str, horario: str, matricula: str, disponibilidade: str) -> dict:
     professor = {

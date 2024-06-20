@@ -128,13 +128,10 @@ def excluir_professor(codigo_professor):
     if status != 3:
         return status
 
-    if not validar_codigo(codigo_professor):
-        return 5  # Falha na leitura por dados inválidos
-
     for i, professor in enumerate(professores):
         if professor["codigo_professor"] == codigo_professor:
             del professores[i]
-            salvar_professores(professores)
+            salvar_professor(professores)
             return 9  # Sucesso na exclusão
 
     return 10  # Falha na exclusão por inexistência

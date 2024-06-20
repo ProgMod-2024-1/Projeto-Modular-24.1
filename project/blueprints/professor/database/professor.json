@@ -28,17 +28,5 @@
         "horario": "segunda 10:25 - 20:00",
         "matricula": "123213",
         "disponibilidade": "segunda-feira, terça feira, quarta-feira"
-    },
-    {
-        "nome": "Herman",
-        "horario": "10:25, 8:50, 9:30",
-        "matricula": "123132",
-        "disponibilidade": "segunda-feira, terça feira, Domingo"
-    },
-    {
-        "nome": "Herman",
-        "horario": "10:25, 8:50, 9:30",
-        "matricula": "123132",
-        "disponibilidade": "segunda-feira, terça feira, quarta-feira"
     }
 ]
