@@ -5,7 +5,6 @@ from flask_login import AnonymousUserMixin
 #lista de espera imports
 from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
 #principal imports
-from project.blueprints.principal.principal import principal
 from project.blueprints.avaliacao.avaliacao import avaliacao
 from project.blueprints.filial.filial import filial
 from project.blueprints.aluno.aluno import aluno
@@ -14,6 +13,7 @@ from flask import Flask, redirect, url_for, flash
 from flask_login import AnonymousUserMixin
 from flask_login import LoginManager
 from project.blueprints.principal.principal import principal
+from project.blueprints.professor.professor import professor  # Importando o blueprint professor
 from project.blueprints.curso.curso import curso
 from project.blueprints.principal.principalRepo import get_user
 from project.blueprints.principal.principalService import User
@@ -64,6 +64,8 @@ cache.set("users",read_db_json(USERS_DB_URI))
 cache.set("professor",read_db_json(PROFESSOR_DB_URI))
 cache.set("turma",read_db_json(TURMA_DB_URI))
 
+
+# Registrando os blueprints na aplicação Flask
 app.register_blueprint(principal)
 app.register_blueprint(avaliacao)
 app.register_blueprint(filial)
@@ -72,7 +74,9 @@ app.register_blueprint(formacao)
 app.register_blueprint(lista_espera)
 app.register_blueprint(app_turmas)
 app.register_blueprint(curso)
+app.register_blueprint(professor)  # Registrando o blueprint professor
 app.secret_key = "senhaSecreta"
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'principal.login'

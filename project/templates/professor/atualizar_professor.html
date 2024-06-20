@@ -1,0 +1,38 @@
+<!-- templates/professores/atualizar_professor.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Professor</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='professor/criar_professor.css') }}">
+
+</head>
+
+<body>
+
+        
+        <form method="POST" action="{{ url_for('professor.criar_professor') }}">
+            <h1>Atualizar Professor</h1>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br><br>
+
+            <label for="horario">Horário:</label>
+            <input type="text" id="horario" name="horario" required><br><br>
+
+            <label for="matricula">Matrícula:</label>
+            <input type="text" id="matricula" name="matricula" required><br><br>
+
+            <label for="disponibilidade">Disponibilidade:</label>
+            <input type="text" id="disponibilidade" name="disponibilidade" required><br><br>
+
+            <button type="submit">Atualizar Professor</button>
+        </form>
+         <!-- Botão "Voltar para a Lista de Professores" -->
+         <a href="{{ url_for('professor.listar_professores') }}" class="btn-voltar-professor">Voltar para a Lista de Professores</a>
+
+</body>
+
+</html>

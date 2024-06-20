@@ -1,0 +1,41 @@
+<!-- templates/professores/professor.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='professor/professor.css') }}">
+
+    <title>Lista de Professores</title>
+</head>
+<body>
+    <h1>Lista de Professores</h1>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Horário</th>
+                <th>Matrícula</th>
+                <th>Disponibilidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for professor in professores %}
+            <tr>
+                <td>{{ professor.nome }}</td>
+                <td>{{ professor.horario }}</td>
+                <td>{{ professor.matricula }}</td>
+                <td>{{ professor.disponibilidade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <br>
+    <a href="{{ url_for('professor.pagina_criar_professor') }}">Criar Novo Professor</a>
+    <a href="{{ url_for('professor.pagina_atualizar_professor') }}">Atualizar Professor</a>
+    <a href="{{ url_for('professor.pagina_excluir_professor') }}">Excluir Professor</a>
+</body>
+</html>

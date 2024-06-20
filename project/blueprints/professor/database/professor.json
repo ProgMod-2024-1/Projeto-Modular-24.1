@@ -1,1 +1,8 @@
-{"data": []}
+[
+    {
+        "nome": "Herman",
+        "horario": "segunda 10:25 - 20:00",
+        "matricula": "123213",
+        "disponibilidade": "segunda-feira, terça feira, quarta-feira"
+    }
+]
