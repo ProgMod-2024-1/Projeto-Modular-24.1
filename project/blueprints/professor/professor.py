@@ -9,7 +9,7 @@ def pagina_criar_professor():
     return render_template('professor/criar_professor.html')
 
 
-@professor.route('/atualizar', methods=['GET'])
+@professor.route('/atualizar_professor', methods=['GET'])
 def pagina_atualizar_professor():
     return render_template('professor/atualizar_professor.html')
 
