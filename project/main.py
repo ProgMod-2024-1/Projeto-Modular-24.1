@@ -6,6 +6,7 @@ from flask_login import AnonymousUserMixin
 from project.blueprints.lista_de_espera.lista_de_espera import lista_espera
 #principal imports
 from project.blueprints.avaliacao.avaliacao import avaliacao
+from project.blueprints.certificacao.certificacao import certificacao
 from project.blueprints.filial.filial import filial
 from project.blueprints.aluno.aluno import aluno
 from project.blueprints.formacao.formacao import formacao
@@ -67,6 +68,7 @@ cache.set("turma",read_db_json(TURMA_DB_URI))
 
 # Registrando os blueprints na aplicação Flask
 app.register_blueprint(principal)
+app.register_blueprint(certificacao)
 app.register_blueprint(avaliacao)
 app.register_blueprint(filial)
 app.register_blueprint(aluno)

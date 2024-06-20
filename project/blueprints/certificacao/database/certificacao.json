@@ -1,1 +1,5 @@
-{"data": []}
+{"data": [
+    {"codAluno": "123", "certificados":[{"formacao": "inf1040", "dataConc":"27/02/2020"}, {"formacao": "inf1037", "dataConc":"09/10/2020"}]},
+    {"codAluno": "345", "certificados":[{"formacao": "inf1010", "dataConc":"09/04/2017"}, {"formacao": "inf1034", "dataConc":"06/10/2020"}]}
+]
+}

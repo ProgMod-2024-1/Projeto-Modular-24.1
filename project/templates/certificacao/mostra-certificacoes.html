@@ -1,0 +1,66 @@
+{% extends '/main.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./certificacao/css/certificacao.css') }}">
+{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+{% if certificacoes|length < 1 %} 
+
+<div>
+<p>Você não tem nenhuma certificação!</p>
+</div>
+
+{% else %}
+
+<div class="container">
+
+{% for certificacao in certificacoes.certificados %}
+
+<div class="container my-5">
+    <div class="card" id="card-{{ loop.index }}">
+        <div class="card-header" id="headingOne-{{ loop.index }}">
+
+            <div class="container" id="container-{{ loop.index }}">
+
+                <div class="row gx-3" id="row gx3-{{ loop.index }}">
+                    <div class="col-md-4" id="col-md-4-{{ loop.index }}">
+                        <h1 class="mb-0" id="mb-0-{{ loop.index }}">
+                            Certificado de Conclusão de {{certificacao.formacao}}
+                        </h1>
+                    </div>
+                    <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-{{ loop.index }}">
+                        <a class="btn btn-primary" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne-{{ loop.index }}" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            Mostrar mais/menos
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="collapseOne-{{ loop.index }}" class="collapse hide" aria-labelledby="headingOne"
+            data-bs-parent="#accordion">
+            <div class="card-body">
+                <form action="" method="post" class="form"id="editform-{{ loop.index }}"></form>
+                <hr>
+                <a href="{{ url_for('certificacao.ver_info_certificacoes_route', formacao=certificacao.formacao, codAluno = certificacoes.codAluno) }}"><button>Ver Certificação</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+{% endblock %}
