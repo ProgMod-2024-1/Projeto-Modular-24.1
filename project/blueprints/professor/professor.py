@@ -65,9 +65,9 @@ def atualizar_curso_route():
         }
 
         salvar_professor(novo_professor)
-        flash("Curso atualizado com sucesso!", "success")
+        flash("Professor atualizado com sucesso!", "success")
     else:
-        flash("Falha ao atualizar o curso!", "error")
+        flash("Falha ao atualizar o professor!", "error")
     return redirect('professor.listar_professores')
 
 #A partir da bela
