@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form action="{{ url_for('avaliacao.mudar_questoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}" method="post" class="form">
+<form action="{{ url_for('avaliacao.mudar_questoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}" method="post" class="form">
         
         <br>
         {% for i in range(num_perguntas) %}
@@ -20,7 +20,7 @@
         <button type="submit" class="btn btn-primary">Atualizar Avaliação</button>
 </form>
 <br>
-        <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
+        <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Cancelar</button></a>
 
 {% endblock %}
 {% block scripts %}

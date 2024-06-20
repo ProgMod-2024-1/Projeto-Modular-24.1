@@ -1,4 +1,5 @@
 from project.blueprints.avaliacao.avaliacaoRepo import get_all_avaliacoes, registra_avaliacao, seek_avaliacao, muda_avaliacao, deleta_avaliacao
+from project.blueprints.curso.cursoRepo import consultar_curso
 
 #Retorna todas as avalçiações presentes no json
 def get_avaliacoes():
@@ -7,6 +8,12 @@ def get_avaliacoes():
 
 #Registra uma nova avaliação
 def registra_avaliacoes(novaAval):
+
+    consulta = consultar_curso(novaAval["curso"])
+    if type(consulta) == str:
+        return {"success": 0,
+                "message": "Dados inseridos são inválidos"}
+
     result = registra_avaliacao(novaAval)
     if result == 1:
         return {
@@ -29,8 +36,8 @@ def registra_avaliacoes(novaAval):
 
 
 #Retorna uma avaliação específica com os dados fornecidos   
-def seek_avaliacoes(turma, codAval, curso):
-    return seek_avaliacao(turma, codAval, curso)
+def seek_avaliacoes(turma, codAval):
+    return seek_avaliacao(turma, codAval)
 
 
 #Atualiza os dados de uma avaliação existente   
@@ -85,9 +92,9 @@ def deleta_avaliacoes(avaliacao):
     
 
 #Lança uma avaliação
-def lanca_avaliacoes(turma, codAval, curso):
+def lanca_avaliacoes(turma, codAval):
 
-    aval = seek_avaliacao(turma, codAval, curso)
+    aval = seek_avaliacao(turma, codAval)
 
     for correcao in aval["correcoes"]:
         #!chamada da função addAvalAluno

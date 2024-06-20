@@ -27,7 +27,7 @@
                 <div class="row gx-3" id="row gx3-{{ loop.index }}">
                     <div class="col-md-4" id="col-md-4-{{ loop.index }}">
                         <h1 class="mb-0" id="mb-0-{{ loop.index }}">
-                            Avaliação {{avaliacao.info.curso}}
+                            Avaliação {{avaliacao.curso}}
                         </h1>
                     </div>
                     <div class="col-md-2 ms-auto" id="col-md-2 ms-auto-{{ loop.index }}">
@@ -55,12 +55,12 @@
                     <input form="editform-{{ loop.index }}" type="string" class="form-control" placeholder="Código Avaliação" value="{{avaliacao.info.codAval}}" readonly>
                 </div>
                 <hr>
-                <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}"><button>Ver Tudo</button></a>
+                <a href="{{ url_for('avaliacao.ver_info_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}"><button>Ver Tudo</button></a>
                 <hr>
-                <a href="{{ url_for('avaliacao.deletar_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}">
+                <a href="{{ url_for('avaliacao.deletar_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
                     <button style="color:red">Deletar Avaliação</button>
                 </a>
-                <a href="{{ url_for('avaliacao.lancar_avaliacoes_route', turma=avaliacao.info.turma, curso=avaliacao.info.curso,codAval=avaliacao.info.codAval) }}">
+                <a href="{{ url_for('avaliacao.lancar_avaliacoes_route', turma=avaliacao.info.turma, codAval=avaliacao.info.codAval) }}">
                     <button style="color:rgb(50, 132, 82)">Lançar Avaliação</button>
                 </a>
             </div>
